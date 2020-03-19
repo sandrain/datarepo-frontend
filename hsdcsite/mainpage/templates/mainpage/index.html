@@ -1,8 +1,8 @@
 {% extends "mainpage/base.html" %}
 {% block content %}
-
+{% load static %}
 <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Hyper-scale Data Center Portal</a>
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">HDC Portal</a>
     <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
     <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
@@ -39,14 +39,78 @@
         </nav>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-            <div
-                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3">
                 <h1 class="h2">Datasets</h1><br>
             </div>
-            Find and use datasets for scientific discovery. <a href="#">Learn more</a>
-            <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
-        </main>
+            <div class="justify-content-between flex-wrap flex-md-nowrap align-items-left pb-3">
+                Find and use datasets for scientific discovery. <a href="#">Learn more</a>
+            </div>
+            <!--
+
+                    title = models.CharField(max_length=200)
+                    description = models.CharField(max_length=500)
+                    keywords = models.CharField(max_length=100)
+                    product_nos = models.CharField(max_length=100)
+                    contract_nos = models.CharField(max_length=100)
+                    originating_research_org = models.CharField(max_length=100)
+                    sponsor_org = models.CharField(max_length=100)
+                    contributor_organizations = models.CharField(max_length=100)
+                    publication_date = models.DateTimeField('date created')
+                    lanaguage = models.CharField(max_length=100)   
+                    country = models.CharField(max_length=100)   
+                    site_url = models.CharField(max_length=100)
+                    contact_name = models.CharField(max_length=100) 
+                    contact_org = models.CharField(max_length=100)   
+                    contact_email = models.CharField(max_length=100)
+                    other_identifying_nos = models.CharField(max_length=100)   
+                    doi_infix = models.CharField(max_length=100)   
+                    software_needed = models.CharField(max_length=100)   
+                    subject_categories_code = models.CharField(max_length=100)   
+                    creatorsblock = models.CharField(max_length=100)   
+                    downloads_int = models.IntegerField(default = 0)
+                    citations_int = models.IntegerField(default = 0)
+                    value_int = models.IntegerField(default = 0)
+                    uniqueness_int = models.IntegerField(default = 0)
+                    
+            -->
+            <div class="row mb-2">
+                <div class="col-md-10">
+                    <div
+                        class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                        <div class="col p-4 d-flex flex-column position-static">
+                            <strong class="d-inline-block mb-2 text-primary"><i data-feather="database"></i>
+                                Dataset</strong>
+                            <h3 class="mb-3">COVID-19 Open Research Dataset Challenge (CORD-19)</h3>
+
+                            <div class="row">
+                                <div class="col-md-2 align-items-center"><img height="100" width="100"
+                                        src="{% static 'img/dataset-1.png' %}"></div>
+                                <div class="col-md-10">
+                                    <div class="mb-1">An AI challenge with AI2, CZI, MSR, Georgetown, NIH & The White
+                                        House
+                                    </div>
+                                    <div class="mb-1 text-muted"><i data-feather="user"></i> Allen Institute for AI <i
+                                            data-feather="link"></i> Link </div>
+                                    <div class="mb-1 text-muted"><i data-feather="calendar"></i> 6 days <i
+                                            data-feather="database"></i> 280MB <i data-feather="file"></i> 13206 Files
+                                        (JSON, CSV, Other)</div>
+                                    <div class="mb-3 text-muted"><i data-feather="tag"></i> business, natural and
+                                        physical sciences, computer science, health, biology, and 3 more </div>
+
+                                    <button type="button" class="btn btn-primary btn-sm"><i data-feather="eye"></i>
+                                        Quick Look</button>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
     </div>
+    </main>
+</div>
 </div>
 <script>
     feather.replace()
