@@ -7,6 +7,8 @@ from django.views import generic
 
 from .models import DataSet
 
+# Create your views here.
+
 class IndexView(generic.ListView):
     template_name = 'mainpage/index.html'
     context_object_name = 'latest_dataset_list'
