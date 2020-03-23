@@ -138,6 +138,9 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
+# editors
+.swp
+
 # static files generated from Django application using `collectstatic`
 /staticfiles
 

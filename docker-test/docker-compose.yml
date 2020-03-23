@@ -1,0 +1,28 @@
+version: "3.0"
+services:
+  mariadb:
+    image: mariadb:10.2
+    environment:
+      MYSQL_ROOT_PASSWORD: sdisdi
+      MYSQL_DATABASE: sdidb
+      MYSQL_USER: sdidbp
+      MYSQL_PASSOWORD: sdisdi
+    ports:
+      - "3306:3306"
+  sdifrontend:
+    build:
+      context: ..
+      dockerfile: docker-test/Dockerfile
+    environment:
+      SDI_DATABASE_USER: sdidbp
+      SDI_DATABASE_PASSWORD: sdisdi
+      SDI_DATABASE_NAME: sdidb
+      SDI_DATABASE_HOST: mariadb
+      SDI_DATABASE_PORT: 3306
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ..:/code
+    ports:
+      - "8000:8000"
+    links:
+      - mariadb:mariadb
