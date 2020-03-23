@@ -111,10 +111,10 @@
                                                 and
                                                 physical sciences, computer science, health, biology, and 3 more </div>
 
-                                            <button type="button" class="btn btn-primary btn-sm"><i
+                                            <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
+                                            data-target="#quicklook"><i
                                                     data-feather="eye"></i>
                                                 Quick Look</button>
-
                                         </div>
                                     </div>
                                 </div>
@@ -148,7 +148,7 @@
                                             <div class="mb-3 text-muted"><i data-feather="tag"></i> computing, language,
                                                 resources, linguistics, nlp, time series, and 2 more </div>
 
-                                            <button type="button" class="btn btn-primary btn-sm"><i
+                                            <button type="button" class="btn btn-secondary btn-sm"><i
                                                     data-feather="eye"></i>
                                                 Quick Look</button>
 
@@ -160,13 +160,84 @@
                         </div>
                     </div>
 
-                <!-- end of items -->
+                    <!-- item 3 -->
+                    <div class="row mb-2">
+                        <div class="col-md-12">
+                            <div
+                                class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                                <div class="col p-4 d-flex flex-column position-static">
+                                    <strong class="d-inline-block mb-2 text-primary"><i data-feather="database"></i>
+                                        Dataset</strong>
+                                    <h3 class="mb-3">Novel Corona Virus 2019 Dataset</h3>
+
+                                    <div class="row">
+                                        <div class="col-md-2 align-items-center"><img height="100" width="100"
+                                                src="{% static 'img/dataset-3.jpeg' %}"></div>
+                                        <div class="col-md-10">
+                                            <div class="mb-1">Day level information on covid-19 affected cases
+                                            </div>
+                                            <div class="mb-1 text-muted"><i data-feather="user"></i> SRK <i
+                                                    data-feather="link"></i> Link </div>
+                                            <div class="mb-1 text-muted"><i data-feather="calendar"></i> 14 hours ago <i
+                                                    data-feather="database"></i> 389 KB <i data-feather="file"></i>
+                                                6 Files
+                                                (CSV)</div>
+                                            <div class="mb-3 text-muted"><i data-feather="tag"></i> computing, language,
+                                                resources, linguistics, nlp, time series, and 2 more </div>
+
+                                            <button type="button" class="btn btn-secondary btn-sm"><i
+                                                    data-feather="eye"></i>
+                                                Quick Look</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- end of items -->
 
                 </div>
 
                 <!-- side bar (right) -->
                 <div class="col-md-3">
-                    something to fill in
+                    <ul class="list-group">
+                        <li class="list-group-item list-group-item-dark">
+                            <h5 class="list-group-item-heading ">Discussions</h5>
+                        </li>
+                    </ul>
+
+                    <ul class="list-group">
+
+                        <li class="list-group-item">
+                            <b>How to upload large-sized data?</b><br>
+                            31 comments
+                        </li>
+                        <li class="list-group-item">
+                            <b>How to find your pontential collaborators using the portal</b><br>
+                            10 comments
+                        </li>
+                        <li class="list-group-item">
+                            <a class="btn btn-outline-secondary btn-sm" href="#"><i data-feather="plus"></i> New
+                                Discussion </a>
+                        </li>
+
+                    </ul>
+                    <br>
+                    <ul class="list-group">
+                        <li class="list-group-item list-group-item-dark">
+                            <h5 class="list-group-item-heading">Open Tasks</h5>
+                        </li>
+                    </ul>
+
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <b>COVID-19 Open Research Dataset Challenge (CORD-19): Predict the trend </b><br>
+                            6 summisions
+                        </li>
+                    </ul>
                 </div>
 
             </div>
@@ -176,7 +247,100 @@
 </main>
 </div>
 </div>
+
+<!-- Button trigger modal -->
+
+<!--
+
+    # general information
+    title = models.CharField(max_length=200)
+    description = models.CharField(max_length=500)
+    keywords = models.CharField(max_length=100)
+    product_nos = models.CharField(max_length=100)
+    contract_nos = models.CharField(max_length=100)
+    originating_research_org = models.CharField(max_length=100)
+    sponsor_org = models.CharField(max_length=100)
+    contributor_organizations = models.CharField(max_length=100)
+    publication_date = models.DateTimeField('date created')
+    lanaguage = models.CharField(max_length=100)   
+    country = models.CharField(max_length=100)   
+    site_url = models.CharField(max_length=100)
+    contact_name = models.CharField(max_length=100) 
+    contact_org = models.CharField(max_length=100)   
+    contact_email = models.CharField(max_length=100)
+    other_identifying_nos = models.CharField(max_length=100)   
+    doi_infix = models.CharField(max_length=100)   
+    software_needed = models.CharField(max_length=100)   
+    subject_categories_code = models.CharField(max_length=100)   
+    creatorsblock = models.CharField(max_length=100)   
+    downloads_int = models.IntegerField(default = 0)
+    citations_int = models.IntegerField(default = 0)
+    value_int = models.IntegerField(default = 0)
+    uniqueness_int = models.IntegerField(default = 0)
+
+-->
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg" id="quicklook" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">COVID-19 Open Research Dataset Challenge (CORD-19)</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <tbody>
+                      <tr>
+                        <td><i data-feather="calendar"></i> <strong>Created:</strong></td>
+                        <td>2020-03-12</td>
+                      </tr>
+                      <tr>
+                        <td><i data-feather="calendar"></i> <strong>Last updated:</strong></td>
+                        <td>2020-03-20</td>
+                      </tr>
+                      <tr>
+                        <td><i data-feather="tag"></i> <strong>Keywords:</strong></td>
+                        <td>public health, natural and physical sciences, biology, business, health, computer science, nlp, covid19</td>
+                      </tr>
+                      <tr>
+                        <td><i data-feather="users"></i> <strong>Originating Research Organizations:</strong></td>
+                        <td>N/A</td>
+                      </tr>
+                      <tr>
+                        <td><i data-feather="mail"></i> <strong>Contact Email:</strong></td>
+                        <td>N/A</td>
+                      </tr>
+                      <tr>
+                        <td><i data-feather="link"></i> <strong>DOI:</strong></td>
+                        <td>N/A</td>
+                      </tr>
+                      <tr>
+                        <td><i data-feather="link"></i> <strong>Site URL:</strong></td>
+                        <td>https://www.kaggle.com/allen-institute-for-ai/CORD-19-research-challenge</td>
+                      </tr>
+                      <tr>
+                        <td><i data-feather="hash"></i> <strong>Downloads:</strong></td>
+                        <td>13</td>
+                      </tr>
+                      <tr>
+                        <td><i data-feather="hash"></i> <strong>Citations:</strong></td>
+                        <td>12</td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
-    feather.replace()
+    feather.replace();
 </script>
+
 {% endblock %}
