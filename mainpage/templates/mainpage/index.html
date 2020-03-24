@@ -1,252 +1,219 @@
 {% extends "mainpage/base.html" %}
 {% block content %}
 {% load static %}
-<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">HDC Portal</a>
-    <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
-    <ul class="navbar-nav px-3">
-        <li class="nav-item text-nowrap">
-            <a class="nav-link" href="#">Sign out</a>
-        </li>
-    </ul>
-</nav>
 
-<div class="container-fluid">
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+
+    <!-- data set header -->
     <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-            <div class="sidebar-sticky">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i data-feather="home"></i>
-                            Home <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="/mainpage">
-                            <i data-feather="file"></i>
-                            Data
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i data-feather="users"></i>
-                            Discuss
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i data-feather="more-vertical"></i>
-                            More
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-
-            <!-- data set header -->
-            <div class="row">
-                <div class="col-md-10">
-                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3">
-                        <h1 class="h2">Datasets</h1><br>
-                    </div>
-
-                    <div class="justify-content-between flex-wrap flex-md-nowrap align-items-left pb-3">
-                        Find and use datasets for scientific discovery. <a href="#">Learn more</a>
-                    </div>
-                </div>
-
-                <div class="col-md-2 mt-3">
-                    <a class="btn btn-outline-primary btn-sm" href="#"><i data-feather="plus"></i> New Dataset </a>
-                </div>
+        <div class="col-md-10">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3">
+                <h1 class="h2">Datasets</h1><br>
             </div>
 
-            <!-- head line-->
+            <div class="justify-content-between flex-wrap flex-md-nowrap align-items-left pb-3">
+                Find and use datasets for scientific discovery. <a href="#">Learn more</a>
+            </div>
+        </div>
+
+        <div class="col-md-2 mt-3">
+            <a class="btn btn-outline-primary btn-sm" href="#"><i data-feather="plus"></i> New Dataset </a>
+        </div>
+    </div>
+
+    <!-- head line-->
+    <div class="row mb-2">
+        <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-left bg-light">
+            <div class="col-md-0 p-lg-0 mx-auto my-0">
+                <h1 class="display-4 font-weight-normal">Help us better understand COVID-19</h1>
+                <p class="lead font-weight-normal">There is a large body of research and literature continuously
+                    evolving around COVID-19. Help the research community and global organizations better digest
+                    this to answer key questions.</p>
+                <a class="btn btn-primary" href="#">Get Started</a>
+            </div>
+            <div class="product-device shadow-sm d-none d-md-block"></div>
+            <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-9">
+
+            <!-- item 1 -->
+
+
             <div class="row mb-2">
-                <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-left bg-light">
-                    <div class="col-md-0 p-lg-0 mx-auto my-0">
-                        <h1 class="display-4 font-weight-normal">Help us better understand COVID-19</h1>
-                        <p class="lead font-weight-normal">There is a large body of research and literature continuously
-                            evolving around COVID-19. Help the research community and global organizations better digest
-                            this to answer key questions.</p>
-                        <a class="btn btn-primary" href="#">Get Started</a>
+                <div class="col-md-12">
+                    <div
+                        class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                        <div class="col p-4 d-flex flex-column position-static">
+                            <strong class="d-inline-block mb-2 text-primary"><i data-feather="database"></i>
+                                Dataset</strong>
+                            <h3 class="mb-3">COVID-19 Open Research Dataset Challenge (CORD-19)</h3>
+
+                            <div class="row">
+                                <div class="col-md-2 align-items-center"><img height="100" width="100"
+                                        src="{% static 'img/dataset-1.png' %}"></div>
+                                <div class="col-md-10">
+                                    <div class="mb-1">An AI challenge with AI2, CZI, MSR, Georgetown, NIH & The
+                                        White
+                                        House
+                                    </div>
+                                    <div class="mb-1 text-muted"><i data-feather="user"></i> Allen Institute for
+                                        AI <i data-feather="link"></i> Link </div>
+                                    <div class="mb-1 text-muted"><i data-feather="calendar"></i> 6 days <i
+                                            data-feather="database"></i> 280 MB <i data-feather="file"></i>
+                                        13206 Files
+                                        (JSON, CSV, Other)</div>
+                                    <div class="mb-3 text-muted"><i data-feather="tag"></i> business, natural
+                                        and
+                                        physical sciences, computer science, health, biology, and 3 more </div>
+
+                                    <a href ="/1"><button type="button" class="btn btn-primary btn-sm"><i data-feather="book-open"></i>
+                                        Open</button></a>
+
+                                    <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
+                                        data-target="#quicklook"><i data-feather="eye"></i>
+                                        Quick Look</button>
+                                    
+
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
-                    <div class="product-device shadow-sm d-none d-md-block"></div>
-                    <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-md-9">
+            <!-- item 2 -->
+            <div class="row mb-2">
+                <div class="col-md-12">
+                    <div
+                        class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                        <div class="col p-4 d-flex flex-column position-static">
+                            <strong class="d-inline-block mb-2 text-primary"><i data-feather="database"></i>
+                                Dataset</strong>
+                            <h3 class="mb-3">High Energy Physics particle tracking in CERN detectors</h3>
 
-                    <!-- item 1 -->
-
-
-                    <div class="row mb-2">
-                        <div class="col-md-12">
-                            <div
-                                class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                                <div class="col p-4 d-flex flex-column position-static">
-                                    <strong class="d-inline-block mb-2 text-primary"><i data-feather="database"></i>
-                                        Dataset</strong>
-                                    <h3 class="mb-3">COVID-19 Open Research Dataset Challenge (CORD-19)</h3>
-
-                                    <div class="row">
-                                        <div class="col-md-2 align-items-center"><img height="100" width="100"
-                                                src="{% static 'img/dataset-1.png' %}"></div>
-                                        <div class="col-md-10">
-                                            <div class="mb-1">An AI challenge with AI2, CZI, MSR, Georgetown, NIH & The
-                                                White
-                                                House
-                                            </div>
-                                            <div class="mb-1 text-muted"><i data-feather="user"></i> Allen Institute for
-                                                AI <i data-feather="link"></i> Link </div>
-                                            <div class="mb-1 text-muted"><i data-feather="calendar"></i> 6 days <i
-                                                    data-feather="database"></i> 280 MB <i data-feather="file"></i>
-                                                13206 Files
-                                                (JSON, CSV, Other)</div>
-                                            <div class="mb-3 text-muted"><i data-feather="tag"></i> business, natural
-                                                and
-                                                physical sciences, computer science, health, biology, and 3 more </div>
-
-                                            <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
-                                            data-target="#quicklook"><i
-                                                    data-feather="eye"></i>
-                                                Quick Look</button>
-                                        </div>
+                            <div class="row">
+                                <div class="col-md-2 align-items-center"><img height="100" width="100"
+                                        src="{% static 'img/dataset-2.png' %}"></div>
+                                <div class="col-md-10">
+                                    <div class="mb-1">The DARPA TIMIT Acoustic-Phonetic Continuous Speech Corpus
                                     </div>
-                                </div>
+                                    <div class="mb-1 text-muted"><i data-feather="user"></i> Michael Fekadu <i
+                                            data-feather="link"></i> Link </div>
+                                    <div class="mb-1 text-muted"><i data-feather="calendar"></i> 9 months <i
+                                            data-feather="database"></i> 829 MB <i data-feather="file"></i>
+                                        31509 Files
+                                        (Other, CSV)</div>
+                                    <div class="mb-3 text-muted"><i data-feather="tag"></i> computing, language,
+                                        resources, linguistics, nlp, time series, and 2 more </div>
+                                    
+                                    <a href ="#"><button type="button" class="btn btn-primary btn-sm"><i data-feather="book-open"></i>
+                                        Open</button></a>
 
+                                    <button type="button" class="btn btn-secondary btn-sm"><i
+                                            data-feather="eye"></i>
+                                        Quick Look</button>
+
+                                </div>
                             </div>
                         </div>
+
                     </div>
-
-                    <!-- item 2 -->
-                    <div class="row mb-2">
-                        <div class="col-md-12">
-                            <div
-                                class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                                <div class="col p-4 d-flex flex-column position-static">
-                                    <strong class="d-inline-block mb-2 text-primary"><i data-feather="database"></i>
-                                        Dataset</strong>
-                                    <h3 class="mb-3">High Energy Physics particle tracking in CERN detectors</h3>
-
-                                    <div class="row">
-                                        <div class="col-md-2 align-items-center"><img height="100" width="100"
-                                                src="{% static 'img/dataset-2.png' %}"></div>
-                                        <div class="col-md-10">
-                                            <div class="mb-1">The DARPA TIMIT Acoustic-Phonetic Continuous Speech Corpus
-                                            </div>
-                                            <div class="mb-1 text-muted"><i data-feather="user"></i> Michael Fekadu <i
-                                                    data-feather="link"></i> Link </div>
-                                            <div class="mb-1 text-muted"><i data-feather="calendar"></i> 9 months <i
-                                                    data-feather="database"></i> 829 MB <i data-feather="file"></i>
-                                                31509 Files
-                                                (Other, CSV)</div>
-                                            <div class="mb-3 text-muted"><i data-feather="tag"></i> computing, language,
-                                                resources, linguistics, nlp, time series, and 2 more </div>
-
-                                            <button type="button" class="btn btn-secondary btn-sm"><i
-                                                    data-feather="eye"></i>
-                                                Quick Look</button>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- item 3 -->
-                    <div class="row mb-2">
-                        <div class="col-md-12">
-                            <div
-                                class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                                <div class="col p-4 d-flex flex-column position-static">
-                                    <strong class="d-inline-block mb-2 text-primary"><i data-feather="database"></i>
-                                        Dataset</strong>
-                                    <h3 class="mb-3">Novel Corona Virus 2019 Dataset</h3>
-
-                                    <div class="row">
-                                        <div class="col-md-2 align-items-center"><img height="100" width="100"
-                                                src="{% static 'img/dataset-3.jpeg' %}"></div>
-                                        <div class="col-md-10">
-                                            <div class="mb-1">Day level information on covid-19 affected cases
-                                            </div>
-                                            <div class="mb-1 text-muted"><i data-feather="user"></i> SRK <i
-                                                    data-feather="link"></i> Link </div>
-                                            <div class="mb-1 text-muted"><i data-feather="calendar"></i> 14 hours ago <i
-                                                    data-feather="database"></i> 389 KB <i data-feather="file"></i>
-                                                6 Files
-                                                (CSV)</div>
-                                            <div class="mb-3 text-muted"><i data-feather="tag"></i> computing, language,
-                                                resources, linguistics, nlp, time series, and 2 more </div>
-
-                                            <button type="button" class="btn btn-secondary btn-sm"><i
-                                                    data-feather="eye"></i>
-                                                Quick Look</button>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- end of items -->
-
                 </div>
-
-                <!-- side bar (right) -->
-                <div class="col-md-3">
-                    <ul class="list-group">
-                        <li class="list-group-item list-group-item-dark">
-                            <h5 class="list-group-item-heading ">Discussions</h5>
-                        </li>
-                    </ul>
-
-                    <ul class="list-group">
-
-                        <li class="list-group-item">
-                            <b>How to upload large-sized data?</b><br>
-                            31 comments
-                        </li>
-                        <li class="list-group-item">
-                            <b>How to find your pontential collaborators using the portal</b><br>
-                            10 comments
-                        </li>
-                        <li class="list-group-item">
-                            <a class="btn btn-outline-secondary btn-sm" href="#"><i data-feather="plus"></i> New
-                                Discussion </a>
-                        </li>
-
-                    </ul>
-                    <br>
-                    <ul class="list-group">
-                        <li class="list-group-item list-group-item-dark">
-                            <h5 class="list-group-item-heading">Open Tasks</h5>
-                        </li>
-                    </ul>
-
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            <b>COVID-19 Open Research Dataset Challenge (CORD-19): Predict the trend </b><br>
-                            6 summisions
-                        </li>
-                    </ul>
-                </div>
-
             </div>
+
+            <!-- item 3 -->
+            <div class="row mb-2">
+                <div class="col-md-12">
+                    <div
+                        class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                        <div class="col p-4 d-flex flex-column position-static">
+                            <strong class="d-inline-block mb-2 text-primary"><i data-feather="database"></i>
+                                Dataset</strong>
+                            <h3 class="mb-3">Novel Corona Virus 2019 Dataset</h3>
+
+                            <div class="row">
+                                <div class="col-md-2 align-items-center"><img height="100" width="100"
+                                        src="{% static 'img/dataset-3.jpeg' %}"></div>
+                                <div class="col-md-10">
+                                    <div class="mb-1">Day level information on covid-19 affected cases
+                                    </div>
+                                    <div class="mb-1 text-muted"><i data-feather="user"></i> SRK <i
+                                            data-feather="link"></i> Link </div>
+                                    <div class="mb-1 text-muted"><i data-feather="calendar"></i> 14 hours ago <i
+                                            data-feather="database"></i> 389 KB <i data-feather="file"></i>
+                                        6 Files
+                                        (CSV)</div>
+                                    <div class="mb-3 text-muted"><i data-feather="tag"></i> computing, language,
+                                        resources, linguistics, nlp, time series, and 2 more </div>
+                                    <a href ="/detail"><button type="button" class="btn btn-primary btn-sm"><i data-feather="book-open"></i>
+                                            Open</button></a>
+
+                                    <button type="button" class="btn btn-secondary btn-sm"><i
+                                            data-feather="eye"></i>
+                                        Quick Look</button>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- end of items -->
+
+        </div>
+
+        <!-- side bar (right) -->
+        <div class="col-md-3">
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-dark">
+                    <h5 class="list-group-item-heading ">Discussions</h5>
+                </li>
+            </ul>
+
+            <ul class="list-group">
+
+                <li class="list-group-item">
+                    <b>How to upload large-sized data?</b><br>
+                    31 comments
+                </li>
+                <li class="list-group-item">
+                    <b>How to find your pontential collaborators using the portal</b><br>
+                    10 comments
+                </li>
+                <li class="list-group-item">
+                    <a class="btn btn-outline-secondary btn-sm" href="#"><i data-feather="plus"></i> New
+                        Discussion </a>
+                </li>
+
+            </ul>
+            <br>
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-dark">
+                    <h5 class="list-group-item-heading">Open Tasks</h5>
+                </li>
+            </ul>
+
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <b>COVID-19 Open Research Dataset Challenge (CORD-19): Predict the trend </b><br>
+                    6 summisions
+                </li>
+            </ul>
+        </div>
 
     </div>
+
+</div>
 </div>
 </main>
-</div>
-</div>
+
+
 
 <!-- Button trigger modal -->
 
@@ -280,8 +247,8 @@
 
 -->
 <!-- Modal -->
-<div class="modal fade bd-example-modal-lg" id="quicklook" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade bd-example-modal-lg" id="quicklook" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -293,44 +260,45 @@
             <div class="modal-body">
                 <table class="table">
                     <tbody>
-                      <tr>
-                        <td><i data-feather="calendar"></i> <strong>Created:</strong></td>
-                        <td>2020-03-12</td>
-                      </tr>
-                      <tr>
-                        <td><i data-feather="calendar"></i> <strong>Last updated:</strong></td>
-                        <td>2020-03-20</td>
-                      </tr>
-                      <tr>
-                        <td><i data-feather="tag"></i> <strong>Keywords:</strong></td>
-                        <td>public health, natural and physical sciences, biology, business, health, computer science, nlp, covid19</td>
-                      </tr>
-                      <tr>
-                        <td><i data-feather="users"></i> <strong>Originating Research Organizations:</strong></td>
-                        <td>N/A</td>
-                      </tr>
-                      <tr>
-                        <td><i data-feather="mail"></i> <strong>Contact Email:</strong></td>
-                        <td>N/A</td>
-                      </tr>
-                      <tr>
-                        <td><i data-feather="link"></i> <strong>DOI:</strong></td>
-                        <td>N/A</td>
-                      </tr>
-                      <tr>
-                        <td><i data-feather="link"></i> <strong>Site URL:</strong></td>
-                        <td>https://www.kaggle.com/allen-institute-for-ai/CORD-19-research-challenge</td>
-                      </tr>
-                      <tr>
-                        <td><i data-feather="hash"></i> <strong>Downloads:</strong></td>
-                        <td>13</td>
-                      </tr>
-                      <tr>
-                        <td><i data-feather="hash"></i> <strong>Citations:</strong></td>
-                        <td>12</td>
-                      </tr>
+                        <tr>
+                            <td><i data-feather="calendar"></i> <strong>Created:</strong></td>
+                            <td>2020-03-12</td>
+                        </tr>
+                        <tr>
+                            <td><i data-feather="calendar"></i> <strong>Last updated:</strong></td>
+                            <td>2020-03-20</td>
+                        </tr>
+                        <tr>
+                            <td><i data-feather="tag"></i> <strong>Keywords:</strong></td>
+                            <td>public health, natural and physical sciences, biology, business, health, computer
+                                science, nlp, covid19</td>
+                        </tr>
+                        <tr>
+                            <td><i data-feather="users"></i> <strong>Originating Research Organizations:</strong></td>
+                            <td>N/A</td>
+                        </tr>
+                        <tr>
+                            <td><i data-feather="mail"></i> <strong>Contact Email:</strong></td>
+                            <td>N/A</td>
+                        </tr>
+                        <tr>
+                            <td><i data-feather="link"></i> <strong>DOI:</strong></td>
+                            <td>N/A</td>
+                        </tr>
+                        <tr>
+                            <td><i data-feather="link"></i> <strong>Site URL:</strong></td>
+                            <td>https://www.kaggle.com/allen-institute-for-ai/CORD-19-research-challenge</td>
+                        </tr>
+                        <tr>
+                            <td><i data-feather="hash"></i> <strong>Downloads:</strong></td>
+                            <td>13</td>
+                        </tr>
+                        <tr>
+                            <td><i data-feather="hash"></i> <strong>Citations:</strong></td>
+                            <td>12</td>
+                        </tr>
                     </tbody>
-                  </table>
+                </table>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -338,9 +306,5 @@
         </div>
     </div>
 </div>
-
-<script>
-    feather.replace();
-</script>
 
 {% endblock %}

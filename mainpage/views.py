@@ -17,6 +17,13 @@ class IndexView(generic.ListView):
         """Return the last five published questions."""
         return DataSet.objects.order_by('-creation_date')[:5]
 
-class DetailView(generic.DetailView):
-    model = DataSet
-    template_name = 'mainpage/detail.html'
+def detail(request, dataset_id):
+    dataset = get_object_or_404(DataSet, pk=dataset_id)
+    return render(request, 'mainpage/detail.html', {'dataset': dataset})
+
+#class DetailView(generic.DetailView):
+#    model = DataSet
+#    template_name = 'mainpage/detail.html'
+
+#def detail_template(request):
+#    return HttpResponse("Hello")

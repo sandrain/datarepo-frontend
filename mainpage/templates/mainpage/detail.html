@@ -1,3 +1,157 @@
+{% extends "mainpage/base.html" %}
+{% block content %}
+{% load static %}
+
 <h1>{{ dataset.dataset_id }}</h1>
 
-Here, we will show the dataset's detail.
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+
+    <!-- data set header -->
+    <div class="row">
+        <div class="col-md-10">
+            <div class="mt-3"><strong class="d-inline-block mb-2 text-primary"><i data-feather="database"></i>
+                    Dataset</strong></div>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
+                        <h1 class="h2">COVID-19 Open Research Dataset Challenge (CORD-19)</h1><br>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-10">
+
+
+                            <div class="justify-content-between flex-wrap flex-md-nowrap align-items-left pb-3">
+                                An AI challenge with AI2, CZI, MSR, Georgetown, NIH & The White House
+                            </div>
+                            <div class="mb-1 text-muted"><i data-feather="user"></i> Allen Institute for
+                                AI <i data-feather="link"></i> Link </div>
+                            <div class="mb-1 text-muted"><i data-feather="calendar"></i> 6 days <i
+                                    data-feather="database"></i> 280 MB <i data-feather="file"></i>
+                                13206 Files
+                                (JSON, CSV, Other)</div>
+                            <div class="mb-3 text-muted"><i data-feather="tag"></i> business, natural
+                                and
+                                physical sciences, computer science, health, biology, and 3 more </div>
+
+                        </div>
+                        <div class="col-md-2 align-items-center"><img height="100" width="100"
+                                src="{% static 'img/dataset-1.png' %}"></div>
+                    </div>
+                    <div class="row pl-3">
+                        <div class="pr-2">
+                            <button type="button" class="btn btn-primary btn-sm"><i data-feather="download"></i> Download</button>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-primary  btn-sm"><i data-feather="edit-2"></i> Update</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <b>Description</b>
+                </div>
+                <div class="card-body">
+                    In response to the COVID-19 pandemic, the White House and a coalition of leading research groups
+                    have prepared the COVID-19 Open Research Dataset (CORD-19). CORD-19 is a resource of over 44,000
+                    scholarly articles, including over 29,000 with full text, about COVID-19, SARS-CoV-2, and related
+                    coronaviruses. This freely available dataset is provided to the global research community to apply
+                    recent advances in natural language processing and other AI techniques to generate new insights in
+                    support of the ongoing fight against this infectious disease. There is a growing urgency for these
+                    approaches because of the rapid acceleration in new coronavirus literature, making it difficult for
+                    the medical research community to keep up.
+                </div>
+
+            </div>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <b>Description</b>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td><i data-feather="calendar"></i> <strong>Created:</strong></td>
+                                <td>2020-03-12</td>
+                            </tr>
+                            <tr>
+                                <td><i data-feather="calendar"></i> <strong>Last updated:</strong></td>
+                                <td>2020-03-20</td>
+                            </tr>
+                            <tr>
+                                <td><i data-feather="tag"></i> <strong>Keywords:</strong></td>
+                                <td>public health, natural and physical sciences, biology, business, health, computer
+                                    science, nlp, covid19</td>
+                            </tr>
+                            <tr>
+                                <td><i data-feather="users"></i> <strong>Originating Research Organizations:</strong>
+                                </td>
+                                <td>N/A</td>
+                            </tr>
+                            <tr>
+                                <td><i data-feather="mail"></i> <strong>Contact Email:</strong></td>
+                                <td>N/A</td>
+                            </tr>
+                            <tr>
+                                <td><i data-feather="link"></i> <strong>DOI:</strong></td>
+                                <td>N/A</td>
+                            </tr>
+                            <tr>
+                                <td><i data-feather="link"></i> <strong>Site URL:</strong></td>
+                                <td>https://www.kaggle.com/allen-institute-for-ai/CORD-19-research-challenge</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <b>Metrics</b>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td><i data-feather="hash"></i> <strong>Downloads:</strong></td>
+                                <td>13</td>
+                            </tr>
+                            <tr>
+                                <td><i data-feather="hash"></i> <strong>Citations:</strong></td>
+                                <td>12</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- head line-->
+
+    <div class="row">
+        <div class="col-md-9">
+
+            <!-- contents -->
+
+        </div>
+
+        <!-- side bar (right) -->
+        <div class="col-md-3">
+            <!-- nothing -->
+        </div>
+
+    </div>
+
+    </div>
+    </div>
+</main>
+
+{% endblock %}
