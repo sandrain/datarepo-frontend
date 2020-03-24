@@ -1,15 +1,19 @@
 version: "3.0"
 services:
   mariadb:
+    container_name: mariadb
     image: mariadb:10.2
     environment:
       MYSQL_ROOT_PASSWORD: sdisdi
       MYSQL_DATABASE: sdidb
       MYSQL_USER: sdidbp
-      MYSQL_PASSOWORD: sdisdi
+      MYSQL_PASSWORD: sdisdi
     ports:
       - "3306:3306"
+    volumes:
+      - "./mysqldb:/var/lib/mysql"
   sdifrontend:
+    container_name: sdifrontend
     build:
       context: ..
       dockerfile: docker-test/Dockerfile
@@ -19,7 +23,10 @@ services:
       SDI_DATABASE_NAME: sdidb
       SDI_DATABASE_HOST: mariadb
       SDI_DATABASE_PORT: 3306
-    command: python manage.py runserver 0.0.0.0:8000
+    depends_on:
+      - mariadb
+    command: [ "./docker-test/container-scripts/wait-for-db.sh",
+               "python", "manage.py", "runserver", "0.0.0.0:8000" ]
     volumes:
       - ..:/code
     ports:
