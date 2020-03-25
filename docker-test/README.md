@@ -185,4 +185,18 @@ to be wiped out completely:
 hyogi@veronica docker-test $ sudo rm -rf mysqldb
 ```
 
+Also, to remove current containers to rebuild new ones:
+
+```
+hyogi@veronica docker-test $ docker-compose rm -fv
+Going to remove sdifrontend, mariadb
+Removing sdifrontend ... done
+Removing mariadb     ... done
+
+# then you can rebuild the containers
+hyogi@veronica docker-test $ docker-compose build
+# and launch the services
+hyogi@veronica docker-test $ docker-compose up
+```
+
 
