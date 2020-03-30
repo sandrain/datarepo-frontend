@@ -41,6 +41,7 @@
 
             <!-- item 1 -->
 
+            {% for dataset in latest_dataset_list %}
 
             <div class="row mb-2">
                 <div class="col-md-12">
@@ -49,27 +50,24 @@
                         <div class="col p-4 d-flex flex-column position-static">
                             <strong class="d-inline-block mb-2 text-primary"><i data-feather="database"></i>
                                 Dataset</strong>
-                            <h3 class="mb-3">COVID-19 Open Research Dataset Challenge (CORD-19)</h3>
+                            <h3 class="mb-3">{{ dataset.attributes.title }}</h3>
 
                             <div class="row">
                                 <div class="col-md-2 align-items-center"><img height="100" width="100"
                                         src="{% static 'img/dataset-1.png' %}"></div>
                                 <div class="col-md-10">
-                                    <div class="mb-1">An AI challenge with AI2, CZI, MSR, Georgetown, NIH & The
-                                        White
-                                        House
+                                    <div class="mb-1">{{ dataset.attributes.title }}
                                     </div>
-                                    <div class="mb-1 text-muted"><i data-feather="user"></i> Allen Institute for
-                                        AI <i data-feather="link"></i> Link </div>
-                                    <div class="mb-1 text-muted"><i data-feather="calendar"></i> 6 days <i
-                                            data-feather="database"></i> 280 MB <i data-feather="file"></i>
-                                        13206 Files
+                                    <div class="mb-1 text-muted"><i
+                                         data-feather="user"></i> {{ dataset.owner.displayname }} <i data-feather="link"></i> {{ dataset.attributes.url }} </div>
+                                    <div class="mb-1 text-muted"><i data-feather="calendar"></i> created: {{ dataset.created }} <i data-feather="database"></i>
+                                        {{ dataset.sizemb }} MB <i data-feather="file"></i>
+                                        {{ dataset.filecount}} Files
                                         (JSON, CSV, Other)</div>
-                                    <div class="mb-3 text-muted"><i data-feather="tag"></i> business, natural
-                                        and
-                                        physical sciences, computer science, health, biology, and 3 more </div>
+                                    <div class="mb-3 text-muted"><i
+                                         data-feather="tag"></i> {{ dataset.keywords }} </div>
 
-                                    <a href ="/1"><button type="button" class="btn btn-primary btn-sm"><i data-feather="book-open"></i>
+                                    <a href ="/{{ dataset.id }}"><button type="button" class="btn btn-primary btn-sm"><i data-feather="book-open"></i>
                                         Open</button></a>
 
                                     <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
@@ -85,84 +83,7 @@
                 </div>
             </div>
 
-            <!-- item 2 -->
-            <div class="row mb-2">
-                <div class="col-md-12">
-                    <div
-                        class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                        <div class="col p-4 d-flex flex-column position-static">
-                            <strong class="d-inline-block mb-2 text-primary"><i data-feather="database"></i>
-                                Dataset</strong>
-                            <h3 class="mb-3">High Energy Physics particle tracking in CERN detectors</h3>
-
-                            <div class="row">
-                                <div class="col-md-2 align-items-center"><img height="100" width="100"
-                                        src="{% static 'img/dataset-2.png' %}"></div>
-                                <div class="col-md-10">
-                                    <div class="mb-1">The DARPA TIMIT Acoustic-Phonetic Continuous Speech Corpus
-                                    </div>
-                                    <div class="mb-1 text-muted"><i data-feather="user"></i> Michael Fekadu <i
-                                            data-feather="link"></i> Link </div>
-                                    <div class="mb-1 text-muted"><i data-feather="calendar"></i> 9 months <i
-                                            data-feather="database"></i> 829 MB <i data-feather="file"></i>
-                                        31509 Files
-                                        (Other, CSV)</div>
-                                    <div class="mb-3 text-muted"><i data-feather="tag"></i> computing, language,
-                                        resources, linguistics, nlp, time series, and 2 more </div>
-                                    
-                                    <a href ="#"><button type="button" class="btn btn-primary btn-sm"><i data-feather="book-open"></i>
-                                        Open</button></a>
-
-                                    <button type="button" class="btn btn-secondary btn-sm"><i
-                                            data-feather="eye"></i>
-                                        Quick Look</button>
-
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <!-- item 3 -->
-            <div class="row mb-2">
-                <div class="col-md-12">
-                    <div
-                        class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                        <div class="col p-4 d-flex flex-column position-static">
-                            <strong class="d-inline-block mb-2 text-primary"><i data-feather="database"></i>
-                                Dataset</strong>
-                            <h3 class="mb-3">Novel Corona Virus 2019 Dataset</h3>
-
-                            <div class="row">
-                                <div class="col-md-2 align-items-center"><img height="100" width="100"
-                                        src="{% static 'img/dataset-3.jpeg' %}"></div>
-                                <div class="col-md-10">
-                                    <div class="mb-1">Day level information on covid-19 affected cases
-                                    </div>
-                                    <div class="mb-1 text-muted"><i data-feather="user"></i> SRK <i
-                                            data-feather="link"></i> Link </div>
-                                    <div class="mb-1 text-muted"><i data-feather="calendar"></i> 14 hours ago <i
-                                            data-feather="database"></i> 389 KB <i data-feather="file"></i>
-                                        6 Files
-                                        (CSV)</div>
-                                    <div class="mb-3 text-muted"><i data-feather="tag"></i> computing, language,
-                                        resources, linguistics, nlp, time series, and 2 more </div>
-                                    <a href ="/detail"><button type="button" class="btn btn-primary btn-sm"><i data-feather="book-open"></i>
-                                            Open</button></a>
-
-                                    <button type="button" class="btn btn-secondary btn-sm"><i
-                                            data-feather="eye"></i>
-                                        Quick Look</button>
-
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
 
             <!-- end of items -->
 

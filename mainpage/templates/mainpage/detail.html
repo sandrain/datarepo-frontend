@@ -14,7 +14,7 @@
             <div class="card mb-3">
                 <div class="card-body">
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
-                        <h1 class="h2">COVID-19 Open Research Dataset Challenge (CORD-19)</h1><br>
+                        <h1 class="h2">{{ dataset.attributes.title }}</h1><br>
                     </div>
                     <div class="row">
 
@@ -22,17 +22,16 @@
 
 
                             <div class="justify-content-between flex-wrap flex-md-nowrap align-items-left pb-3">
-                                An AI challenge with AI2, CZI, MSR, Georgetown, NIH & The White House
+                                {{ dataset.attributes.subtitle }}
                             </div>
-                            <div class="mb-1 text-muted"><i data-feather="user"></i> Allen Institute for
-                                AI <i data-feather="link"></i> Link </div>
-                            <div class="mb-1 text-muted"><i data-feather="calendar"></i> 6 days <i
-                                    data-feather="database"></i> 280 MB <i data-feather="file"></i>
-                                13206 Files
+                            <div class="mb-1 text-muted"><i data-feather="user"></i>
+                                {{ dataset.attributes.institution }} <i data-feather="link"></i> {{ dataset.attributes.url }} </div>
+                            <div class="mb-1 text-muted"><i data-feather="calendar"></i> created at {{ dataset.created }} <i
+                                    data-feather="database"></i> {{ dataset.sizemb }} MB <i data-feather="file"></i>
+                                {{ dataset.filecount }} Files
                                 (JSON, CSV, Other)</div>
-                            <div class="mb-3 text-muted"><i data-feather="tag"></i> business, natural
-                                and
-                                physical sciences, computer science, health, biology, and 3 more </div>
+                            <div class="mb-3 text-muted"><i data-feather="tag"></i> 
+                                {{ dataset.keywords }}</div>
 
                         </div>
                         <div class="col-md-2 align-items-center"><img height="100" width="100"
@@ -54,16 +53,7 @@
                 <div class="card-header">
                     <b>Description</b>
                 </div>
-                <div class="card-body">
-                    In response to the COVID-19 pandemic, the White House and a coalition of leading research groups
-                    have prepared the COVID-19 Open Research Dataset (CORD-19). CORD-19 is a resource of over 44,000
-                    scholarly articles, including over 29,000 with full text, about COVID-19, SARS-CoV-2, and related
-                    coronaviruses. This freely available dataset is provided to the global research community to apply
-                    recent advances in natural language processing and other AI techniques to generate new insights in
-                    support of the ongoing fight against this infectious disease. There is a growing urgency for these
-                    approaches because of the rapid acceleration in new coronavirus literature, making it difficult for
-                    the medical research community to keep up.
-                </div>
+                <div class="card-body">{{ dataset.attributes.description }}</div>
 
             </div>
 
@@ -76,25 +66,24 @@
                         <tbody>
                             <tr>
                                 <td><i data-feather="calendar"></i> <strong>Created:</strong></td>
-                                <td>2020-03-12</td>
+                                <td>{{ dataset.created }}</td>
                             </tr>
                             <tr>
                                 <td><i data-feather="calendar"></i> <strong>Last updated:</strong></td>
-                                <td>2020-03-20</td>
+                                <td>{{ dataset.updated }}</td>
                             </tr>
                             <tr>
                                 <td><i data-feather="tag"></i> <strong>Keywords:</strong></td>
-                                <td>public health, natural and physical sciences, biology, business, health, computer
-                                    science, nlp, covid19</td>
+                                <td>{{ dataset.keywords }}</td>
                             </tr>
                             <tr>
                                 <td><i data-feather="users"></i> <strong>Originating Research Organizations:</strong>
                                 </td>
-                                <td>N/A</td>
+                                <td>{{ dataset.attributes.institution }}</td>
                             </tr>
                             <tr>
                                 <td><i data-feather="mail"></i> <strong>Contact Email:</strong></td>
-                                <td>N/A</td>
+                                <td>{{ dataset.owner.email }}</td>
                             </tr>
                             <tr>
                                 <td><i data-feather="link"></i> <strong>DOI:</strong></td>
@@ -102,7 +91,7 @@
                             </tr>
                             <tr>
                                 <td><i data-feather="link"></i> <strong>Site URL:</strong></td>
-                                <td>https://www.kaggle.com/allen-institute-for-ai/CORD-19-research-challenge</td>
+                                <td>{{ dataset.attributes.url }}</td>
                             </tr>
                         </tbody>
                     </table>
