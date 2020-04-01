@@ -77,10 +77,6 @@ WSGI_APPLICATION = 'sdifrontend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    },
-    'sdidb': {
         'ENGINE': 'django.db.backends.mysql',
         'USER': os.environ['SDI_DATABASE_USER'],
         'PASSWORD': os.environ['SDI_DATABASE_PASSWORD'],
@@ -90,6 +86,7 @@ DATABASES = {
     }
 }
 
+SILENCED_SYSTEM_CHECKS = ['mysql.E001']
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
