@@ -17,7 +17,9 @@
         </div>
 
         <div class="col-md-2 mt-3">
-            <a class="btn btn-outline-primary btn-sm" href="#"><i data-feather="plus"></i> New Dataset </a>
+            <a class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#fileupload" href="#"><i
+                    data-feather="plus"></i> New Dataset </a>
+
         </div>
     </div>
 
@@ -69,13 +71,14 @@
                                         and
                                         physical sciences, computer science, health, biology, and 3 more </div>
 
-                                    <a href ="/1"><button type="button" class="btn btn-primary btn-sm"><i data-feather="book-open"></i>
-                                        Open</button></a>
+                                    <a href="/1"><button type="button" class="btn btn-primary btn-sm"><i
+                                                data-feather="book-open"></i>
+                                            Open</button></a>
 
                                     <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
                                         data-target="#quicklook"><i data-feather="eye"></i>
                                         Quick Look</button>
-                                    
+
 
                                 </div>
                             </div>
@@ -109,12 +112,12 @@
                                         (Other, CSV)</div>
                                     <div class="mb-3 text-muted"><i data-feather="tag"></i> computing, language,
                                         resources, linguistics, nlp, time series, and 2 more </div>
-                                    
-                                    <a href ="#"><button type="button" class="btn btn-primary btn-sm"><i data-feather="book-open"></i>
-                                        Open</button></a>
 
-                                    <button type="button" class="btn btn-secondary btn-sm"><i
-                                            data-feather="eye"></i>
+                                    <a href="#"><button type="button" class="btn btn-primary btn-sm"><i
+                                                data-feather="book-open"></i>
+                                            Open</button></a>
+
+                                    <button type="button" class="btn btn-secondary btn-sm"><i data-feather="eye"></i>
                                         Quick Look</button>
 
                                 </div>
@@ -149,11 +152,11 @@
                                         (CSV)</div>
                                     <div class="mb-3 text-muted"><i data-feather="tag"></i> computing, language,
                                         resources, linguistics, nlp, time series, and 2 more </div>
-                                    <a href ="/detail"><button type="button" class="btn btn-primary btn-sm"><i data-feather="book-open"></i>
+                                    <a href="/detail"><button type="button" class="btn btn-primary btn-sm"><i
+                                                data-feather="book-open"></i>
                                             Open</button></a>
 
-                                    <button type="button" class="btn btn-secondary btn-sm"><i
-                                            data-feather="eye"></i>
+                                    <button type="button" class="btn btn-secondary btn-sm"><i data-feather="eye"></i>
                                         Quick Look</button>
 
                                 </div>
@@ -209,8 +212,8 @@
 
     </div>
 
-</div>
-</div>
+    </div>
+    </div>
 </main>
 
 
@@ -302,6 +305,67 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg" id="fileupload" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Dataset Creation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="exampleFormControlInput1"
+                            placeholder="Enter Dataset Title">
+                    </div>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title mb-1">Select Files and Upload</h5>
+                            <div class="text-muted mb-3">Consider zipping large directories to speed up your uploads <a href="#">Learn more</a></div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-4 align-middle">
+                                        <input type="file" class="form-control-file mb-2" id="exampleFormControlFile1"
+                                            multiple data-show-upload="true" data-show-caption="true">
+                                    </div>
+                                    <div class="col-md-2 align-middle">
+                                        <button type="button" class="btn btn-primary btn-sm"
+                                            data-dismiss="modal"><i
+                                            data-feather="upload-cloud"></i> Upload</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Uploaded Files</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item text-muted"> <i data-feather="file"></i> iris.csv (140.32 MB) <i data-feather="file"> </i></li>
+                                <li class="list-group-item text-muted"> <i data-feather="file"></i> BostonHousing.csv (12.51 MB) <i data-feather="file"> </li>
+                                <li class="list-group-item text-muted"> <i data-feather="file"></i> mockup.zip (132.51 MB) <i data-feather="file">  </li>
+                              </ul>
+                            
+
+                        </div>
+                        
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Create</button>
             </div>
         </div>
     </div>
