@@ -17,6 +17,7 @@ def unpack_dataset_json(dataset):
     dataset.sizemb = int(dataset.size / (2**20))
     dataset.filecount = len((json.loads(dataset.structure))['data'])
     dataset.keywords = ', '.join(dataset.attributes['keywords'])
+    dataset.icon = 'icons/{:d}.png'.format(dataset.id % 500)
     return dataset
    
 
