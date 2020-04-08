@@ -1,0 +1,146 @@
+{% extends "mainpage/base.html" %}
+{% block content %}
+{% load static %}
+
+<h1>{{ dataset.dataset_id }}</h1>
+
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+
+    <!-- data set header -->
+    <div class="row">
+        <div class="col-md-10">
+            <div class="mt-3"><strong class="d-inline-block mb-2 text-primary"><i data-feather="database"></i>
+                    Dataset</strong></div>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
+                        <h1 class="h2">{{ dataset.attributes.title }}</h1><br>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-10">
+
+
+                            <div class="justify-content-between flex-wrap flex-md-nowrap align-items-left pb-3">
+                                {{ dataset.attributes.subtitle }}
+                            </div>
+                            <div class="mb-1 text-muted"><i data-feather="user"></i>
+                                {{ dataset.attributes.institution }} <i data-feather="link"></i> {{ dataset.attributes.url }} </div>
+                            <div class="mb-1 text-muted"><i data-feather="calendar"></i> created at {{ dataset.created }} <i
+                                    data-feather="database"></i> {{ dataset.sizemb }} MB <i data-feather="file"></i>
+                                {{ dataset.filecount }} Files
+                                (JSON, CSV, Other)</div>
+                            <div class="mb-3 text-muted"><i data-feather="tag"></i> 
+                                {{ dataset.keywords }}</div>
+
+                        </div>
+                        <div class="col-md-2 align-items-center"><img height="100" width="100"
+                                src="{% static dataset.icon %}"></div>
+                    </div>
+                    <div class="row pl-3">
+                        <div class="pr-2">
+                            <button type="button" class="btn btn-primary btn-sm"><i data-feather="download"></i> Download</button>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-primary  btn-sm"><i data-feather="edit-2"></i> Update</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <b>Description</b>
+                </div>
+                <div class="card-body">{{ dataset.attributes.description }}</div>
+
+            </div>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <b>Description</b>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td><i data-feather="calendar"></i> <strong>Created:</strong></td>
+                                <td>{{ dataset.created }}</td>
+                            </tr>
+                            <tr>
+                                <td><i data-feather="calendar"></i> <strong>Last updated:</strong></td>
+                                <td>{{ dataset.updated }}</td>
+                            </tr>
+                            <tr>
+                                <td><i data-feather="tag"></i> <strong>Keywords:</strong></td>
+                                <td>{{ dataset.keywords }}</td>
+                            </tr>
+                            <tr>
+                                <td><i data-feather="users"></i> <strong>Originating Research Organizations:</strong>
+                                </td>
+                                <td>{{ dataset.attributes.institution }}</td>
+                            </tr>
+                            <tr>
+                                <td><i data-feather="mail"></i> <strong>Contact Email:</strong></td>
+                                <td>{{ dataset.owner.email }}</td>
+                            </tr>
+                            <tr>
+                                <td><i data-feather="link"></i> <strong>DOI:</strong></td>
+                                <td>N/A</td>
+                            </tr>
+                            <tr>
+                                <td><i data-feather="link"></i> <strong>Site URL:</strong></td>
+                                <td>{{ dataset.attributes.url }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <b>Metrics</b>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td><i data-feather="hash"></i> <strong>Downloads:</strong></td>
+                                <td>13</td>
+                            </tr>
+                            <tr>
+                                <td><i data-feather="hash"></i> <strong>Citations:</strong></td>
+                                <td>12</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- head line-->
+
+    <div class="row">
+        <div class="col-md-9">
+
+            <!-- contents -->
+
+        </div>
+
+        <!-- side bar (right) -->
+        <div class="col-md-3">
+            <!-- nothing -->
+        </div>
+
+    </div>
+
+    </div>
+    </div>
+</main>
+
+{% endblock %}
