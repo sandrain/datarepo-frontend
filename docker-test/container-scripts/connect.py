@@ -20,7 +20,7 @@ try:
           cursor.close()
           conn.close()
 except Error as e:
-     print ("Print your error msg", e)
+     print ("No connection yet", e)
      r=1
 finally:
      sys.exit(r)
