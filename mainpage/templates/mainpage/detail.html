@@ -2,7 +2,7 @@
 {% block content %}
 {% load static %}
 
-<h1>{{ dataset.dataset_id }}</h1>
+<h1>{{ dataset.id }}</h1>
 
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 
@@ -42,7 +42,7 @@
                             <button type="button" class="btn btn-primary btn-sm"><i data-feather="download"></i> Download</button>
                         </div>
                         <div>
-                            <button type="button" class="btn btn-primary  btn-sm"><i data-feather="edit-2"></i> Update</button>
+                            <a href = "/update/{{ dataset.id }}"><button type="button" class="btn btn-primary  btn-sm"><i data-feather="edit-2"></i> Update</button></a>
                         </div>
                     </div>
 

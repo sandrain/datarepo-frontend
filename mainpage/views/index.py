@@ -11,7 +11,7 @@ class IndexView(generic.ListView):
     context_object_name = 'latest_dataset_list'
 
     def get_queryset(self):
-        """Get ten recent datasets."""
+        # Get ten recent datasets.
         qs = SysDataset.objects.select_related().order_by('-created')[:10]
         for obj in qs:
             obj = unpack_dataset_json(obj)

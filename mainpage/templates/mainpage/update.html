@@ -2,7 +2,7 @@
 {% block content %}
 {% load static %}
 
-<h1>{{ dataset.dataset_id }}</h1>
+<h1>{{ dataset.id }}</h1>
 
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 
@@ -25,12 +25,14 @@
                                 {{ dataset.attributes.subtitle }}
                             </div>
                             <div class="mb-1 text-muted"><i data-feather="user"></i>
-                                {{ dataset.attributes.institution }} <i data-feather="link"></i> {{ dataset.attributes.url }} </div>
-                            <div class="mb-1 text-muted"><i data-feather="calendar"></i> created at {{ dataset.created }} <i
-                                    data-feather="database"></i> {{ dataset.sizemb }} MB <i data-feather="file"></i>
+                                {{ dataset.attributes.institution }} <i data-feather="link"></i>
+                                {{ dataset.attributes.url }} </div>
+                            <div class="mb-1 text-muted"><i data-feather="calendar"></i> created at
+                                {{ dataset.created }} <i data-feather="database"></i> {{ dataset.sizemb }} MB <i
+                                    data-feather="file"></i>
                                 {{ dataset.filecount }} Files
                                 (JSON, CSV, Other)</div>
-                            <div class="mb-3 text-muted"><i data-feather="tag"></i> 
+                            <div class="mb-3 text-muted"><i data-feather="tag"></i>
                                 {{ dataset.keywords }}</div>
 
                         </div>
@@ -38,11 +40,13 @@
                                 src="{% static dataset.icon %}"></div>
                     </div>
                     <div class="row pl-3">
-                        <div class="pr-2">
-                            <button type="button" class="btn btn-primary btn-sm"><i data-feather="download"></i> Download</button>
-                        </div>
                         <div>
-                            <button type="button" class="btn btn-primary  btn-sm"><i data-feather="edit-2"></i> Update</button>
+                            <form action="/update/{{dataset.id}}/" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" id="input-description-tosave" name="input-description-tosave" value="">
+                                <button type="summit" class="btn btn-primary  btn-sm"><i data-feather="save"></i>
+                                Save</button>
+                            </form>
                         </div>
                     </div>
 
@@ -53,7 +57,9 @@
                 <div class="card-header">
                     <b>Description</b>
                 </div>
-                <div class="card-body">{{ dataset.attributes.description }}</div>
+                <div class="card-body"><div id="description">{{ dataset.attributes.description }}</div> <button type="button"
+                        class="btn btn-link btn-sm" data-toggle="modal" data-target="#edit-desc"><i
+                            data-feather="edit-2"></i> Edit</button></div>
 
             </div>
 
@@ -65,33 +71,46 @@
                     <table class="table">
                         <tbody>
                             <tr>
-                                <td><i data-feather="calendar"></i> <strong>Created:</strong></td>
-                                <td>{{ dataset.created }}</td>
+                                <td class="align-middle"><i data-feather="calendar"></i> <strong>Created:</strong></td>
+                                <td class="align-middle">{{ dataset.created }} </td>
                             </tr>
                             <tr>
-                                <td><i data-feather="calendar"></i> <strong>Last updated:</strong></td>
-                                <td>{{ dataset.updated }}</td>
-                            </tr>
-                            <tr>
-                                <td><i data-feather="tag"></i> <strong>Keywords:</strong></td>
-                                <td>{{ dataset.keywords }}</td>
-                            </tr>
-                            <tr>
-                                <td><i data-feather="users"></i> <strong>Originating Research Organizations:</strong>
+                                <td class="align-middle"><i data-feather="calendar"></i> <strong>Last updated:</strong>
                                 </td>
-                                <td>{{ dataset.attributes.institution }}</td>
+                                <td class="align-middle">{{ dataset.updated }} </td>
                             </tr>
                             <tr>
-                                <td><i data-feather="mail"></i> <strong>Contact Email:</strong></td>
-                                <td>{{ dataset.owner.email }}</td>
+                                <td class="align-middle"><i data-feather="tag"></i> <strong>Keywords:</strong></td>
+                                <td class="align-middle">{{ dataset.keywords }} <button type="button"
+                                        class="btn btn-link btn-sm" data-toggle="modal" data-target="#edit-created"><i
+                                            data-feather="edit-2"></i> Edit</button></td>
                             </tr>
                             <tr>
-                                <td><i data-feather="link"></i> <strong>DOI:</strong></td>
-                                <td>N/A</td>
+                                <td class="align-middle"><i data-feather="users"></i> <strong>Originating Research
+                                        Organizations:</strong>
+                                </td>
+                                <td class="align-middle">{{ dataset.attributes.institution }} <button type="button"
+                                        class="btn btn-link btn-sm" data-toggle="modal" data-target="#edit-created"><i
+                                            data-feather="edit-2"></i> Edit</button></td>
                             </tr>
                             <tr>
-                                <td><i data-feather="link"></i> <strong>Site URL:</strong></td>
-                                <td>{{ dataset.attributes.url }}</td>
+                                <td class="align-middle"><i data-feather="mail"></i> <strong>Contact Email:</strong>
+                                </td>
+                                <td class="align-middle">{{ dataset.owner.email }} <button type="button"
+                                        class="btn btn-link btn-sm" data-toggle="modal" data-target="#edit-created"><i
+                                            data-feather="edit-2"></i> Edit</button></td>
+                            </tr>
+                            <tr>
+                                <td class="align-middle"><i data-feather="link"></i> <strong>DOI:</strong></td>
+                                <td class="align-middle">N/A <button type="button" class="btn btn-link btn-sm"
+                                        data-toggle="modal" data-target="#edit-created"><i data-feather="edit-2"></i>
+                                        Edit</button></td>
+                            </tr>
+                            <tr>
+                                <td class="align-middle"><i data-feather="link"></i> <strong>Site URL:</strong></td>
+                                <td class="align-middle">{{ dataset.attributes.url }} <button type="button"
+                                        class="btn btn-link btn-sm" data-toggle="modal" data-target="#edit-created"><i
+                                            data-feather="edit-2"></i> Edit</button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -142,5 +161,40 @@
     </div>
     </div>
 </main>
+
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg" id="edit-desc" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Description</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <textarea class="form-control" id="desc-text-area" placeholder="Please add your description for this dataset." rows="10"> {{ dataset.attributes.description }} </textarea>
+            </div>
+            <div class="modal-footer">
+                <button id="desc-update-set" data-dismiss="modal" class="btn btn-primary">Save</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+      $("#desc-update-set").click(function(){       
+        
+       desc_text_to_set = '<p class="text-primary">'+$("#desc-text-area").val()+'</p>';
+       $("#description").html(desc_text_to_set);
+       $('#input-description-tosave').val($("#desc-text-area").val());
+
+
+      });
+    });
+    </script>
 
 {% endblock %}

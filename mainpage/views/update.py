@@ -8,37 +8,23 @@ from mainpage.models import SysFile
 
 from .utils import *
 
-def update(request):
-    # if this is a POST request we need to process the form data
+def update(request, dataset_id):
+    # for POST request, apply changes to the database
     if request.method == 'POST':
         post_data = request.POST
+        description_tosave = post_data['input-description-tosave']
+        d = SysDataset.objects.filter(id=dataset_id)[0]
+        properties = json.loads(d.properties)
+        properties['description'] = description_tosave
+        d.properties = json.dumps(properties)
 
-        ## currently we are generating fake fields other than the title
-        properties = generate_fake_dataset_properties(post_data['sysdataset_title'])
-        files = generate_fake_dataset_files()
-        structure = json.dumps({'data': files})
-        size = sum(f['size'] for f in files)
-
-        d = SysDataset(properties=properties,
-                       uuid=str(uuid.uuid4()),
-                       owner=SysUser.objects.all()[random.randint(1,100)],
-                       size=size,
-                       structure=structure)
         d.save()
 
-        # populate dataset files
-        for f in files:
-            r = SysFile(dataset=d,
-                        name=f['name'],
-                        size=f['size'])
-            r.save()
-
-        dataset = unpack_dataset_json(
-                    get_object_or_404(SysDataset.objects.select_related(), id=d.id))
-
+        dataset = unpack_dataset_json(get_object_or_404(
+                    SysDataset.objects.select_related(), id=dataset_id))
+        return render(request, 'mainpage/detail.html', {'dataset': dataset})
+    else:
+        # otherwise, display the editable page
+        dataset = unpack_dataset_json(get_object_or_404(
+            SysDataset.objects.select_related(), id=dataset_id))
         return render(request, 'mainpage/update.html', {'dataset': dataset})
-
-    dataset = unpack_dataset_json(
-                get_object_or_404(SysDataset.objects.select_related(), id=690))
-    return render(request, 'mainpage/update.html', {'dataset': dataset})
-
