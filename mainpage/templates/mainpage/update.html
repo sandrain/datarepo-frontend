@@ -2,6 +2,28 @@
 {% block content %}
 {% load static %}
 
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#update-save-btn").click(function (event) {
+
+            var error_free = true;
+
+            if (!error_free) {
+                alert('Please enter a title for your dataset to create.')
+                event.preventDefault();
+            }
+            else {
+                // alert('No errors: Form will be submitted');
+            }
+        });
+
+    });
+
+</script>
+
 <h1>{{ dataset.id }}</h1>
 
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
@@ -41,12 +63,22 @@
                     </div>
                     <div class="row pl-3">
                         <div>
+
                             <form action="/update/{{dataset.id}}/" method="post">
                                 {% csrf_token %}
-                                <input type="hidden" id="input-description-tosave" name="input-description-tosave" value="">
-                                <button type="summit" class="btn btn-primary  btn-sm"><i data-feather="save"></i>
-                                Save</button>
+                                <input type="hidden" id="input-description-tosave" name="input-description-tosave"
+                                    value="">
+                                <input type="hidden" id="input-keywords-tosave" name="input-keywords-tosave" value="">
+                                <input type="hidden" id="input-institution-tosave" name="input-institution-tosave"
+                                    value="">
+                                <input type="hidden" id="input-url-tosave" name="input-url-tosave" value="">
+                                <input type="hidden" id="input-email-tosave" name="input-email-tosave" value="">
+
+                                <button type="summit" id="update-save-btn" class="btn btn-primary  btn-sm"><i
+                                        data-feather="save"></i>
+                                    Save</button>
                             </form>
+
                         </div>
                     </div>
 
@@ -57,9 +89,11 @@
                 <div class="card-header">
                     <b>Description</b>
                 </div>
-                <div class="card-body"><div id="description">{{ dataset.attributes.description }}</div> <button type="button"
+                <div class="card-body">
+                    <div id="description">{{ dataset.attributes.description }}</div> <button type="button"
                         class="btn btn-link btn-sm" data-toggle="modal" data-target="#edit-desc"><i
-                            data-feather="edit-2"></i> Edit</button></div>
+                            data-feather="edit-2"></i> Edit</button>
+                </div>
 
             </div>
 
@@ -81,36 +115,44 @@
                             </tr>
                             <tr>
                                 <td class="align-middle"><i data-feather="tag"></i> <strong>Keywords:</strong></td>
-                                <td class="align-middle">{{ dataset.keywords }} <button type="button"
-                                        class="btn btn-link btn-sm" data-toggle="modal" data-target="#edit-created"><i
-                                            data-feather="edit-2"></i> Edit</button></td>
+                                <td class="align-middle">
+                                    <div id="keywords">{{ dataset.keywords }}</div><button type="button"
+                                        class="btn btn-link btn-sm" data-toggle="modal" data-target="#edit-keywords"><i
+                                            data-feather="edit-2"></i> Edit</button>
+                                </td>
                             </tr>
                             <tr>
                                 <td class="align-middle"><i data-feather="users"></i> <strong>Originating Research
                                         Organizations:</strong>
                                 </td>
-                                <td class="align-middle">{{ dataset.attributes.institution }} <button type="button"
-                                        class="btn btn-link btn-sm" data-toggle="modal" data-target="#edit-created"><i
-                                            data-feather="edit-2"></i> Edit</button></td>
+                                <td class="align-middle">
+                                    <div id="institution">{{ dataset.attributes.institution }}</div><button
+                                        type="button" class="btn btn-link btn-sm" data-toggle="modal"
+                                        data-target="#edit-institution"><i data-feather="edit-2"></i> Edit</button>
+                                </td>
                             </tr>
                             <tr>
                                 <td class="align-middle"><i data-feather="mail"></i> <strong>Contact Email:</strong>
                                 </td>
-                                <td class="align-middle">{{ dataset.owner.email }} <button type="button"
-                                        class="btn btn-link btn-sm" data-toggle="modal" data-target="#edit-created"><i
-                                            data-feather="edit-2"></i> Edit</button></td>
+                                <td class="align-middle">
+                                    <div id="email">{{ dataset.owner.email }}</div><button type="button"
+                                        class="btn btn-link btn-sm" data-toggle="modal" data-target="#edit-email"><i
+                                            data-feather="edit-2"></i> Edit</button>
+                                </td>
                             </tr>
-                            <tr>
+                            <!--tr>
                                 <td class="align-middle"><i data-feather="link"></i> <strong>DOI:</strong></td>
                                 <td class="align-middle">N/A <button type="button" class="btn btn-link btn-sm"
-                                        data-toggle="modal" data-target="#edit-created"><i data-feather="edit-2"></i>
+                                        data-toggle="modal" data-target="#edit-doi"><i data-feather="edit-2"></i>
                                         Edit</button></td>
-                            </tr>
+                            </tr-->
                             <tr>
                                 <td class="align-middle"><i data-feather="link"></i> <strong>Site URL:</strong></td>
-                                <td class="align-middle">{{ dataset.attributes.url }} <button type="button"
-                                        class="btn btn-link btn-sm" data-toggle="modal" data-target="#edit-created"><i
-                                            data-feather="edit-2"></i> Edit</button></td>
+                                <td class="align-middle">
+                                    <div id="url">{{ dataset.attributes.url }}</div><button type="button"
+                                        class="btn btn-link btn-sm" data-toggle="modal" data-target="#edit-url"><i
+                                            data-feather="edit-2"></i> Edit</button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -174,10 +216,102 @@
                 </button>
             </div>
             <div class="modal-body">
-                <textarea class="form-control" id="desc-text-area" placeholder="Please add your description for this dataset." rows="10"> {{ dataset.attributes.description }} </textarea>
+                <textarea class="form-control" id="desc-text-area"
+                    placeholder="Please add your description for this dataset."
+                    rows="10"> {{ dataset.attributes.description }} </textarea>
             </div>
             <div class="modal-footer">
-                <button id="desc-update-set" data-dismiss="modal" class="btn btn-primary">Save</button>
+                <button id="desc-update-set" data-dismiss="modal" class="btn btn-primary">Set</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade bd-example-modal-lg" id="edit-keywords" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Keywords</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <textarea class="form-control" id="keywords-text-area"
+                    placeholder="Please enter keywords for this dataset." rows="10"> {{ dataset.keywords }} </textarea>
+            </div>
+            <div class="modal-footer">
+                <button id="keywords-update-set" data-dismiss="modal" class="btn btn-primary">Set</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="edit-email" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Email</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control form-control-sm mb-1" id="email-text-area"
+                    value="{{ dataset.owner.email }}"></input>
+            </div>
+            <div class="modal-footer">
+                <button id="email-update-set" data-dismiss="modal" class="btn btn-primary">Set</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade bd-example-modal-lg" id="edit-institution" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Originating Research Organizations</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control form-control-sm mb-1" id="institution-text-area"
+                    value="{{ dataset.attributes.institution }}"></input>
+            </div>
+            <div class="modal-footer">
+                <button id="institution-update-set" data-dismiss="modal" class="btn btn-primary">Set</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="edit-url" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">URL</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control form-control-sm mb-1" id="url-text-area"
+                    value="{{ dataset.attributes.url }}"></input>
+            </div>
+            <div class="modal-footer">
+                <button id="url-update-set" data-dismiss="modal" class="btn btn-primary">Set</button>
             </div>
 
         </div>
@@ -185,16 +319,82 @@
 </div>
 
 <script>
-    $(document).ready(function(){
-      $("#desc-update-set").click(function(){       
-        
-       desc_text_to_set = '<p class="text-primary">'+$("#desc-text-area").val()+'</p>';
-       $("#description").html(desc_text_to_set);
-       $('#input-description-tosave').val($("#desc-text-area").val());
+    $(document).ready(function () {
+
+        $('#input-description-tosave').val('{{dataset.attributes.description}}');
+        $('#input-url-tosave').val('{{dataset.attributes.url}}');
+        $('#input-email-tosave').val('{{dataset.owner.email}}');
+        $('#input-institution-tosave').val('{{dataset.attributes.institution}}');
+        $('#input-keywords-tosave').val('{{dataset.keywords}}');
 
 
-      });
+        $("#desc-update-set").click(function () {
+
+            text_to_set = '<p class="text-primary">' + $("#desc-text-area").val() + '</p>';
+            $("#description").html(text_to_set);
+            $('#input-description-tosave').val($("#desc-text-area").val());
+
+        });
+
+        $("#institution-update-set").click(function () {
+
+            text_to_set = '<p class="text-primary">' + $("#institution-text-area").val() + '</p>';
+            $("#institution").html($.trim(text_to_set));
+            $('#input-institution-tosave').val($("#institution-text-area").val());
+
+        });
+
+        $("#email-update-set").click(function () {
+
+            text_to_set = '<p class="text-primary">' + $("#email-text-area").val() + '</p>';
+
+            var re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+            var is_email = re.test($("#email-text-area").val());
+            if (is_email) {
+                $("#email").html($.trim(text_to_set));
+                $('#input-email-tosave').val($("#email-text-area").val());
+            }
+            else {
+                alert('Please enter correct email!');
+            }
+
+
+        });
+
+        $("#keywords-update-set").click(function () {
+
+            text_to_set = '<p class="text-primary">' + $("#keywords-text-area").val() + '</p>';
+            var re = /^[a-zA-Z0-9_ ]+(,[a-zA-Z0-9_ ]+)*$/;
+            var is_keywords = re.test($("#keywords-text-area").val());
+            if (is_keywords) {
+                $("#keywords").html($.trim(text_to_set));
+                $('#input-keywords-tosave').val($("#keywords-text-area").val());
+            }
+            else {
+                alert('Please enter correct keywords (values seperated with commas)!');
+            }
+        });
+
+
+        $("#url-update-set").click(function () {
+            var input= $("#url-text-area")
+            if (input.val().substring(0,4)=='www.'){input.val('http://www.'+input.val().substring(4));}
+            var re = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?/;
+            var is_url=re.test(input.val());
+            text_to_set = '<p class="text-primary">' + input.val() + '</p>';
+            
+            if (is_url) {
+                $("#url").html($.trim(text_to_set));
+                $('#input-url-tosave').val($("#url-text-area").val());
+            }
+            else {
+                alert('Please enter correct url!');
+            }
+
+        });
+
+
     });
-    </script>
+</script>
 
 {% endblock %}
