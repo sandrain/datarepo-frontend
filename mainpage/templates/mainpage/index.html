@@ -2,6 +2,36 @@
 {% block content %}
 {% load static %}
 
+<script>
+
+    $(document).ready(function () {
+
+        $("#create-button").click(function (event) {
+
+            var error_free = true;
+
+            var title = $('#create-form').find('input[name="sysdataset-title"]').val();
+            title = $.trim(title);
+
+            var keywords = $('#create-form').find('input[name="sysdataset-keywords"]').val();
+            keywords = $.trim(keywords);
+
+            if(title==''){
+                error_free = false;
+            }
+            if (!error_free) {
+                alert('Please enter a title for your dataset to create.')
+                event.preventDefault();
+            }
+            else {
+                // alert('No errors: Form will be submitted');
+            }
+        });
+
+    });
+
+</script>
+
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 
     <!-- data set header -->
@@ -145,7 +175,7 @@
 <!-- Modal -->
 {% for dataset in latest_dataset_list %}
 
-<div class="modal fade bd-example-modal-lg" id="quicklook-{{ dataset.id }}"  tabindex="-1" role="dialog"
+<div class="modal fade bd-example-modal-lg" id="quicklook-{{ dataset.id }}" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -172,16 +202,16 @@
                         </tr>
                         <tr>
                             <td><i data-feather="users"></i> <strong>Originating Research Organizations:</strong></td>
-                            <td>N/A</td>
+                            <td>{{ dataset.attributes.institution }}</td>
                         </tr>
                         <tr>
                             <td><i data-feather="mail"></i> <strong>Contact Email:</strong></td>
-                            <td>N/A</td>
+                            <td>{{ dataset.owner.email }}</td>
                         </tr>
-                        <tr>
+                        <!--tr>
                             <td><i data-feather="link"></i> <strong>DOI:</strong></td>
                             <td>N/A</td>
-                        </tr>
+                        </tr-->
                         <tr>
                             <td><i data-feather="link"></i> <strong>Site URL:</strong></td>
                             <td>{{ dataset.attributes.url }}</td>
@@ -219,16 +249,26 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="/create/" method="post">
+            <form action="/create/" id="create-form" method="post">
                 {% csrf_token %}
                 <div class="modal-body">
 
                     <div class="form-group">
-                        
-                        <input type="text" class="form-control" id="sysdataset_title" name="sysdataset_title"
+
+                        <input type="text" class="form-control mb-1" id="sysdataset-title" name="sysdataset-title"
                             placeholder="Enter Dataset Title">
-                            
-                            
+                        <input type="text" class="form-control form-control-sm mb-1" id="sysdataset-subtitle"
+                            name="sysdataset-subtitle" placeholder="Enter Dataset Subtitle">
+                        <textarea class="form-control form-control-sm mb-1" id="sysdataset-description"
+                            name="sysdataset-description" placeholder="Please add your description for this dataset."
+                            rows="5"></textarea>
+
+                        <div id="sysdataset-keywords">
+                            <input type="text" class="form-control form-control-sm mb-2" id="sysdataset-keywords"
+                                name="sysdataset-keywords" placeholder="Enter keywords separated by commas (e.g., 'climate, simulation, forecasting' ) ">
+
+                        </div>
+
                     </div>
                     <div class="card mb-3">
                         <div class="card-body">
@@ -270,7 +310,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Create</button>
+                    <button type="submit" id="create-button" class="btn btn-primary">Create</button>
                 </div>
 
             </form>

@@ -9,13 +9,22 @@ from mainpage.models import SysFile
 
 from .utils import *
 
-
 def create(request):
     if request.method == 'POST':
         post_data = request.POST
 
+        title = post_data['sysdataset-title']
+        subtitle = clean_recieved_val(post_data['sysdataset-subtitle'])
+        description = clean_recieved_val(post_data['sysdataset-description'])
+        try:
+            keywords = post_data['sysdataset-keywords'].split(",")
+            keywords = clean_keywords(keywords)
+        except:
+            keywords = None
+
+        print(title,subtitle,description,keywords)
         ## currently we are generating fake fields other than the title
-        properties = generate_fake_dataset_properties(post_data['sysdataset_title'])
+        properties = generate_fake_dataset_properties(post_data['sysdataset-title'], subtitle = subtitle, description = description, keywords = keywords)
         files = generate_fake_dataset_files()
         structure = json.dumps({'data': files})
         size = sum(f['size'] for f in files)
