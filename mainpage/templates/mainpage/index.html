@@ -9,13 +9,14 @@
         $("#create-button").click(function (event) {
 
             var error_free = true;
+
             var title = $('#create-form').find('input[name="sysdataset-title"]').val();
             title = $.trim(title);
 
             var keywords = $('#create-form').find('input[name="sysdataset-keywords"]').val();
             keywords = $.trim(keywords);
 
-            if(title==''){
+            if (title == '') {
                 error_free = false;
             }
             if (!error_free) {
@@ -99,8 +100,8 @@
                                     <div class="mb-3 text-muted"><i data-feather="tag"></i> {{ dataset.keywords }}
                                     </div>
 
-                                    <a href="/{{ dataset.id }}"><button type="button" class="btn btn-primary btn-sm"><i
-                                                data-feather="book-open"></i>
+                                    <a href="/dataset/{{ dataset.id }}"><button type="button"
+                                            class="btn btn-primary btn-sm"><i data-feather="book-open"></i>
                                             Open</button></a>
 
                                     <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
@@ -248,28 +249,81 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="/create/" id="create-form" method="post">
+            <form action="/dataset/" id="create-form" method="post">
+                
+                <input type="hidden" id="request-type" name="request-type" value="create">
                 {% csrf_token %}
+                
                 <div class="modal-body">
 
                     <div class="form-group">
 
-                        <input type="text" class="form-control mb-1" id="sysdataset-title" name="sysdataset-title"
-                            placeholder="Enter Dataset Title">
-                        <input type="text" class="form-control form-control-sm mb-1" id="sysdataset-subtitle"
-                            name="sysdataset-subtitle" placeholder="Enter Dataset Subtitle">
-                        <textarea class="form-control form-control-sm mb-1" id="sysdataset-description"
-                            name="sysdataset-description" placeholder="Please add your description for this dataset."
-                            rows="5"></textarea>
+                        <div class="card mb-1">
+                            <div class="card-body">
+                                <h5 class="card-title mb-2">Basic Information </h5>
+                                <div class="row mb-1">
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control mb-1" id="sysdataset-title"
+                                            name="sysdataset-title" placeholder="Enter Dataset Title">
+                                    </div>
+                                </div>
+                                <div class="row mb-1">
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control form-control-sm mb-1"
+                                            id="sysdataset-subtitle" name="sysdataset-subtitle"
+                                            placeholder="Enter Dataset Subtitle">
+                                    </div>
+                                </div>
+                                <div class="row mb-1">
+                                    <div class="col-sm-12">
+                                        <textarea class="form-control form-control-sm mb-1" id="sysdataset-description"
+                                            name="sysdataset-description"
+                                            placeholder="Please add your description for this dataset."
+                                            rows="3"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-12">
+                                        <div id="sysdataset-keywords">
+                                            <input type="text" class="form-control form-control-sm"
+                                                id="sysdataset-keywords" name="sysdataset-keywords"
+                                                placeholder="Enter keywords separated by commas (e.g., 'climate, simulation, forecasting' ) ">
+                                        </div>
+                                    </div>
+                                </div>
 
-                        <div id="sysdataset-keywords">
-                            <input type="text" class="form-control form-control-sm mb-2" id="sysdataset-keywords"
-                                name="sysdataset-keywords" placeholder="Enter keywords separated by commas (e.g., 'climate, simulation, forecasting' ) ">
+                                <h5 class="card-title mb-2">Type and Subject</h5>
+                                <div class="row">
+                                    <label for="data-type" class="col-sm-2 col-form-label">Type</label>
+                                    <div class="col-sm-4">
+                                        <select class="form-control" id="sysdataset-type" name="sysdataset-type">
+                                            <option value="" selected disabled>Nothing Selected</option>
+                                            <option value="image">Image</option>
+                                            <option value="text">Text</option>
+                                            <option value="spreadsheet">Spreadsheet</option>
+                                            <option value="json">JSON</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+
+                                    <label for="data-subject" class="col-sm-2 col-form-label">Subject</label>
+                                    <div class="col-sm-4">
+                                        <select class="form-control selectpicker" multiple data-live-search="true" id="sysdataset-subjects"
+                                            name="sysdataset-subjects">
+                                            <option value="physics">Physics</option>
+                                            <option value="matrial-science">Material Science</option>
+                                            <option value="biology">Biology</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
 
                         </div>
-
                     </div>
-                    <div class="card mb-3">
+
+                    <div class="card mb-1">
                         <div class="card-body">
                             <h5 class="card-title mb-1">Select Files and Upload</h5>
                             <div class="text-muted mb-3">Consider zipping large directories to speed up your uploads <a
@@ -307,10 +361,10 @@
 
                     </div>
 
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" id="create-button" class="btn btn-primary">Create</button>
-                </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" id="create-button" class="btn btn-primary">Create</button>
+                    </div>
 
             </form>
         </div>

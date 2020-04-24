@@ -70,7 +70,7 @@
                             <button type="button" class="btn btn-primary btn-sm"><i data-feather="download"></i> Download</button>
                         </div>
                         <div>
-                            <a href = "/update/{{ dataset.id }}"><button type="button" class="btn btn-primary  btn-sm"><i data-feather="edit-2"></i> Update</button></a>
+                            <a href = "/dataset/{{ dataset.id }}?update=1"><button type="button" class="btn btn-primary  btn-sm"><i data-feather="edit-2"></i> Update</button></a>
                             <button id="dataset-delete-btn" type="button" data-toggle="modal"
                             data-target="#dataset-delete" class="btn btn-primary  btn-sm"><i data-feather="trash"></i> Delete</button>
                         </div>
@@ -184,8 +184,9 @@
                 </button>
             </div>
 
-            <form action="/delete/{{ dataset.id }}/" id="delete-form" method="post">
+            <form action="/dataset/{{ dataset.id }}/" id="delete-form" method="post">
                 {% csrf_token %}
+                
             <div class="modal-body">
                 <div class="card  mb-2">
                         <div class="card-body">
@@ -201,6 +202,8 @@
                 <button type="submit" id="delete-sure-button" class="btn btn-primary">I am sure!</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
+            <input type="hidden" id="request-type" name="request-type"
+                                    value="delete">
         </form>
         </div>
     </div>
