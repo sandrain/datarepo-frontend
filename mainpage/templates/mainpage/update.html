@@ -382,7 +382,6 @@
             var re = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?/;
             var is_url=re.test(input.val());
             text_to_set = '<p class="text-primary">' + input.val() + '</p>';
-            
             if (is_url) {
                 $("#url").html($.trim(text_to_set));
                 $('#input-url-tosave').val($("#url-text-area").val());

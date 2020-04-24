@@ -22,7 +22,7 @@ def create(request):
         except:
             keywords = None
 
-        print(title,subtitle,description,keywords)  
+        print(title,subtitle,description,keywords)
         ## currently we are generating fake fields other than the title
         properties = generate_fake_dataset_properties(post_data['sysdataset-title'], subtitle = subtitle, description = description, keywords = keywords)
         files = generate_fake_dataset_files()

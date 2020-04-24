@@ -11,7 +11,6 @@ from django.template import loader
 from .utils import *
 
 def delete(request, dataset_id):
-    
     # for POST request, apply changes to the database
     if request.method == 'POST':
         post_data = request.POST
@@ -21,7 +20,6 @@ def delete(request, dataset_id):
         qs = SysDataset.objects.select_related().order_by('-created')[:10]
         for obj in qs:
             obj = unpack_dataset_json(obj)
-        
         template = loader.get_template('mainpage/index.html')
         context = {
             'latest_dataset_list': qs,
@@ -38,7 +36,6 @@ def update(request, dataset_id):
         email_tosave = post_data['input-email-tosave']
         keywords_tosave = post_data['input-keywords-tosave']
         institution_tosave = post_data['input-institution-tosave']
-        
         print(description_tosave, url_tosave, email_tosave, keywords_tosave, institution_tosave)
 
         d = SysDataset.objects.filter(id=dataset_id)[0]
