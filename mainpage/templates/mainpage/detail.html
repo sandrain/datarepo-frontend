@@ -2,6 +2,36 @@
 {% block content %}
 {% load static %}
 
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#delete-sure-button").click(function (event) {
+
+            var error_free = true;
+
+            var delete_check = $('#delete-form').find('input[name="sysdataset-delete-check"]').val();
+            delete_check = $.trim(delete_check);
+
+            if(delete_check!='{{dataset.attributes.title}}'){
+                error_free = false;
+            }
+
+            if (!error_free) {
+                alert('You did not enter the exact title. Do you still want to delete?')
+                event.preventDefault();
+            }
+            else {
+                // alert('No errors: Form will be submitted');
+            }
+        });
+
+    });
+
+</script>
+
+
 <h1>{{ dataset.id }}</h1>
 
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
@@ -30,7 +60,7 @@
                                     data-feather="database"></i> {{ dataset.sizemb }} MB <i data-feather="file"></i>
                                 {{ dataset.filecount }} Files
                                 (JSON, CSV, Other)</div>
-                            <div class="mb-3 text-muted"><i data-feather="tag"></i> 
+                            <div class="mb-3 text-muted"><i data-feather="tag"></i>
                                 {{ dataset.keywords }}</div>
 
                         </div>
@@ -43,6 +73,8 @@
                         </div>
                         <div>
                             <a href = "/update/{{ dataset.id }}"><button type="button" class="btn btn-primary  btn-sm"><i data-feather="edit-2"></i> Update</button></a>
+                            <button id="dataset-delete-btn" type="button" data-toggle="modal"
+                            data-target="#dataset-delete" class="btn btn-primary  btn-sm"><i data-feather="trash"></i> Delete</button>
                         </div>
                     </div>
 
@@ -85,10 +117,10 @@
                                 <td><i data-feather="mail"></i> <strong>Contact Email:</strong></td>
                                 <td>{{ dataset.owner.email }}</td>
                             </tr>
-                            <tr>
+                            <!--tr>
                                 <td><i data-feather="link"></i> <strong>DOI:</strong></td>
                                 <td>N/A</td>
-                            </tr>
+                            </tr-->
                             <tr>
                                 <td><i data-feather="link"></i> <strong>Site URL:</strong></td>
                                 <td>{{ dataset.attributes.url }}</td>
@@ -142,5 +174,38 @@
     </div>
     </div>
 </main>
+
+<div class="modal fade bd-example-modal-lg" id="dataset-delete" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"> Are you absolutely sure?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form action="/delete/{{ dataset.id }}/" id="delete-form" method="post">
+                {% csrf_token %}
+            <div class="modal-body">
+                <div class="card  mb-2">
+                        <div class="card-body">
+                            This action cannot be <b>undone</b>. This will permanently delete the <b>'{{dataset.attributes.title}}'</b> dataset.<br> Please type <b>'{{dataset.attributes.title}}'</b> to confirm.
+                        </div>
+                        </div>
+
+                    <input type="text" class="form-control form-control-sm mb-1" id="sysdataset-delete-check"
+                            name="sysdataset-delete-check" placeholder="Enter '{{dataset.attributes.title}}' if you're absolutely sure.">
+
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="delete-sure-button" class="btn btn-primary">I am sure!</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

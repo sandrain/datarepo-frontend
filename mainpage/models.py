@@ -74,7 +74,7 @@ class SysDataset(models.Model):
     properties = models.TextField(blank=True, null=True)
     structure = models.TextField(blank=True, null=True)
     created = models.DateTimeField()
-    updated = models.DateTimeField(blank=True, null=True)
+    updated = models.DateTimeField(blank=True, null=True, auto_now=True)
 
     class Meta:
         managed = False

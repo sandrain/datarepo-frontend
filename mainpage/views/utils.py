@@ -2,6 +2,27 @@ import json, uuid
 from faker import Faker
 from random import randint
 
+
+def clean_recieved_val(val):
+    if val.strip() == '':
+        return None
+    else:
+        return val.strip()
+
+def clean_keywords(keywords):
+    cleaned_keywords = []
+    for keyword in keywords:
+        if keyword.strip()!='':
+            cleaned_keywords.append(keyword.strip())
+    return cleaned_keywords
+
+def make_keywords_list(keywords):
+    if keywords is None:
+        return []
+    else:
+        keywords = keywords.split(",")
+        return keywords
+
 def unpack_dataset_json(dataset):
     dataset.id = dataset.id
     dataset.attributes = json.loads(dataset.properties)
@@ -13,14 +34,26 @@ def unpack_dataset_json(dataset):
 
 # generating fake datasets
 
-def generate_fake_dataset_properties(title):
+def generate_fake_dataset_properties(title, subtitle = None, description = None, keywords = None):
     fake = Faker()
     dataset = {}
 
     dataset['title'] = title
-    dataset['subtitle'] = fake.sentence()
-    dataset['description'] = fake.paragraph()
-    dataset['keywords'] = fake.words(nb=randint(3,10), unique=True)
+
+    if subtitle is None:
+        dataset['subtitle'] = fake.sentence()
+    else:
+        dataset['subtitle'] = subtitle
+
+    if description is None:
+        dataset['description'] = fake.paragraph()
+    else:
+        dataset['description'] = description
+    if keywords is None:
+        dataset['keywords'] = fake.words(nb=randint(3,10), unique=True)
+    else:
+        dataset['keywords'] = keywords
+
     dataset['institution'] = fake.company()
     dataset['url'] = fake.url()
 
