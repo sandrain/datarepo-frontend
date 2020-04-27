@@ -5,3 +5,4 @@ whitenoise==3.3.1
 mysqlclient
 mysql-connector-python
 Faker
+social-auth-app-django
