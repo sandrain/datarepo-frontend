@@ -20,7 +20,7 @@ def create(request):
             dataset_type = post_data['sysdataset-type']
         except:
             dataset_type = ''
-        subjects = post_data['sysdataset-subject'] # list
+        subjects = post_data['sysdataset-subjects'] # list
         
         title = post_data['sysdataset-title']
         subtitle = clean_recieved_val(post_data['sysdataset-subtitle'])
