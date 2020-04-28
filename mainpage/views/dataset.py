@@ -10,7 +10,7 @@ import random
 from .utils import *
 
 def create(request):
-    
+
     if request.method == 'POST':
         post_data = request.POST
         print(post_data)
@@ -21,11 +21,11 @@ def create(request):
         except:
             dataset_type = ''
         subjects = post_data['sysdataset-subjects'] # list
-        
+
         title = post_data['sysdataset-title']
         subtitle = clean_recieved_val(post_data['sysdataset-subtitle'])
         description = clean_recieved_val(post_data['sysdataset-description'])
-        
+
         try:
             keywords = post_data['sysdataset-keywords'].split(",")
             keywords = clean_keywords(keywords)
@@ -56,7 +56,7 @@ def create(request):
                     get_object_or_404(SysDataset.objects.select_related(), id=d.id))
 
         return render(request, 'mainpage/detail.html', {'dataset': dataset})
-    
+
     else:
         qs = SysDataset.objects.select_related().order_by('-created')[:10]
         for obj in qs:
@@ -71,7 +71,7 @@ def create(request):
 def manage(request, dataset_id):
 
     if request.method == 'POST':
-        
+
         post_data = request.POST
 
         if post_data['request-type']=='update':
@@ -99,7 +99,7 @@ def manage(request, dataset_id):
             dataset = unpack_dataset_json(get_object_or_404(
                         SysDataset.objects.select_related(), id=dataset_id))
             return render(request, 'mainpage/detail.html', {'dataset': dataset})
-       
+
         elif post_data['request-type']=='delete':
             d = SysDataset.objects.filter(id=dataset_id)[0]
             d.delete()
@@ -113,7 +113,7 @@ def manage(request, dataset_id):
             }
 
             return HttpResponse(template.render(context, request))
-                
+
     elif request.method == 'GET':
 
         try:
@@ -121,19 +121,19 @@ def manage(request, dataset_id):
         except:
             update = 0
 
-        if update=='1':    
+        if update=='1':
             dataset = unpack_dataset_json(
                 get_object_or_404(SysDataset.objects.select_related(),
                                   id=dataset_id))
-        
+
             return render(request, 'mainpage/update.html', {'dataset': dataset})
-        
+
         else:
 
             dataset = unpack_dataset_json(
                     get_object_or_404(SysDataset.objects.select_related(),
                                     id=dataset_id))
-            
+
             return render(request, 'mainpage/detail.html', {'dataset': dataset})
 
 
