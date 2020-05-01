@@ -90,7 +90,8 @@
                                     <div class="mb-1">{{ dataset.attributes.title }}
                                     </div>
                                     <div class="mb-1 text-muted"><i data-feather="user"></i>
-                                        {{ dataset.owner.displayname }} <i data-feather="link"></i>
+                                        <a href="/user/{{ dataset.owner.username }}">
+                                        {{ dataset.owner.displayname }}</a> <i data-feather="link"></i>
                                         {{ dataset.attributes.url }} </div>
                                     <div class="mb-1 text-muted"><i data-feather="calendar"></i> created:
                                         {{ dataset.created }} <i data-feather="database"></i>

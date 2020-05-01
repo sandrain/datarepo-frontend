@@ -9,7 +9,7 @@ import random
 
 from .utils import *
 
-def create(request):
+def dataset_create(request):
 
     if request.method == 'POST':
         post_data = request.POST
@@ -55,7 +55,7 @@ def create(request):
         dataset = unpack_dataset_json(
                     get_object_or_404(SysDataset.objects.select_related(), id=d.id))
 
-        return render(request, 'mainpage/detail.html', {'dataset': dataset})
+        return render(request, 'mainpage/dataset/detail.html', {'dataset': dataset})
 
     else:
         qs = SysDataset.objects.select_related().order_by('-created')[:10]
@@ -68,7 +68,7 @@ def create(request):
 
         return HttpResponse(template.render(context, request))
 
-def manage(request, dataset_id):
+def dataset_manage(request, dataset_id):
 
     if request.method == 'POST':
 
@@ -98,7 +98,7 @@ def manage(request, dataset_id):
 
             dataset = unpack_dataset_json(get_object_or_404(
                         SysDataset.objects.select_related(), id=dataset_id))
-            return render(request, 'mainpage/detail.html', {'dataset': dataset})
+            return render(request, 'mainpage/dataset/detail.html', {'dataset': dataset})
 
         elif post_data['request-type']=='delete':
             d = SysDataset.objects.filter(id=dataset_id)[0]
@@ -126,7 +126,7 @@ def manage(request, dataset_id):
                 get_object_or_404(SysDataset.objects.select_related(),
                                   id=dataset_id))
 
-            return render(request, 'mainpage/update.html', {'dataset': dataset})
+            return render(request, 'mainpage/dataset/update.html', {'dataset': dataset})
 
         else:
 
@@ -134,6 +134,6 @@ def manage(request, dataset_id):
                     get_object_or_404(SysDataset.objects.select_related(),
                                     id=dataset_id))
 
-            return render(request, 'mainpage/detail.html', {'dataset': dataset})
+            return render(request, 'mainpage/dataset/detail.html', {'dataset': dataset})
 
 
