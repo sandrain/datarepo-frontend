@@ -19,9 +19,15 @@ def user_manage(request, user_id):
         except:
             update = 0
 
-            user = get_object_or_404(SysUser.objects.select_related(),
-                                    username=user_id)
+        user = get_object_or_404(SysUser.objects.select_related(),
+                                username=user_id)
 
-            return render(request, 'mainpage/user/profile.html', {'user': user})
+        user_id = SysUser.objects.filter(username=user_id)[0].id
+        user_dataset_list = SysDataset.objects.filter(owner=user_id).order_by('-created')[:10]
+
+        for obj in user_dataset_list:
+            obj = unpack_dataset_json(obj)
+        
+        return render(request, 'mainpage/user/profile.html', {'user': user, 'user_dataset_list':user_dataset_list})
 
 

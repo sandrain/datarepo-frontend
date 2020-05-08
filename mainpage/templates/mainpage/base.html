@@ -27,7 +27,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 
 
@@ -35,6 +36,7 @@
     <title>Hyper-scale Data Center Portal</title>
     <script src="https://unpkg.com/feather-icons"></script>
 </head>
+
 <body>
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
         <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">HDC Portal</a>
@@ -48,7 +50,12 @@
             <li class="nav-item text-nowrap">
                 <!-- hypothetical user: samuel93-->
                 <a href="/user/samuel93">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white"
+                        stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-user">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
                 </a>
             </li>
         </ul>
@@ -59,6 +66,13 @@
             <nav class="col-md-2 d-none d-md-block bg-light sidebar">
                 <div class="sidebar-sticky">
                     <ul class="nav flex-column">
+                        
+
+                        <h6
+                            class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                            <span>Navigation</span>
+
+                        </h6>
                         <li class="nav-item">
                             <a class="nav-link" href="/">
                                 <i data-feather="home"></i>
@@ -83,8 +97,405 @@
                                 More
                             </a>
                         </li>
+
+                        <h6
+                            class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                            <span>Data Subject</span>
+
+                        </h6>
+
+                        <ul class="nav flex-column mb-2">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/?datatype=1">
+                                    <span data-feather="file-text"></span>
+                                    Coal, Lignite, and Peat
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Petroleum
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Natural Gas
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Oil Shales And Tar Sands
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Isotope And Radiation Sources
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Hydrogen
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Biomass Fuels
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Synthetic Fuels
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Nuclear Fuel Cycle And Fuel Materials
+                                </a>
+                            </li>
+                        </ul>
+
+                        <ul class="nav flex-column mb-2">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Management Of Radioactive And Non-Radioactive Wastes From Nuclear Facilities
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Hydro Energy
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Solar Energy
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Geothermal Energy 
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Tidal And Wave Power 
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Wind Energy
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Fossil-Fueled Power Plants
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Specific Nuclear Reactors And Associated Plants
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    General Studies Of Nuclear Reactors
+                                </a>
+                            </li>
+                        </ul>
+
+                        <ul class="nav flex-column mb-2">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Power Transmission And Distribution
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Energy Storage
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Energy Planning, Policy, And Economy
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Direct Energy Conversion 
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Energy Conservation, Consumption, And Utilization 
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Advanced Propulsion Systems
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Materials Science
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Inorganic, Organic, Physical, And Analytical Chemistry
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Radiation Chemistry, Radiochemistry, And Nuclear Chemistry
+                                </a>
+                            </li>
+                        </ul>
+
+                        <ul class="nav flex-column mb-2">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Engineering
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Particle Accelerators
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Military Technology, Weaponry, And National Defense
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Instrumentation Related To Nuclear Science And Technology 
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Other Instrumentation 
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Environmental Sciences
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Geosciences
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Basic Biological Sciences
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Applied Life Sciences
+                                </a>
+                            </li>
+                        </ul>
+
+                        <ul class="nav flex-column mb-2">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Radiation Protection And Dosimetry
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Radiology And Nuclear Medicine
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Radiation, Thermal, And Other Environ. Pollutant Effects On Living Orgs. And Biol. Mat.
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Plasma Physics And Fusion Technology 
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Classical And Quantum Mechanics, General Physics 
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Physics Of Elementary Particles And Fields
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Nuclear Physics And Radiation Physics
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Atomic And Molecular Physics
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Condensed Matter Physics, Superconductivity And Superfluidity
+                                </a>
+                            </li>
+                        </ul>
+
+                        <ul class="nav flex-column mb-2">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Nanoscience And Nanotechnology
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Astronomy And Astrophysics
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Knowledge Management And Preservation
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Mathematics And Computing 
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Nuclear Disarmament, Safeguards, And Physical Protection 
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    General And Miscellaneous
+                                </a>
+                            </li>
+                        </ul>
+
+                        <h6
+                            class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                            <span>Data Type</span>
+
+                        </h6>
+
+                        <ul class="nav flex-column mb-2">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Animations/Simulations
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Genome/Genetic Data
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Interactive Data Map
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Numeric Data
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Still Images/Photos
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Figures/Plots
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Specialized Mix
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    Multimedia
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="file-text"></span>
+                                    General (Other)
+                                </a>
+                            </li>
+                        </ul>
                     </ul>
                 </div>
+
+
+
+
             </nav>
 
             <!--main-->
@@ -92,12 +503,13 @@
 
             {% block content %}
             {% endblock %}
+        </div>
 
-    </div>
     </div>
     <script>
         feather.replace();
     </script>
 
 </body>
+
 </html>
