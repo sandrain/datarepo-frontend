@@ -27,7 +27,7 @@ def user_manage(request, user_id):
 
         for obj in user_dataset_list:
             obj = unpack_dataset_json(obj)
-        
+
         return render(request, 'mainpage/user/profile.html', {'user': user, 'user_dataset_list':user_dataset_list})
 
 

@@ -12,10 +12,10 @@ class IndexView(generic.ListView):
 
     def get_queryset(self, **kwargs):
         # Get ten recent datasets.
-        
+
         datatype = self.request.GET.get('datatype', None)
         print("Received data parameter:", datatype)
-        
+
         if datatype is None:
             qs = SysDataset.objects.select_related().order_by('-created')[:10]
         else:
