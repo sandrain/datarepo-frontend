@@ -21,8 +21,11 @@ def dataset_create(request):
         except:
             dataset_type = ''
 
-        subjects = post_data['sysdataset-subjects'] # list
-
+        try:
+            subjects = post_data['sysdataset-subjects'] # list
+        except:
+            subjects = None
+            
         title = post_data['sysdataset-title']
         subtitle = clean_recieved_val(post_data['sysdataset-subtitle'])
         description = clean_recieved_val(post_data['sysdataset-description'])
@@ -99,6 +102,7 @@ def dataset_manage(request, dataset_id):
 
             dataset = unpack_dataset_json(get_object_or_404(
                         SysDataset.objects.select_related(), id=dataset_id))
+            
             return render(request, 'mainpage/dataset/detail.html', {'dataset': dataset})
 
         elif post_data['request-type']=='delete':
