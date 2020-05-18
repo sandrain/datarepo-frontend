@@ -39,12 +39,10 @@ def generate_fake_dataset_properties(title, subtitle = None, description = None,
     dataset = {}
 
     dataset['title'] = title
-
     if subtitle is None:
         dataset['subtitle'] = fake.sentence()
     else:
         dataset['subtitle'] = subtitle
-
     if description is None:
         dataset['description'] = fake.paragraph()
     else:

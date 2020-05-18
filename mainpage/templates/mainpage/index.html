@@ -16,7 +16,7 @@
             var keywords = $('#create-form').find('input[name="sysdataset-keywords"]').val();
             keywords = $.trim(keywords);
 
-            if(title==''){
+            if (title == '') {
                 error_free = false;
             }
             if (!error_free) {
@@ -90,7 +90,8 @@
                                     <div class="mb-1">{{ dataset.attributes.title }}
                                     </div>
                                     <div class="mb-1 text-muted"><i data-feather="user"></i>
-                                        {{ dataset.owner.displayname }} <i data-feather="link"></i>
+                                        <a href="/user/{{ dataset.owner.username }}">
+                                        {{ dataset.owner.displayname }}</a> <i data-feather="link"></i>
                                         {{ dataset.attributes.url }} </div>
                                     <div class="mb-1 text-muted"><i data-feather="calendar"></i> created:
                                         {{ dataset.created }} <i data-feather="database"></i>
@@ -100,8 +101,8 @@
                                     <div class="mb-3 text-muted"><i data-feather="tag"></i> {{ dataset.keywords }}
                                     </div>
 
-                                    <a href="/{{ dataset.id }}"><button type="button" class="btn btn-primary btn-sm"><i
-                                                data-feather="book-open"></i>
+                                    <a href="/dataset/{{ dataset.id }}"><button type="button"
+                                            class="btn btn-primary btn-sm"><i data-feather="book-open"></i>
                                             Open</button></a>
 
                                     <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
@@ -249,28 +250,133 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="/create/" id="create-form" method="post">
+            <form action="/dataset/" id="create-form" method="post">
+
+                <input type="hidden" id="request-type" name="request-type" value="create">
                 {% csrf_token %}
+
                 <div class="modal-body">
 
                     <div class="form-group">
 
-                        <input type="text" class="form-control mb-1" id="sysdataset-title" name="sysdataset-title"
-                            placeholder="Enter Dataset Title">
-                        <input type="text" class="form-control form-control-sm mb-1" id="sysdataset-subtitle"
-                            name="sysdataset-subtitle" placeholder="Enter Dataset Subtitle">
-                        <textarea class="form-control form-control-sm mb-1" id="sysdataset-description"
-                            name="sysdataset-description" placeholder="Please add your description for this dataset."
-                            rows="5"></textarea>
+                        <div class="card mb-1">
+                            <div class="card-body">
+                                <h5 class="card-title mb-2">Basic Information </h5>
+                                <div class="row mb-1">
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control mb-1" id="sysdataset-title"
+                                            name="sysdataset-title" placeholder="Enter Dataset Title">
+                                    </div>
+                                </div>
+                                <div class="row mb-1">
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control form-control-sm mb-1"
+                                            id="sysdataset-subtitle" name="sysdataset-subtitle"
+                                            placeholder="Enter Dataset Subtitle">
+                                    </div>
+                                </div>
+                                <div class="row mb-1">
+                                    <div class="col-sm-12">
+                                        <textarea class="form-control form-control-sm mb-1" id="sysdataset-description"
+                                            name="sysdataset-description"
+                                            placeholder="Please add your description for this dataset."
+                                            rows="3"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-12">
+                                        <div id="sysdataset-keywords">
+                                            <input type="text" class="form-control form-control-sm"
+                                                id="sysdataset-keywords" name="sysdataset-keywords"
+                                                placeholder="Enter keywords separated by commas (e.g., 'climate, simulation, forecasting' ) ">
+                                        </div>
+                                    </div>
+                                </div>
 
-                        <div id="sysdataset-keywords">
-                            <input type="text" class="form-control form-control-sm mb-2" id="sysdataset-keywords"
-                                name="sysdataset-keywords" placeholder="Enter keywords separated by commas (e.g., 'climate, simulation, forecasting' ) ">
+                                <h5 class="card-title mb-2">Type and Subject</h5>
+                                <div class="row">
+                                    <label for="data-type" class="col-sm-2 col-form-label">Type</label>
+                                    <div class="col-sm-4">
+                                        <select class="form-control" id="sysdataset-type" name="sysdataset-type">
+                                            <option value="" selected disabled>Nothing Selected</option>
+					    <option value="AS">Animations/Simulations</option>
+					    <option value="GD">Genome/Genetic Data</option>
+					    <option value="IM">Interactive Data Map</option>
+					    <option value="ND">Numeric Data</option>
+					    <option value="IP">Still Images/Photos</option>
+					    <option value="FP">Figures/Plots</option>
+					    <option value="SM">Specialized Mix</option>
+					    <option value="MM">Multimedia</option>
+					    <option value="ZZ">General (Other)</option>
+                                        </select>
+                                    </div>
+
+                                    <label for="data-subject" class="col-sm-2 col-form-label">Subject</label>
+                                    <div class="col-sm-4">
+                                        <select class="form-control selectpicker" multiple data-live-search="true" id="sysdataset-subjects"
+                                            name="sysdataset-subjects">
+                                            <option value="" selected disabled>Select all that apply</option>
+                                            <option value="01">COAL, LIGNITE, AND PEAT</option>
+                                            <option value="02">PETROLEUM</option>
+                                            <option value="03">NATURAL GAS</option>
+                                            <option value="04">OIL SHALES AND TAR SANDS</option>
+                                            <option value="07">ISOTOPE AND RADIATION SOURCES</option>
+                                            <option value="08">HYDROGEN</option>
+                                            <option value="09">BIOMASS FUELS</option>
+                                            <option value="10">SYNTHETIC FUELS</option>
+                                            <option value="11">NUCLEAR FUEL CYCLE AND FUEL MATERIALS</option>
+                                            <option value="12">MANAGEMENT OF RADIOACTIVE AND NON-RADIOACTIVE WASTES FROM NUCLEAR FACILITIES</option>
+                                            <option value="13">HYDRO ENERGY</option>
+                                            <option value="14">SOLAR ENERGY</option>
+                                            <option value="15">GEOTHERMAL ENERGY</option>
+                                            <option value="16">TIDAL AND WAVE POWER</option>
+                                            <option value="17">WIND ENERGY</option>
+                                            <option value="20">FOSSIL-FUELED POWER PLANTS</option>
+                                            <option value="21">SPECIFIC NUCLEAR REACTORS AND ASSOCIATED PLANTS</option>
+                                            <option value="22">GENERAL STUDIES OF NUCLEAR REACTORS</option>
+                                            <option value="24">POWER TRANSMISSION AND DISTRIBUTION</option>
+                                            <option value="25">ENERGY STORAGE</option>
+                                            <option value="29">ENERGY PLANNING, POLICY, AND ECONOMY</option>
+                                            <option value="30">DIRECT ENERGY CONVERSION</option>
+                                            <option value="32">ENERGY CONSERVATION, CONSUMPTION, AND UTILIZATION</option>
+                                            <option value="33">ADVANCED PROPULSION SYSTEMS</option>
+                                            <option value="36">MATERIALS SCIENCE</option>
+                                            <option value="37">INORGANIC, ORGANIC, PHYSICAL, AND ANALYTICAL CHEMISTRY</option>
+                                            <option value="38">RADIATION CHEMISTRY, RADIOCHEMISTRY, AND NUCLEAR CHEMISTRY</option>
+                                            <option value="42">ENGINEERING</option>
+                                            <option value="43">PARTICLE ACCELERATORS</option>
+                                            <option value="45">MILITARY TECHNOLOGY, WEAPONRY, AND NATIONAL DEFENSE</option>
+                                            <option value="46">INSTRUMENTATION RELATED TO NUCLEAR SCIENCE AND TECHNOLOGY</option>
+                                            <option value="47">OTHER INSTRUMENTATION</option>
+                                            <option value="54">ENVIRONMENTAL SCIENCES</option>
+                                            <option value="58">GEOSCIENCES</option>
+                                            <option value="59">BASIC BIOLOGICAL SCIENCES</option>
+                                            <option value="60">APPLIED LIFE SCIENCES</option>
+                                            <option value="61">RADIATION PROTECTION AND DOSIMETRY</option>
+                                            <option value="62">RADIOLOGY AND NUCLEAR MEDICINE</option>
+                                            <option value="63">RADIATION, THERMAL, AND OTHER ENVIRON. POLLUTANT EFFECTS ON LIVING ORGS. AND BIOL. MAT.</option>
+                                            <option value="70">PLASMA PHYSICS AND FUSION TECHNOLOGY</option>
+                                            <option value="71">CLASSICAL AND QUANTUM MECHANICS, GENERAL PHYSICS</option>
+                                            <option value="72">PHYSICS OF ELEMENTARY PARTICLES AND FIELDS</option>
+                                            <option value="73">NUCLEAR PHYSICS AND RADIATION PHYSICS</option>
+                                            <option value="74">ATOMIC AND MOLECULAR PHYSICS</option>
+                                            <option value="75">CONDENSED MATTER PHYSICS, SUPERCONDUCTIVITY AND SUPERFLUIDITY</option>
+                                            <option value="77">NANOSCIENCE AND NANOTECHNOLOGY</option>
+                                            <option value="79">ASTRONOMY AND ASTROPHYSICS</option>
+                                            <option value="96">KNOWLEDGE MANAGEMENT AND PRESERVATION</option>
+                                            <option value="97">MATHEMATICS AND COMPUTING</option>
+                                            <option value="98">NUCLEAR DISARMAMENT, SAFEGUARDS, AND PHYSICAL PROTECTION</option>
+                                            <option value="99">GENERAL AND MISCELLANEOUS</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
 
                         </div>
-
                     </div>
-                    <div class="card mb-3">
+
+                    <div class="card mb-1">
                         <div class="card-body">
                             <h5 class="card-title mb-1">Select Files and Upload</h5>
                             <div class="text-muted mb-3">Consider zipping large directories to speed up your uploads <a
@@ -308,10 +414,10 @@
 
                     </div>
 
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" id="create-button" class="btn btn-primary">Create</button>
-                </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" id="create-button" class="btn btn-primary">Create</button>
+                    </div>
 
             </form>
         </div>

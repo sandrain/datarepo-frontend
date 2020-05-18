@@ -64,8 +64,10 @@
                     <div class="row pl-3">
                         <div>
 
-                            <form action="/update/{{dataset.id}}/" method="post">
+                            <form action="/dataset/{{dataset.id}}/" method="post">
                                 {% csrf_token %}
+                                <input type="hidden" id="request-type" name="request-type"
+                                    value="update">
                                 <input type="hidden" id="input-description-tosave" name="input-description-tosave"
                                     value="">
                                 <input type="hidden" id="input-keywords-tosave" name="input-keywords-tosave" value="">
@@ -382,7 +384,6 @@
             var re = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?/;
             var is_url=re.test(input.val());
             text_to_set = '<p class="text-primary">' + input.val() + '</p>';
-
             if (is_url) {
                 $("#url").html($.trim(text_to_set));
                 $('#input-url-tosave').val($("#url-text-area").val());
