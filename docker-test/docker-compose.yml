@@ -24,6 +24,8 @@ services:
       SDI_DATABASE_NAME: sdidb
       SDI_DATABASE_HOST: mariadb
       SDI_DATABASE_PORT: 3306
+      SDI_GLOBUS_AUTH_CLIENT_ID: "ab4ae2a4-03bb-4441-bb43-ff9764132456"
+      SDI_GLOBUS_AUTH_CLIENT_SECRET: "RaX64+wwsZ3MQ3ucOjbVOai2kh5I6nIH9cqlALhrAjo="
     depends_on:
       - mariadb
     command: [ "./docker-test/container-scripts/wait-for-db.sh",

@@ -6,3 +6,4 @@ mysqlclient
 mysql-connector-python
 Faker
 social-auth-app-django
+python-jose
