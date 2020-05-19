@@ -1,0 +1,6 @@
+<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+    <span>{{ group.name }}</span>
+</h6>
+{% for item in group.items %}
+    {% include "mainpage/sidebar_item.html" with item=item %}
+{% endfor %}

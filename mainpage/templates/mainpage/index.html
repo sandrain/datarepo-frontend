@@ -32,6 +32,16 @@
 
 </script>
 
+<header>
+    {% include "mainpage/menu_bar.html" %}
+</header>
+
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            {% include "mainpage/sidebar.html" %}
+        </nav>
+
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 
     <!-- data set header -->
@@ -422,6 +432,10 @@
             </form>
         </div>
     </div>
+</div>
+
+</div>
+
 </div>
 
 {% endblock %}
