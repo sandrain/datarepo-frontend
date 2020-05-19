@@ -1,6 +1,34 @@
-FROM centos/python-36-centos7
-WORKDIR /code
-COPY requirements.txt /code/
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
-COPY docker-test /code/
+FROM python:latest
+#FROM centos
+
+#RUN pip install --upgrade pip
+RUN echo $(uname -a)
+
+# Create user for uwsgi
+RUN useradd --shell /bin/false uwsgi
+
+# Set an environment variable with the directory
+# where we'll be running the app
+ENV APP /app
+
+# Create the directory and instruct Docker to operate
+# from there from now on
+RUN mkdir $APP
+WORKDIR $APP
+
+# Expose the port uWSGI will listen on
+EXPOSE 5000
+# Copy the requirements file in order to install
+# Python dependencies
+COPY docker-test/requirements.txt .
+# Install Python dependencies
+RUN pip install --no-cache -r requirements.txt
+# We copy the rest of the codebase into the image
+COPY app.ini .
+
+RUN chown -R uwsgi $APP
+
+# Finally, we run uWSGI with the ini file we
+# created earlier
+#CMD [ "/bin/ls -la"]
+CMD [ "uwsgi", "--ini", "app.ini" ]

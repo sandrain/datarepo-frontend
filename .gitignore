@@ -145,5 +145,7 @@ cython_debug/
 
 # static files generated from Django application using `collectstatic`
 /staticfiles
+/static
+/public
 docker-test/mysql.vol
 

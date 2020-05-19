@@ -24,6 +24,8 @@ SECRET_KEY = 'io4o1_(a2m_9%oe8hzmo_$y(h#+*^@j1x+lplp@zq20u75@=n_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+#COMPRESS_ENABLED = True
+#COMPRESS_OFFLINE = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -32,12 +34,16 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'mainpage.apps.MainpageConfig',
+    'compressor',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_distill',
+    'sass_processor',
+    'landingpage'
 ]
 
 MIDDLEWARE = [
@@ -78,16 +84,21 @@ WSGI_APPLICATION = 'sdifrontend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'USER': os.environ['SDI_DATABASE_USER'],
-        'PASSWORD': os.environ['SDI_DATABASE_PASSWORD'],
-        'NAME': os.environ['SDI_DATABASE_NAME'],
-        'HOST': os.environ['SDI_DATABASE_HOST'],
-        'PORT': os.environ['SDI_DATABASE_PORT'],
+if  'SDI_DATABASE_USER' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'USER': os.environ['SDI_DATABASE_USER'],
+            'PASSWORD': os.environ['SDI_DATABASE_PASSWORD'],
+            'NAME': os.environ['SDI_DATABASE_NAME'],
+            'HOST': os.environ['SDI_DATABASE_HOST'],
+            'PORT': os.environ['SDI_DATABASE_PORT'] ,
+        }
     }
-}
+else: 
+    DATABASES = {
+        'default': {}
+    }
 
 SILENCED_SYSTEM_CHECKS = ['mysql.E001']
 
@@ -128,8 +139,21 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'sass_processor.finders.CssFinder'
+]
+
+#STATICFILES_DIRS = [
+#    os.path.join(BASE_DIR, "mainpage/bootstrap")
+#]
 
 INTERNAL_IPS = ['127.0.0.1']
+
+DISTILL_DIR = os.path.join(BASE_DIR, 'public')

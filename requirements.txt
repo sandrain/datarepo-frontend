@@ -1,7 +1,13 @@
-django>=1.11,<1.12
-django-debug-toolbar==1.8
+django
+django-debug-toolbar
+django-bootstrap4
+django_compressor
+django-libsass
+django-distill
+django-sass-processor
 gunicorn==19.4.5
-whitenoise==3.3.1
+whitenoise
 mysqlclient
 mysql-connector-python
 Faker
+future

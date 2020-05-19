@@ -11,7 +11,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - "./mysql.vol:/var/lib/mysql"
+      - mysqlvolume:/var/lib/mysql
       - "./dbschema:/docker-entrypoint-initdb.d"
   sdifrontend:
     container_name: sdifrontend
@@ -26,11 +26,26 @@ services:
       SDI_DATABASE_PORT: 3306
     depends_on:
       - mariadb
-    command: [ "./docker-test/container-scripts/wait-for-db.sh",
-               "python", "manage.py", "runserver", "0.0.0.0:8000" ]
-    volumes:
-      - ..:/code
     ports:
-      - "8000:8000"
+      - "5000:5000"
     links:
       - mariadb:mariadb
+    volumes:
+      - "../sdifrontend:/app/sdifrontend"
+      - "../mainpage:/app/mainpage"
+      - "../landingpage:/app/landingpage"
+  frontend:
+    build: 
+        context: ./frontend
+    image: frontend:latest
+    ports:
+        - 8080:80
+    depends_on:
+        - sdifrontend
+    links:
+      - sdifrontend:sdifrontend
+    volumes:
+      - "../public:/usr/share/nginx/html"
+
+volumes:
+  mysqlvolume:
