@@ -16,15 +16,8 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-# Globus temporary
-from .auth import globus
-
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('mainpage.urls')),
-
-    # Globus temporary
-    url(r'^globus/', globus.globus_view),
-    url(r'', include('django.contrib.auth.urls')),
-    url(r'', include('social_django.urls', namespace='social')),
+    url(r'', include('globus_auth.urls')),  # Temporary globus
 ]
