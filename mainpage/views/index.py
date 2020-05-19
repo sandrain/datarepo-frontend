@@ -17,7 +17,8 @@ class IndexView(generic.ListView):
         print("Received data parameter:", datatype)
 
         try:
-            search = self.request.GET['search']
+            search = self.request.GET.get('search', None)
+            print("search is:", search)
         except:
             search = None
 
