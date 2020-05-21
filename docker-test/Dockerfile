@@ -20,7 +20,7 @@ WORKDIR $APP
 EXPOSE 5000
 # Copy the requirements file in order to install
 # Python dependencies
-COPY docker-test/requirements.txt .
+COPY requirements-deployment.txt requirements.txt
 # Install Python dependencies
 RUN pip install --no-cache -r requirements.txt
 # We copy the rest of the codebase into the image

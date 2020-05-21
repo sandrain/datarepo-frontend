@@ -1,12 +1,10 @@
 django
 django-debug-toolbar
-django-bootstrap4
 django_compressor
 django-libsass
 django-distill
 django-sass-processor
-gunicorn==19.4.5
-whitenoise
+django-fontawesome_5
 mysqlclient
 mysql-connector-python
 Faker

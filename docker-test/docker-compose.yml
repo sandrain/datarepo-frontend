@@ -32,8 +32,6 @@ services:
       - mariadb:mariadb
     volumes:
       - "../sdifrontend:/app/sdifrontend"
-      - "../mainpage:/app/mainpage"
-      - "../landingpage:/app/landingpage"
   frontend:
     build: 
         context: ./frontend

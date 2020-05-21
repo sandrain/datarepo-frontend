@@ -16,12 +16,12 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-import mainpage.views as mp
+import sdifrontend.apps.mainpage.views as mp
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^main/', mp.IndexView.as_view()),
-    url(r'', include('landingpage.url')),
+    url(r'', include('sdifrontend.apps.landingpage.url')),
     url(r'^dataset/(?P<dataset_id>[0-9]+)/$', mp.dataset_manage),
     url(r'^dataset/$', mp.dataset_create),
     url(r'^user/(?P<user_id>[A-Za-z0-9]+)/$', mp.user_manage),

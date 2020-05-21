@@ -1,0 +1,11 @@
+django
+django-debug-toolbar
+django_compressor
+django-libsass
+django-distill
+django-sass-processor
+django-fontawesome_5
+mysqlclient
+mysql-connector-python
+Faker
+uWSGI
