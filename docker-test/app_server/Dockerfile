@@ -27,11 +27,14 @@ RUN pip install --no-cache -r requirements.txt
 COPY app.ini .
 COPY docker-test/container-scripts/connect.py .
 COPY docker-test/container-scripts/wait-for-db.sh .
+COPY manage.py .
 
 RUN chown -R uwsgi $APP
 RUN ls -la
 
 # Finally, we run uWSGI with the ini file we
 # created earlier
-#CMD [ "/bin/ls -la"]
-CMD which env; ./wait-for-db.sh && PYTHONPATH=. django-admin migrate --settings=sdifrontend.settings.production && uwsgi --ini app.ini
+CMD which env; ./wait-for-db.sh \
+    && bash -c "python manage.py collectstatic --no-input" \
+    && bash -c "python manage.py migrate --settings=sdifrontend.settings.production" \
+    && uwsgi --ini app.ini

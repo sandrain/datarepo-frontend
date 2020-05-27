@@ -28,11 +28,13 @@ services:
       - mariadb
     ports:
       - "5000:5000"
-    # links:
-    #   - mariadb:mariadb
+    links:
+      - mariadb:mariadb
     volumes:
       - "../sdifrontend:/app/sdifrontend"
-  frontend:
+      - "../static:/app/static"
+  nginx:
+    container_name: nginx
     build: 
         context: ./frontend
     image: frontend:latest
@@ -43,7 +45,6 @@ services:
     links:
       - sdifrontend:sdifrontend
     volumes:
-      - "../public:/usr/share/nginx/html"
-
+      - "../static:/usr/share/nginx/html/static"
 volumes:
   mysqlvolume:
