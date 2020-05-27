@@ -1,4 +1,4 @@
-version: "3.0"
+version: "3.4"
 services:
   mariadb:
     container_name: mariadb
@@ -12,12 +12,12 @@ services:
       - "3306:3306"
     volumes:
       - mysqlvolume:/var/lib/mysql
-      - "./dbschema:/docker-entrypoint-initdb.d"
+      #- "./dbschema:/docker-entrypoint-initdb.d"
   sdifrontend:
     container_name: sdifrontend
     build:
       context: ..
-      dockerfile: docker-test/Dockerfile
+      dockerfile: docker-test/app_server/Dockerfile
     environment:
       SDI_DATABASE_USER: sdidbp
       SDI_DATABASE_PASSWORD: sdisdi
@@ -28,8 +28,8 @@ services:
       - mariadb
     ports:
       - "5000:5000"
-    links:
-      - mariadb:mariadb
+    # links:
+    #   - mariadb:mariadb
     volumes:
       - "../sdifrontend:/app/sdifrontend"
   frontend:
@@ -37,7 +37,7 @@ services:
         context: ./frontend
     image: frontend:latest
     ports:
-        - 8080:80
+        - 8000:80
     depends_on:
         - sdifrontend
     links:

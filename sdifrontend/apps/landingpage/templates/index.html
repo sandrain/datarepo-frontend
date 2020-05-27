@@ -4,6 +4,17 @@
 {% load fontawesome_5 %}
 
 {% block content %}
+<nav class="landingpage-navbar fixed-top flex-md-nowrap p-0">
+    <ul>
+        <li class="nav-item text-nowrap">
+        {% if user and not user.is_anonymous %}
+            <a href="{% url 'logout' %}?next={{ request.path }}">Logout</a>
+        {% else %}
+            <a href="{% url 'social:begin' 'globus' %}?next={{ request.path }}">Login with Globus</a>
+        {% endif %}
+        </li>
+    </ul>
+</nav>
 
 <main role="main" class="container-fluid landingpage">
     <div class="logo"></div>
@@ -23,7 +34,7 @@
     <div class="menu">
         <ul>
             <li><a href="search" class="fas fa-database">Data</a></li>
-            <li><a href="search" class="fas fa-newspaper">News</a></li>
+            <li><a href="news" class="fas fa-newspaper">News</a></li>
     </div>
 </main>
 {% endblock %}

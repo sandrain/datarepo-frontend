@@ -10,6 +10,21 @@ $theme-colors: (
   max-width: 13in !important;
 }
 
+.landingpage-navbar {
+  ul {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+  }
+  li {
+    padding: 5px;
+  }
+}
+
+.nav-item {
+  padding: 5px;
+}
+
 .landingpage {
   .splash {
     background-image: url('/static/img/background.png');
@@ -78,6 +93,13 @@ $theme-colors: (
   height: 0.56in;
   width: 1.84in;
   margin-left: 0in !important;
+}
+
+.logo {
+  h1 {
+    margin-left: 1.8in;
+    color: #007833;
+  }
 }
 
 body {

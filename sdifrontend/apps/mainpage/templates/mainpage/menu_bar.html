@@ -1,28 +1,30 @@
 {% block menu-bar %}
 <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">HDC Portal</a>
-    <form class="form-inline w-100" action="/search" method="GET">
-        <div>
-            <input class="form-control form-control-dark " type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
+    <form action="/search" method="GET">
+        <div class="input-group">
+            <input class="form-control form-control-dark" type="search" placeholder="Search" aria-label="Search">
+            <div class="input-group-append">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </div>
         </div>
     </form>
-    <ul class="navbar-nav px-3">
-        <li class="nav-item text-nowrap">
-            <a class="nav-link" href="#">Sign out</a>
-        </li>
-    </ul>
     <ul class="navbar-nav px-1">
         <li class="nav-item text-nowrap">
             <!-- hypothetical user: samuel93-->
-            <a href="/user/samuel93">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white"
-                    stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="feather feather-user">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                </svg>
-            </a>
+            {% if user and not user.is_anonymous %}
+                <a href="/user/{{ user.username }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white"
+                        stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-user">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </a>
+                <a href="{% url 'logout' %}?next={{ request.path }}">Logout</a>
+            {% else %}
+                <a href="{% url 'social:begin' 'globus' %}?next={{ request.path }}">Login with Globus</a>
+            {% endif %}
         </li>
     </ul>
 </nav>

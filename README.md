@@ -50,30 +50,27 @@ The sample application code and templates in this repository contain scripts tha
 
 To run this project in your development machine, follow these steps:
 
-1. (optional) Create and activate a [virtualenv](https://virtualenv.pypa.io/) (you may want to use [virtualenvwrapper](http://virtualenvwrapper.readthedocs.org/)).
+1. Install a virtual environment in the project root:
 
-2. Ensure that the executable `pg_config` is available on your machine. You can check this using `which pg_config`. If not, install the dependency with one of the following.
-  - macOS: `brew install postgresql` using [Homebrew](https://brew.sh/)
-  - Ubuntu: `sudo apt-get install libpq-dev`
-  - [Others](https://stackoverflow.com/a/12037133/8122577)
+    `python3 -m venv ./env`
 
-3. Fork this repo and clone your fork:
+2. Activate the virtual environment:
 
-    `git clone https://github.com/sclorg/django-ex.git`
+    `. .env/bin/activate`
 
-4. Install dependencies:
+2. Install dependencies:
 
-    `pip install -r requirements.txt`
+    `pip install -r requirements-development.txt`
 
-5. Create a development database:
+3. Create a development database:
 
     `./manage.py migrate`
 
-6. If everything is alright, you should be able to start the Django development server:
+4. If everything is alright, you should be able to start the Django development server:
 
     `./manage.py runserver`
 
-7. Open your browser and go to http://127.0.0.1:8000, you will be greeted with a welcome page.
+5. Open your browser and go to http://127.0.0.1:8000, you will be greeted with a welcome page.
 
 
 ## Deploying to OpenShift

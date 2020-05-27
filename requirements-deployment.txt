@@ -7,5 +7,7 @@ django-sass-processor
 django-fontawesome_5
 mysqlclient
 mysql-connector-python
+social-auth-app-django
+python-jose
 Faker
 uWSGI

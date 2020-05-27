@@ -1,0 +1,22 @@
+{% extends "mainpage/base.html" %}
+{% load static %}
+{% load compress %}
+{% load fontawesome_5 %}
+
+{% block content %}
+<nav class="landingpage-navbar fixed-top flex-md-nowrap p-0">
+    <ul>
+        <li class="nav-item text-nowrap">
+        {% if user and not user.is_anonymous %}
+            <a href="{% url 'logout' %}?next={{ request.path }}">Logout</a>
+        {% else %}
+            <a href="{% url 'social:begin' 'globus' %}?next={{ request.path }}">Login with Globus</a>
+        {% endif %}
+        </li>
+    </ul>
+</nav>
+
+<main role="main" class="container-fluid landingpage">
+    <div class="logo"><h1>News</h1></div>
+</main>
+{% endblock %}

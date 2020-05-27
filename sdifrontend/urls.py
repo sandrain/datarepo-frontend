@@ -24,6 +24,9 @@ urlpatterns = [
     url(r'', include('sdifrontend.apps.landingpage.url')),
     url(r'^dataset/(?P<dataset_id>[0-9]+)/$', mp.dataset_manage),
     url(r'^dataset/$', mp.dataset_create),
-    url(r'^user/(?P<user_id>[A-Za-z0-9]+)/$', mp.user_manage),
+    url('user/', mp.UserView.as_view()),
     url(r'^search/$', mp.IndexView.as_view()),
+    url('', include('sdifrontend.apps.news.urls')),
+    url('', include('django.contrib.auth.urls')),
+    url('', include('social_django.urls', namespace='social'))
 ]

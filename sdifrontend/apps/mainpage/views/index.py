@@ -3,7 +3,7 @@ import random, json, uuid
 
 from sdifrontend.apps.mainpage.models import SysDataset, SysUser
 
-from .utils import *
+from .utils import unpack_dataset_json
 
 class IndexView(generic.ListView):
     template_name = 'mainpage/index.html'

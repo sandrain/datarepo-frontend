@@ -47,8 +47,10 @@ INSTALLED_APPS = [
     'django_distill',
     'fontawesome_5',
     'sass_processor',
+    'social_django',
     'sdifrontend.apps.mainpage',
-    'sdifrontend.apps.landingpage'
+    'sdifrontend.apps.landingpage',
+    'sdifrontend.apps.news'
 ]
 
 MIDDLEWARE = [
@@ -74,6 +76,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
             'libraries': {
                 'nav_sidebar': 'sdifrontend.apps.mainpage.sidebar'
@@ -84,6 +88,38 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'sdifrontend.wsgi.application'
 
+# Logging
+# https://docs.djangoproject.com/en/3.0/topics/logging/
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'WARNING',
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+            'propagate': False,
+        },
+        'sdifrontend.apps':{
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'WARN'),
+            'propagate': True,
+        },
+        'sdifrontend.apps.mainpage.views.user':{
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+            'propagate': False,
+        }
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
@@ -108,6 +144,21 @@ else:
     }
 
 SILENCED_SYSTEM_CHECKS = ['mysql.E001']
+
+AUTHENTICATION_BACKENDS = [
+    'social_core.backends.globus.GlobusOpenIdConnect',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+# python_social
+# https://python-social-auth.readthedocs.io/en/latest/
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
+SOCIAL_AUTH_GLOBUS_KEY = 'db786b4f-5a50-47f5-bd13-9ea7f7d0599a'
+SOCIAL_AUTH_GLOBUS_SECRET = 'tjxCHVIBGYNFnTFnAdMaOW5VfgZCw7PsHOyvjnzftQc='
+SOCIAL_AUTH_GLOBUS_AUTH_EXTRA_ARGUMENTS = {
+    'access_type': 'offline',
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators

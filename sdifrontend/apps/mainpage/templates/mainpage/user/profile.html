@@ -46,7 +46,7 @@
                 <div class="card-header">
                     <b>User Bio</b>
                 </div>
-                <div class="card-body">{{ user.bio }}
+                <div class="card-body">{{ user_data.bio }}
                 </div>
 
             </div>
@@ -64,7 +64,7 @@
                             </tr>
                             <tr>
                                 <td><i data-feather="user"></i> <strong>Display Name</strong></td>
-                                <td>{{user.displayname}}</td>
+                                <td>{{ user.get_full_name|default:user.username }}</td>
                             </tr>
                             <tr>
                                 <td><i data-feather="mail"></i> <strong>Email</strong></td>
@@ -72,7 +72,7 @@
                             </tr>
                             <tr>
                                 <td><i data-feather="calendar"></i> <strong>Log</strong></td>
-                                <td>Joined 8 years ago · last seen in the past day</td>
+                                <td>Joined: {{ user.date_joined }} · Last login: {{ user.last_login }}</td>
                             </tr>
 
                         </tbody>
