@@ -37,7 +37,7 @@ services:
     container_name: nginx
     build: 
         context: ./frontend
-    image: frontend:latest
+    image: nginx:latest
     ports:
         - 8000:80
     depends_on:
