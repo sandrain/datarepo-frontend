@@ -20,10 +20,11 @@
     <div class="logo"></div>
     <div class="splash">
         <h1>Welcome to the Scalable Data Infrastructure for Science</h1>
-        <form action="/search" method="GET">
+        <form action="/search/" method="POST">
+            {% csrf_token %}
             <div class="search">
                 <div class="input-group">
-                    <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                    <input class="form-control" type="search" name="search" placeholder="Search" aria-label="Search">
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="submit">Search</button>
                     </div>
