@@ -73,7 +73,7 @@ class SysDataset(models.Model):
     icon = models.CharField(max_length=256, blank=True, null=True)
     properties = models.TextField(blank=True, null=True)
     structure = models.TextField(blank=True, null=True)
-    created = models.DateTimeField()
+    created = models.DateTimeField(null=False, auto_now=True)
     updated = models.DateTimeField(blank=True, null=True, auto_now=True)
 
     class Meta:
