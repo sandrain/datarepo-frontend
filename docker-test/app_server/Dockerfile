@@ -14,6 +14,9 @@ ENV APP /app
 # Create the directory and instruct Docker to operate
 # from there from now on
 RUN mkdir $APP
+RUN mkdir $APP/static
+#RUN mkdir $APP/static/css
+#RUN mkdir $APP/static/js
 WORKDIR $APP
 
 # Expose the port uWSGI will listen on
@@ -29,8 +32,9 @@ COPY docker-test/container-scripts/connect.py .
 COPY docker-test/container-scripts/wait-for-db.sh .
 COPY manage.py .
 
-RUN chown -R uwsgi $APP
-RUN ls -la
+RUN chown -R uwsgi:uwsgi ${APP}
+
+USER uwsgi:uwsgi
 
 # Finally, we run uWSGI with the ini file we
 # created earlier

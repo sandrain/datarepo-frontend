@@ -3,11 +3,13 @@
 {% load compress %}
 {% load fontawesome_5 %}
 
-{% block content %}
 
+{% block script %}
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="https://www.jasondavies.com/wordcloud/cloud.min.js"></script>
+{% endblock %}
 
+{% block header %}
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
     <div class="logo"></div>
     <h5 class="my-0 mr-md-auto font-weight-normal"></h5>
@@ -21,7 +23,9 @@
     {% endif %}
 
 </div>
+{% endblock %}
 
+{% block content %}
   <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
     <h1 class="display-4">Welcome to the Scalable Data Infrastructure for Science</h1>
     <p class="lead">Upload, publish, share your scientific data and collaborate with others!</p>
@@ -57,7 +61,6 @@
             </div>
         </div>
     </div>
-
 </div>
 
 <div class="container">
@@ -69,17 +72,17 @@
                         <div class="col-lg-4">
                             <h2>Dataset</h2>
                             <p>Explore datasets uploaded by you and other scientists.</p>
-                            <p><a class="btn btn-secondary" href="search" role="button">View details &raquo;</a></p>
+                            <p><a class="btn btn-primary" href="search" role="button">View details &raquo;</a></p>
                         </div><!-- /.col-lg-4 -->
                         <div class="col-lg-4">
                             <h2>News</h2>
                             <p>Learn what is happening around the scalable data infrastructure for science.</p>
-                            <p><a class="btn btn-secondary" href="news" role="button">View details &raquo;</a></p>
+                            <p><a class="btn btn-primary" href="news" role="button">View details &raquo;</a></p>
                         </div><!-- /.col-lg-4 -->
                         <div class="col-lg-4">
                             <h2>Discuss</h2>
                             <p>Discuss your research topics and share your knowledge with others.</p>
-                            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+                            <p><a class="btn btn-primary" href="#" role="button">View details &raquo;</a></p>
                         </div><!-- /.col-lg-4 -->
                     </div><!-- /.row -->
 

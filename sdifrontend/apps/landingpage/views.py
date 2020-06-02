@@ -1,8 +1,9 @@
 from django.views.generic import TemplateView
 from django.shortcuts import render
+from django.contrib.auth.models import User
 
 class IndexView(TemplateView):
-   template_name = 'index.html'
+   template_name = 'landingpage/index.html'
    uuid = None
    access_token = None
    refresh_token = None

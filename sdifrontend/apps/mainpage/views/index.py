@@ -1,4 +1,5 @@
 from django.views import generic
+from django.shortcuts import render
 import random, json, uuid
 
 from sdifrontend.apps.mainpage.models import SysDataset, SysUser
@@ -7,10 +8,17 @@ from .utils import unpack_dataset_json
 
 class IndexView(generic.ListView):
     template_name = 'mainpage/index.html'
-    context_object_name = 'latest_dataset_list'
+    context_object_name = 'datasets'
+
+    def post(self, request, *args, **kwargs):
+        print(request.POST)
+        return render(request, self.template_name)
+
 
     def get_queryset(self, **kwargs):
         # Get ten recent datasets.
+
+        print(self.request)
 
         datatype = self.request.GET.get('datatype', None)
         print("Received data parameter:", datatype)

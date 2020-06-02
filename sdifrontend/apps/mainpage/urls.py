@@ -1,9 +1,12 @@
-from django.conf.urls import url
+from django.urls import path
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.IndexView.as_view()),
-    url(r'^dataset/(?P<dataset_id>[0-9]+)/$', views.dataset_manage),
-    url(r'^dataset/$', views.dataset_create),
-    url(r'^user/(?P<user_id>[A-Za-z0-9]+)/$', views.user_manage),
+    path('data/', views.index.IndexView.as_view(), name="dataset-index"),
+    path('dataset/create', views.DatasetCreate.as_view(), name='dataset-create'),
+    path('dataset/<int:pk>/', views.DatasetView.as_view(), name="dataset-detail"),
+    path('dataset/<int:pk>/update', views.DatasetUpdate.as_view(), name="dataset-update"),
+    path('dataset/<int:pk>/delete', views.DatasetDelete.as_view(), name="dataset-delete"),
+    path('dataset/category/<int:category>/', views.DataSetsTypeView.as_view()),
+    path('dataset/', views.dataset_create),
 ]

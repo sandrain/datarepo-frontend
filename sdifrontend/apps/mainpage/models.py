@@ -8,6 +8,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.urls import reverse
 
 
 class DoiAuthor(models.Model):
@@ -67,10 +68,11 @@ class DoiRecord(models.Model):
 class SysDataset(models.Model):
     id = models.BigAutoField(primary_key=True)
     uuid = models.CharField(unique=True, max_length=36)
-    owner = models.ForeignKey('SysUser', models.DO_NOTHING, db_column='owner')
+    owner = models.ForeignKey('SysUser', on_delete=models.SET_NULL, blank=True, null=True)
     public = models.IntegerField(blank=True, null=True)
     size = models.BigIntegerField(blank=True, null=True)
     icon = models.CharField(max_length=256, blank=True, null=True)
+    category = models.IntegerField(default=0)
     properties = models.TextField(blank=True, null=True)
     structure = models.TextField(blank=True, null=True)
     created = models.DateTimeField(null=False, auto_now=True)
@@ -80,10 +82,13 @@ class SysDataset(models.Model):
         #managed = False
         db_table = 'sys_dataset'
 
+    def get_absolute_url(self):
+        return reverse('dataset-detail', kwargs={'pk': self.pk})
+
 
 class SysFile(models.Model):
     id = models.BigAutoField(primary_key=True)
-    dataset = models.ForeignKey(SysDataset, models.DO_NOTHING)
+    dataset = models.ForeignKey(SysDataset, on_delete=models.CASCADE)
     name = models.CharField(max_length=512)
     size = models.BigIntegerField(blank=True, null=True)
 
@@ -93,7 +98,7 @@ class SysFile(models.Model):
 
 
 class SysPermission(models.Model):
-    dataset = models.ForeignKey(SysDataset, models.DO_NOTHING)
+    dataset = models.ForeignKey(SysDataset, on_delete=models.CASCADE)
     user = models.ForeignKey('SysUser', models.DO_NOTHING)
     writable = models.IntegerField(blank=True, null=True)
 

@@ -35,12 +35,13 @@
     <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/index.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/index.js' %}"></script>
     {% endcompress %}
     <title>Hyper-scale Data Center Portal</title>
 </head>
 
 <body>
+    {% block script %}{% endblock %}
+    {% block header %}{% endblock %}
     {% block content %}{% endblock %}
 </body>
 

@@ -13,20 +13,18 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url, include
+from django.urls import path, include
 from django.contrib import admin
 
 import sdifrontend.apps.mainpage.views as mp
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^main/', mp.IndexView.as_view()),
-    url(r'', include('sdifrontend.apps.landingpage.url')),
-    url(r'^dataset/(?P<dataset_id>[0-9]+)/$', mp.dataset_manage),
-    url(r'^dataset/$', mp.dataset_create),
-    url('user/', mp.UserView.as_view()),
-    url(r'^search/$', mp.IndexView.as_view()),
-    url('', include('sdifrontend.apps.news.urls')),
-    url('', include('django.contrib.auth.urls')),
-    url('', include('social_django.urls', namespace='social'))
+    path('', include('sdifrontend.apps.landingpage.url')),
+    path('', include('sdifrontend.apps.news.urls')),
+    path('', include('sdifrontend.apps.mainpage.urls')),
+    path('', include('django.contrib.auth.urls')),
+    path('', include('social_django.urls', namespace='social')),
+    path(r'admin/', admin.site.urls),
+    path(r'user/<username>/', mp.UserView.as_view()),
+    path(r'search/', mp.IndexView.as_view()),
 ]

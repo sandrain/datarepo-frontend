@@ -13,7 +13,7 @@
             var delete_check = $('#delete-form').find('input[name="sysdataset-delete-check"]').val();
             delete_check = $.trim(delete_check);
 
-            if(delete_check!='{{dataset.attributes.title}}'){
+            if (delete_check != '{{object.attributes.title}}') {
                 error_free = false;
             }
             if (!error_free) {
@@ -33,7 +33,12 @@
     {% include "mainpage/menu_bar.html" %}
 </header>
 
-<h1>{{ dataset.id }}</h1>
+<!-- h1>{{ object.id }}</h1-->
+
+<div class="row m-0">
+    <nav class="sidebar">
+        {% include "mainpage/sidebar.html" %}
+    </nav>
 
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 
@@ -45,7 +50,7 @@
             <div class="card mb-3">
                 <div class="card-body">
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
-                        <h1 class="h2">{{ dataset.attributes.title }}</h1><br>
+                        <h1 class="h2">{{ object.attributes.title }}</h1><br>
                     </div>
                     <div class="row">
 
@@ -53,29 +58,35 @@
 
 
                             <div class="justify-content-between flex-wrap flex-md-nowrap align-items-left pb-3">
-                                {{ dataset.attributes.subtitle }}
+                                {{ object.attributes.subtitle }}
                             </div>
                             <div class="mb-1 text-muted"><i data-feather="user"></i>
-                                {{ dataset.attributes.institution }} <i data-feather="link"></i> {{ dataset.attributes.url }} </div>
-                            <div class="mb-1 text-muted"><i data-feather="calendar"></i> created at {{ dataset.created }} <i
-                                    data-feather="database"></i> {{ dataset.sizemb }} MB <i data-feather="file"></i>
-                                {{ dataset.filecount }} Files
+                                {{ object.attributes.institution }} <i data-feather="link"></i>
+                                {{ object.attributes.url }} </div>
+                            <div class="mb-1 text-muted"><i data-feather="calendar"></i> created at {{ object.created }}
+                                <i data-feather="database"></i> {{ object.sizemb }} MB <i data-feather="file"></i>
+                                {{ object.filecount }} Files
                                 (JSON, CSV, Other)</div>
                             <div class="mb-3 text-muted"><i data-feather="tag"></i>
-                                {{ dataset.keywords }}</div>
+                                {{ object.keywords }}</div>
 
                         </div>
+                        {% if object.icon %}
                         <div class="col-md-2 align-items-center"><img height="100" width="100"
-                                src="{% static dataset.icon %}"></div>
+                                src="{% static object.icon %}"></div>
+                        {% endif %}
                     </div>
                     <div class="row pl-3">
                         <div class="pr-2">
-                            <button type="button" class="btn btn-primary btn-sm"><i data-feather="download"></i> Download</button>
+                            <button type="button" class="btn btn-primary btn-sm"><i data-feather="download"></i>
+                                Download</button>
                         </div>
                         <div>
-                            <a href = "/dataset/{{ dataset.id }}?update=1"><button type="button" class="btn btn-primary  btn-sm"><i data-feather="edit-2"></i> Update</button></a>
+                            <a href="/dataset/{{ object.id }}/update"><button type="button"
+                                    class="btn btn-primary  btn-sm"><i data-feather="edit-2"></i> Update</button></a>
                             <button id="dataset-delete-btn" type="button" data-toggle="modal"
-                            data-target="#dataset-delete" class="btn btn-primary  btn-sm"><i data-feather="trash"></i> Delete</button>
+                                data-target="#dataset-delete" class="btn btn-primary  btn-sm"><i
+                                    data-feather="trash"></i> Delete</button>
                         </div>
                     </div>
 
@@ -86,7 +97,7 @@
                 <div class="card-header">
                     <b>Description</b>
                 </div>
-                <div class="card-body">{{ dataset.attributes.description }}</div>
+                <div class="card-body">{{ object.attributes.description }}</div>
 
             </div>
 
@@ -99,24 +110,24 @@
                         <tbody>
                             <tr>
                                 <td><i data-feather="calendar"></i> <strong>Created:</strong></td>
-                                <td>{{ dataset.created }}</td>
+                                <td>{{ object.created }}</td>
                             </tr>
                             <tr>
                                 <td><i data-feather="calendar"></i> <strong>Last updated:</strong></td>
-                                <td>{{ dataset.updated }}</td>
+                                <td>{{ object.updated }}</td>
                             </tr>
                             <tr>
                                 <td><i data-feather="tag"></i> <strong>Keywords:</strong></td>
-                                <td>{{ dataset.keywords }}</td>
+                                <td>{{ object.keywords }}</td>
                             </tr>
                             <tr>
                                 <td><i data-feather="users"></i> <strong>Originating Research Organizations:</strong>
                                 </td>
-                                <td>{{ dataset.attributes.institution }}</td>
+                                <td>{{ object.attributes.institution }}</td>
                             </tr>
                             <tr>
                                 <td><i data-feather="mail"></i> <strong>Contact Email:</strong></td>
-                                <td>{{ dataset.owner.email }}</td>
+                                <td>{{ object.owner.email }}</td>
                             </tr>
                             <!--tr>
                                 <td><i data-feather="link"></i> <strong>DOI:</strong></td>
@@ -124,7 +135,7 @@
                             </tr-->
                             <tr>
                                 <td><i data-feather="link"></i> <strong>Site URL:</strong></td>
-                                <td>{{ dataset.attributes.url }}</td>
+                                <td>{{ object.attributes.url }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -175,6 +186,7 @@
     </div>
     </div>
 </main>
+</div>
 
 <div class="modal fade bd-example-modal-lg" id="dataset-delete" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -187,29 +199,30 @@
                 </button>
             </div>
 
-            <form action="/dataset/{{ dataset.id }}/" id="delete-form" method="post">
+            <form action="/dataset/{{ object.id }}/delete" id="delete-form" method="post">
                 {% csrf_token %}
 
-            <div class="modal-body">
-                <div class="card  mb-2">
+                <div class="modal-body">
+                    <div class="card  mb-2">
                         <div class="card-body">
-                            This action cannot be <b>undone</b>. This will permanently delete the <b>'{{dataset.attributes.title}}'</b> dataset.<br> Please type <b>'{{dataset.attributes.title}}'</b> to confirm.
+                            This action cannot be <b>undone</b>. This will permanently delete the
+                            <b>'{{object.attributes.title}}'</b> dataset.<br> Please type
+                            <b>'{{object.attributes.title}}'</b> to confirm.
                         </div>
-                        </div>
+                    </div>
 
                     <input type="text" class="form-control form-control-sm mb-1" id="sysdataset-delete-check"
-                            name="sysdataset-delete-check" placeholder="Enter '{{dataset.attributes.title}}' if you're absolutely sure.">
+                        name="sysdataset-delete-check"
+                        placeholder="Enter '{{object.attributes.title}}' if you're absolutely sure.">
 
-            </div>
-            <div class="modal-footer">
-                <button type="submit" id="delete-sure-button" class="btn btn-primary">I am sure!</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-            <input type="hidden" id="request-type" name="request-type"
-                                    value="delete">
-        </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="delete-sure-button" class="btn btn-primary">I am sure!</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+                <input type="hidden" id="request-type" name="request-type" value="delete">
+            </form>
         </div>
     </div>
 </div>
-
 {% endblock %}

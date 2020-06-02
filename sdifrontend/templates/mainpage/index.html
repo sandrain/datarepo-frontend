@@ -1,8 +1,8 @@
 {% extends "mainpage/base.html" %}
-{% block content %}
 {% load static %}
 {% load compress %}
 
+{% block script %}
 <script>
 
     $(document).ready(function () {
@@ -32,69 +32,75 @@
     });
 
 </script>
+{% endblock %}
 
+{% block header %}
 <header>
     {% include "mainpage/menu_bar.html" %}
 </header>
+{% endblock %}
 
-<div class="container-fluid">
-    <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-            {% include "mainpage/sidebar.html" %}
-        </nav>
+{% block content %}
+<div class="row m-0">
+    <nav class="sidebar">
+        {% include "mainpage/sidebar.html" %}
+    </nav>
 
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+    <main role="main" class="main"> <!--col-md-9 ml-sm-auto col-lg-10 px-4"-->
 
-            <!-- data set header -->
-            <div class="row">
-                <div class="col-md-10">
-                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3">
-                        <h1 class="h2">Datasets</h1><br>
-                    </div>
-
-                    <div class="justify-content-between flex-wrap flex-md-nowrap align-items-left pb-3">
-                        Find and use datasets for scientific discovery. <a href="#">Learn more</a>
-                    </div>
+        <!-- data set header -->
+        <div class="row">
+            <div class="col-md-10">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3">
+                    <h1 class="h2">Datasets</h1><br>
                 </div>
-                {% if user and not user.is_anonymous %}
-                <div class="col-md-2 mt-3">
-                    <a class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#fileupload" href="#"><i
-                            data-feather="plus"></i> New Dataset </a>
+
+                <div class="justify-content-between flex-wrap flex-md-nowrap align-items-left pb-3">
+                    Find and use datasets for scientific discovery. <a href="#">Learn more</a>
                 </div>
+            </div>
+            {% if user and not user.is_anonymous %}
+            <div class="col-md-2 mt-3">
+                <a class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#fileupload" href="#"><i
+                        data-feather="plus"></i> New Dataset </a>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- head line-->
+        <div class="row mb-2">
+            <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-left bg-light">
+                <div class="col-md-0 p-lg-0 mx-auto my-0">
+                    <h1 class="display-4 font-weight-normal">Help us better understand COVID-19</h1>
+                    <p class="lead font-weight-normal">There is a large body of research and literature continuously
+                        evolving around COVID-19. Help the research community and global organizations better digest
+                        this to answer key questions.</p>
+                    <a class="btn btn-primary" href="#">Get Started</a>
+                </div>
+                <div class="product-device shadow-sm d-none d-md-block"></div>
+                <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+            </div>
+        </div>
+
+        <div class="row mb-2">
+            <ul class="flex-container">
+                {% if latest_dataset_list %}
+                {% for dataset in latest_dataset_list %}
+                {% include "mainpage/dataset/ds_item.html" with dataset=dataset %}
+                {% endfor %}
                 {% endif %}
-            </div>
 
-            <!-- head line-->
-            <div class="row mb-2">
-                <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-left bg-light">
-                    <div class="col-md-0 p-lg-0 mx-auto my-0">
-                        <h1 class="display-4 font-weight-normal">Help us better understand COVID-19</h1>
-                        <p class="lead font-weight-normal">There is a large body of research and literature continuously
-                            evolving around COVID-19. Help the research community and global organizations better digest
-                            this to answer key questions.</p>
-                        <a class="btn btn-primary" href="#">Get Started</a>
-                    </div>
-                    <div class="product-device shadow-sm d-none d-md-block"></div>
-                    <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
-                </div>
-            </div>
+                {% if datasets %}
+                {% for dataset in datasets %}
+                {% include "mainpage/dataset/ds_item.html" with dataset=dataset %}
+                {% endfor %}
+                {% endif %}
+            </ul>
 
-            <div class="row">
-                <ul>
-                    {% if latest_dataset_list %}
-                    {% for dataset in latest_dataset_list %}
-                    {% include "mainpage/dataset/ds_item.html" with dataset=dataset %}
-                    {% endfor %}
-                    {% endif %}
-                </ul>
-
-                <!-- side bar (right) -->
-            </div>
-        </main>
-    </div>
+            <!-- side bar (right) -->
+        </div>
+    </main>
 </div>
-
-
 
 <!-- Button trigger modal -->
 
