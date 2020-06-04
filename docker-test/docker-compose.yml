@@ -17,7 +17,7 @@ services:
     container_name: sdifrontend
     build:
       context: ..
-      dockerfile: docker-test/app_server/Dockerfile
+      dockerfile: docker-test/sdifrontend/Dockerfile
     environment:
       SDI_DATABASE_USER: sdidbp
       SDI_DATABASE_PASSWORD: sdisdi
@@ -33,15 +33,15 @@ services:
     volumes:
       - "../sdifrontend:/app/sdifrontend"
       - "../static:/app/static"
-  nginx:
-    container_name: nginx
+  sdinginx:
+    container_name: sdinginx
     build: 
-        context: ./frontend
-    image: nginx:latest
-    ports:
-        - 8000:80
+      context: ..
+      dockerfile: docker-test/sdinginx/Dockerfile
     depends_on:
-        - sdifrontend
+      - sdifrontend
+    ports:
+      - "8000:8000"
     links:
       - sdifrontend:sdifrontend
     volumes:
