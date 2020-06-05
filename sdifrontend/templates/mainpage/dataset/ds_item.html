@@ -6,8 +6,11 @@
         <h3 class="mb-3">{{ dataset.attributes.title }}</h3>
 
         <div class="row">
-            <div class="col-md-2 align-items-center"><img height="100" width="100"
-                    src="{% static dataset.icon %}"></div>
+            <div class="col-md-2 align-items-center">
+                {% if dataset.icon %}
+                <img height="100" width="100" src="{% static dataset.icon %}">
+                {% endif %}
+            </div>
             <div class="col-md-10">
                 <div class="mb-1">{{ dataset.attributes.title }}
                 </div>

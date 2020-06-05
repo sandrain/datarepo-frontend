@@ -73,6 +73,7 @@ class SysDataset(models.Model):
     size = models.BigIntegerField(blank=True, null=True)
     icon = models.CharField(max_length=256, blank=True, null=True)
     category = models.IntegerField(default=0)
+    type = models.IntegerField(default=0)
     properties = models.TextField(blank=True, null=True)
     structure = models.TextField(blank=True, null=True)
     created = models.DateTimeField(null=False, auto_now=True)
@@ -83,7 +84,7 @@ class SysDataset(models.Model):
         db_table = 'sys_dataset'
 
     def get_absolute_url(self):
-        return reverse('dataset-detail', kwargs={'pk': self.pk})
+        return reverse('mainpage:dataset-detail', kwargs={'pk': self.pk})
 
 
 class SysFile(models.Model):

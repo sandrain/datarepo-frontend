@@ -11,10 +11,10 @@
 
             var error_free = true;
 
-            var title = $('#create-form').find('input[name="sysdataset-title"]').val();
+            var title = $('#create-form').find('input[name="title"]').val();
             title = $.trim(title);
 
-            var keywords = $('#create-form').find('input[name="sysdataset-keywords"]').val();
+            var keywords = $('#create-form').find('input[name="keywords"]').val();
             keywords = $.trim(keywords);
 
             if (title == '') {
@@ -35,13 +35,13 @@
 {% endblock %}
 
 {% block header %}
-<header>
+<header class="sticky-top">
     {% include "mainpage/menu_bar.html" %}
 </header>
 {% endblock %}
 
 {% block content %}
-<div class="row m-0">
+<div class="row ml-0 mr-0">
     <nav class="sidebar">
         {% include "mainpage/sidebar.html" %}
     </nav>
@@ -84,12 +84,6 @@
 
         <div class="row mb-2">
             <ul class="flex-container">
-                {% if latest_dataset_list %}
-                {% for dataset in latest_dataset_list %}
-                {% include "mainpage/dataset/ds_item.html" with dataset=dataset %}
-                {% endfor %}
-                {% endif %}
-
                 {% if datasets %}
                 {% for dataset in datasets %}
                 {% include "mainpage/dataset/ds_item.html" with dataset=dataset %}
@@ -105,7 +99,7 @@
 <!-- Button trigger modal -->
 
 <!-- Modal -->
-{% for dataset in latest_dataset_list %}
+{% for dataset in datasets %}
 
 <div class="modal fade bd-example-modal-lg" id="quicklook-{{ dataset.id }}" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalLabel" aria-hidden="true">

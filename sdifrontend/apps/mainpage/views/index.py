@@ -3,6 +3,7 @@ from django.shortcuts import render
 import random, json, uuid
 
 from sdifrontend.apps.mainpage.models import SysDataset, SysUser
+from .dataset import DatasetForm
 
 from .utils import unpack_dataset_json
 
@@ -10,10 +11,23 @@ class IndexView(generic.ListView):
     template_name = 'mainpage/index.html'
     context_object_name = 'datasets'
 
+    form = None
+
     def post(self, request, *args, **kwargs):
         print(request.POST)
         return render(request, self.template_name)
 
+    #def get(self, request, *args, **kwargs):
+    #    return render(request, self.template_name)
+
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        if not self.form:
+            self.form = DatasetForm
+        context.update({
+            'form': self.form
+        })
+        return context
 
     def get_queryset(self, **kwargs):
         # Get ten recent datasets.
@@ -54,7 +68,11 @@ class IndexView(generic.ListView):
                 qs = SysDataset.objects.filter(id=int(datatype)).order_by('-created')[:10]
         
         for obj in qs:
-            obj = unpack_dataset_json(obj)
+            try:
+                o = unpack_dataset_json(obj)
+            except:
+                o = obj
+            obj = o
         
         return qs
 

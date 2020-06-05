@@ -2,5 +2,5 @@
     <span>{{ group.name }}</span>
 </h6>
 {% for item in group.items %}
-    {% include "mainpage/sidebar_item.html" with item=item category=forloop.counter0 %}
+    {% include "mainpage/sidebar_item.html" with item=item category=forloop.counter %}
 {% endfor %}
