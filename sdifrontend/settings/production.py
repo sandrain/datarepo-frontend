@@ -27,8 +27,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'io4o1_(a2m_9%oe8hzmo_$y(h#+*^@j1x+lplp@zq20u75@=n_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-COMPRESS_ENABLED = True
-COMPRESS_OFFLINE = True
+DEBUG = True
+#COMPRESS_ENABLED = True
+#COMPRESS_OFFLINE = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -209,7 +210,6 @@ STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesSto
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'compressor.finders.CompressorFinder',
     'sass_processor.finders.CssFinder'
 ]
 
