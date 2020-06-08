@@ -15,6 +15,8 @@ from sdifrontend.settings.production import *
 TMP_PATH = os.path.abspath(os.path.join(PROJECT_ROOT, 'tmp'))
 
 DEBUG = TEMPLATE_DEBUG = True
+#COMPRESS_ENABLED = True
+#COMPRESS_OFFLINE = True
 
 SECRET = '42'
 
