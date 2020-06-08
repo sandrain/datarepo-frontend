@@ -136,10 +136,6 @@ class DatasetCreate(CreateView):
     #     return render(request, self.template_name, {'form': form})
 
     def form_valid(self, form):
-        print(form)
-
-        self.object = form.save()
-
         # TODO: make this a class variable?
         logger = logging.getLogger("django")
 
@@ -162,20 +158,27 @@ class DatasetCreate(CreateView):
         dataset_type = form.cleaned_data['type']
         subjects = form.cleaned_data['subject']
 
+        # TODO: make this a little more elegant
+        _keywords = []
+        _keywords.append(keywords)
+
         # currently we are generating fake fields other than the title
         properties = generate_fake_dataset_properties(
             title,
             subtitle=subtitle,
             description=description,
-            keywords=keywords)
+            keywords=_keywords)
 
         # TODO: handle the uploaded files
         files = generate_fake_dataset_files()
         structure = json.dumps({'data': files})
         size = sum(f['size'] for f in files)
 
+        _uuid = str(uuid.uuid1())
+        print("uuid: {}".format(_uuid))
+
         data_set = SysDataset(properties=properties,
-                              uuid=str(uuid.uuid4()),
+                              uuid=_uuid,
                               owner=owner,
                               size=size,
                               structure=structure,
