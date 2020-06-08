@@ -126,10 +126,9 @@ body {
   padding-right: 0px !important;
   margin-left: 0px !important;
   margin-right: 0px !important;
-
-  background-image: url('/static/img/bg.svg');
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-image: if( debug, url('/static/img/bg.svg'), '');
+  background-repeat: if( debug, no-repeat, '');
+  background-size: if( debug, auto, '');
 }
 
 #my_dataviz {
