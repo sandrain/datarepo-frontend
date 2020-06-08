@@ -31,3 +31,13 @@ INTERNAL_IPS = ('127.0.0.1',)
 #    INSTALLED_APPS += ('debug_toolbar',)
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# python_social
+# https://python-social-auth.readthedocs.io/en/latest/
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
+SOCIAL_AUTH_GLOBUS_KEY = 'db786b4f-5a50-47f5-bd13-9ea7f7d0599a'
+SOCIAL_AUTH_GLOBUS_SECRET = 'tjxCHVIBGYNFnTFnAdMaOW5VfgZCw7PsHOyvjnzftQc='
+SOCIAL_AUTH_GLOBUS_AUTH_EXTRA_ARGUMENTS = {
+    'access_type': 'offline',
+}

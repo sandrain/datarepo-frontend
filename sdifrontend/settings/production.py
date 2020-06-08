@@ -154,11 +154,13 @@ AUTHENTICATION_BACKENDS = [
 # https://python-social-auth.readthedocs.io/en/latest/
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
-SOCIAL_AUTH_GLOBUS_KEY = 'db786b4f-5a50-47f5-bd13-9ea7f7d0599a'
-SOCIAL_AUTH_GLOBUS_SECRET = 'tjxCHVIBGYNFnTFnAdMaOW5VfgZCw7PsHOyvjnzftQc='
+# deployment
+SOCIAL_AUTH_GLOBUS_KEY = '02e6545e-bf68-4a7f-93e2-b4f39bfd7b35'
+SOCIAL_AUTH_GLOBUS_SECRET = '/CtafrN//yrZyTwXQnhw+L7T+MKSY3KxfKRGFPAoBvM='
 SOCIAL_AUTH_GLOBUS_AUTH_EXTRA_ARGUMENTS = {
     'access_type': 'offline',
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
