@@ -19,17 +19,18 @@
     {% if user and not user.is_anonymous %}
     <a href="{% url 'logout' %}?next={{ request.path }}" class="btn btn-outline-primary">Logout</a>
     {% else %}
-    <a href="{% url 'social:begin' 'globus' %}?next={{ request.path }}" class="btn btn-outline-primary">Login with Globus</a>
+    <a href="{% url 'social:begin' 'globus' %}?next={{ request.path }}" class="btn btn-outline-primary">Login with
+        Globus</a>
     {% endif %}
 
 </div>
 {% endblock %}
 
 {% block content %}
-  <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
     <h1 class="display-4">Welcome to the Scalable Data Infrastructure for Science</h1>
     <p class="lead">Upload, publish, share your scientific data and collaborate with others!</p>
-  </div>
+</div>
 
 <div class="container">
     <div class="card-deck mb-3 text-center">
@@ -96,40 +97,43 @@
 
 
     <script>
-        
-    var paragraph = "ORNL boasts state-of-the-art capabilities across a wide range of scientific and engineering disciplines, including materials science and engineering, computer and computational science, neutron scattering, neutron science and technology, biological and environmental research, nuclear physics and engineering, nuclear energy technologies, fusion science and technology, and energy efficiency and renewable energy (building technologies, advanced manufacturing, transportation technologies";
-    var layout = d3.layout.cloud()
-    .size([800, 600])
-    .words(paragraph.replace(/[!\.,:;\?]/g, '')
-                .split(' ').map(function(d) {
-      return {text: d, size: 10 + Math.random() * 90, test: "haha"};
-    }))
-    .padding(5)
-    .rotate(function() { return ~~(Math.random() * 2) * 90; })
-    .font("Impact")
-    .fontSize(function(d) { return d.size; })
-    .on("end", draw);
 
-layout.start();
+        var paragraph = "ORNL boasts state-of-the-art capabilities across a wide range of scientific and engineering disciplines, including materials science and engineering, computer and computational science, neutron scattering, neutron science and technology, biological and environmental research, nuclear physics and engineering, nuclear energy technologies, fusion science and technology, and energy efficiency and renewable energy (building technologies, advanced manufacturing, transportation technologies";
+        var layout = d3.layout.cloud()
+            .size([800, 600])
+            .words(paragraph.replace(/[!\.,:;\?]/g, '')
+                .split(' ').map(function (d) {
+                    return { text: d, size: 10 + Math.random() * 90, test: "haha" };
+                }))
+            .padding(5)
+            .rotate(function () { return ~~(Math.random() * 2) * 90; })
+            .font("Impact")
+            .fontSize(function (d) { return d.size; })
+            .on("end", draw);
 
-function draw(words) {
-  d3.select("#my_dataviz").append("svg")
-      .attr("width", layout.size()[0])
-      .attr("height", layout.size()[1])
-    .append("g")
-      .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
-    .selectAll("text")
-      .data(words)
-    .enter().append("text")
-      .style("font-size", function(d) { return d.size + "px"; })
-      .style("font-family", "Impact")
-      .attr("text-anchor", "middle")
-      .style("fill", function (d, i) { return fill(i); })
-      .attr("transform", function(d) {
-        return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
-      })
-      .text(function(d) { return d.text; });
-}
+        layout.start();
+
+        function draw(words) {
+            d3.select("#my_dataviz").append("svg")
+                .attr("width", layout.size()[0])
+                .attr("height", layout.size()[1])
+                .append("g")
+                .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
+                .selectAll("text")
+                .data(words)
+                .enter().append("text")
+                .style("font-size", function (d) { return d.size + "px"; })
+                .style("font-family", "Impact")
+                .attr("text-anchor", "middle")
+                .style("fill", function (d, i) { return fill(i); })
+                .attr("transform", function (d) {
+                    return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+                })
+                .text(function (d) { return d.text; })
+                .text(function (d) { return d.text; }).on("click", function (d) {
+                    alert('Initiating search with keyword = ' + d.text);
+                });
+        }
 
     </script>
     {% endblock %}

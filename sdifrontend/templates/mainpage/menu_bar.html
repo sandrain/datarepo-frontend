@@ -1,36 +1,36 @@
 {% block menu-bar %}
 <nav class="navbar-dark">
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/">HDC Portal</a>
-    <div class="col-sm-5">
-        <div class="row">
-            <form class="form-inline" action="/search" method="GET">
-                <div class="input-group mr-sm-2">
-                    <input class="form-control form-control-dark mr-sm-2" type="search" placeholder="Search"
-                        aria-label="Search">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </div>
-                </div>
-            </form>
-            <ul class="navbar-nav px-1">
-                <li class="nav-item text-nowrap">
-                    <!-- hypothetical user: samuel93-->
-                    {% if user and not user.is_anonymous %}
-                    <a href="/user/{{ user.username }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white"
-                            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="feather feather-user">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="12" cy="7" r="4"></circle>
-                        </svg>
-                    </a>
-                    <a href="{% url 'logout' %}?next={{ request.path }}">Logout</a>
-                    {% else %}
-                    <a href="{% url 'social:begin' 'globus' %}?next={{ request.path }}">Login with Globus</a>
-                    {% endif %}
-                </li>
-            </ul>
-        </div>
-    </div>
+    
+        <form class="mx-2 my-auto d-inline w-100" action="/Search" method="GET">
+            <div class="input-group">
+               <input type="text" class="form-control" placeholder="Search">
+                <span class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button">Search</button>
+                </span>
+             </div>
+         </form>
+    
+    <ul class="navbar-nav px-1">
+        <li class="nav-item text-nowrap">
+            <!-- hypothetical user: samuel93-->
+            {% if user and not user.is_anonymous %}
+            <a href="/user/{{ user.username }}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white"
+                    stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="feather feather-user">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </a>
+            <a href="{% url 'logout' %}?next={{ request.path }}" class="btn btn-outline-secondary">Logout</a>
+            {% else %}
+            <a href="{% url 'social:begin' 'globus' %}?next={{ request.path }}" class="btn btn-outline-secondary">Login
+                with
+                Globus</a>
+            {% endif %}
+
+        </li>
+    </ul>
 </nav>
 {% endblock %}
