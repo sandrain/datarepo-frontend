@@ -4,11 +4,9 @@ $theme-colors: (
   "danger": #ff4136,
 );
 
-@import "./bootstrap/bootstrap";
+$grid-columns: 13;
 
-.nav-item {
-  padding: 5px;
-}
+@import "./bootstrap/bootstrap";
 
 .navbar {
   @extend .navbar;
@@ -63,18 +61,12 @@ $theme-colors: (
     color: white;
     padding: 0.3in;
   }
+}
 
-  .search {
-    @extend .form-group;
-    @extend .row;
-    padding: 50px;
-    margin-left: 100px !important;
-    margin-right: 100px !important;
-    margin-top: 200px !important;
-    > div {
-      margin-left: 0.3in;
-    }
-  }
+.search {
+  @extend .form-group;
+  @extend .row;
+  padding: 1rem;
 }
 
 /*
@@ -134,16 +126,24 @@ body {
   padding-right: 0px !important;
   margin-left: 0px !important;
   margin-right: 0px !important;
+
+  background-image: url('/static/img/bg.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#my_dataviz {
+  height: auto;
 }
 
 /*
  * main content
  */
 .main {
-  //@include make-col-ready();
-  //@include make-col(10);
-  @extend .col;
-  margin-left: 260px;
+  @include make-col-ready();
+  @include make-col(8);
+  //@extend .col;
+  margin-left: auto;
 }
 
 /*
@@ -158,16 +158,17 @@ body {
 }
 
 .sidebar {
-  //@include make-col-ready();
-  //@include make-col(2);
-  @extend .col;
-  @extend .position-fixed;
-  width: 250px !important;
+  @include make-col-ready();
+  @include make-col(5);
+  //@extend .col;
+  //@extend .position-fixed;
+  //width: 250px !important;
   bottom: 0;
   top: 48px;
   overflow-x: auto; /* Scrollable contents if viewport is shorter than content. */
   z-index: $zindex-fixed;
-  //@extend .position-sticky;
+  @extend .position-sticky;
+  height: calc(100vh - 48px);
   //position: fixed;
   //top: 48px;
   //bottom: 0;
@@ -193,26 +194,23 @@ body {
   }
 }
 
-.sidebar {
-  .nav-link {
-    font-weight: 500;
-    color: #333;
-  }
+.nav-item {
+  padding: 5px;
+}
 
+.sidebar {
   .nav-item {
-    padding-left: 1.5em;
+    padding: 0 !important;
+    padding-left: 1.5em !important;
   }
 
   .nav-item {
     a {
-      text-indent: -1.5em;
+      color: #333;
     }
 
-    a::before {
-      font-weight: 900 !important;
-      display: inherit;
-      width: 1.5em;
-      text-indent: 0em;
+    i {
+      width: 1.5rem;
     }
   }
 }

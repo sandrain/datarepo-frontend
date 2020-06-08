@@ -1,3 +1,3 @@
 <li class="nav-item">
-    <a class="nav-link far fa-file-alt" href="/dataset/category/{{category}}">{{ item.name }}</a>
+    <span class="nav-link"><i class="fas fa-file-alt"></i><a href="{% url 'mainpage:dataset-category' category %}">{{ item.name }}</a></span>
 </li>

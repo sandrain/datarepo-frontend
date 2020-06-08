@@ -6,16 +6,16 @@
 
     </h6>
     <li class="nav-item">
-        <a class="nav-link fas fa-home " href="/">Home<span class="sr-only">(current)</span></a>
+        <span class="nav-link"><i class="fas fa-home"></i><a href="/">Home<span class="sr-only">(current)</span></a></span>
     </li>
     <li class="nav-item">
-        <a class="nav-link far fa-file-alt active" href="/search">Dataset</a>
+        <span class="nav-link"><i class="fas fa-file-alt"></i><a href="{% url 'mainpage:dataset-index' %}">Dataset</a></span>
     </li>
     <li class="nav-item">
-        <a class="nav-link fas fa-newspaper" href="#">News</a>
+        <span class="nav-link"><i class="fas fa-newspaper"></i><a href="/">News</span></a></span>
     </li>
     <li class="nav-item">
-        <a class="nav-link fas fa-users" href="#">Discuss</a>
+        <span class="nav-link"><i class="fas fa-users"></i><a href="/">Discuss</a></span>
     </li>
 
     {% get_sidebar_items as items %}
