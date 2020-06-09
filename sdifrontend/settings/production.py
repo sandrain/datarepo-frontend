@@ -162,7 +162,7 @@ if 'SOCIAL_AUTH_GLOBUS_KEY' in os.environ:
 else:
     SOCIAL_AUTH_GLOBUS_KEY = '02e6545e-bf68-4a7f-93e2-b4f39bfd7b35'
 
-if 'SOCIAL_AUTH_GLOBUS_SECRET' in os.environment:
+if 'SOCIAL_AUTH_GLOBUS_SECRET' in os.environ:
     SOCIAL_AUTH_GLOBUS_SECRET = os.environ['SOCIAL_AUTH_GLOBUS_SECRET']
 else:
     SOCIAL_AUTH_GLOBUS_SECRET = '/CtafrN//yrZyTwXQnhw+L7T+MKSY3KxfKRGFPAoBvM='
