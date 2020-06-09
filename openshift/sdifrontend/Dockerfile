@@ -13,7 +13,7 @@ RUN mkdir $APP
 
 # copy everything
 COPY . $APP
-COPY docker-test/sdifrontend/app.ini $APP
+COPY openshift/sdifrontend/app.ini $APP
 
 RUN mkdir -p $APP/static
 
@@ -25,8 +25,8 @@ EXPOSE 5000
 # Install Python dependencies
 RUN pip install --no-cache -r requirements-deployment.txt
 
-COPY docker-test/container-scripts/connect.py .
-COPY docker-test/container-scripts/wait-for-db.sh .
+COPY openshift/scripts/connect.py .
+COPY openshift/scripts/wait-for-db.sh .
 
 RUN chown -R uwsgi:uwsgi ${APP}
 

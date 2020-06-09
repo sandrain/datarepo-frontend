@@ -17,7 +17,7 @@ services:
     container_name: sdifrontend
     build:
       context: ..
-      dockerfile: docker-test/sdifrontend/Dockerfile
+      dockerfile: openshift/sdifrontend/Dockerfile
     environment:
       SDI_DATABASE_USER: sdidbp
       SDI_DATABASE_PASSWORD: sdisdi
@@ -37,7 +37,7 @@ services:
     container_name: sdinginx
     build: 
       context: ..
-      dockerfile: docker-test/sdinginx/Dockerfile
+      dockerfile: openshift/sdinginx/Dockerfile
     depends_on:
       - sdifrontend
     ports:
