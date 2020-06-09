@@ -79,7 +79,8 @@ TEMPLATES = [
                 'social_django.context_processors.login_redirect',
             ],
             'libraries': {
-                'nav_sidebar': 'sdifrontend.apps.mainpage.sidebar'
+                'nav_sidebar': 'sdifrontend.apps.mainpage.sidebar',
+                'tagcloud': 'sdifrontend.apps.landingpage.tagcloud'
             }
         },
     },

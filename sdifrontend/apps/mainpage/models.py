@@ -97,6 +97,15 @@ class SysFile(models.Model):
         #managed = False
         db_table = 'sys_file'
 
+class SearchIndex(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    attribute = models.CharField(max_length=512)
+    value = models.CharField(max_length=512)
+    dataset = models.ForeignKey(SysDataset, on_delete=models.CASCADE)
+    
+    class Meta:
+        #managed = False
+        db_table = 'search_index'
 
 class SysPermission(models.Model):
     dataset = models.ForeignKey(SysDataset, on_delete=models.CASCADE)

@@ -2,6 +2,7 @@
 {% load static %}
 {% load compress %}
 {% load fontawesome_5 %}
+{% load tagcloud %}
 
 
 {% block script %}
@@ -27,6 +28,9 @@
 {% endblock %}
 
 {% block content %}
+
+{% get_tag_cloud_keywords as cloud_keywords %}
+
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
     <h1 class="display-4">Welcome to the Scalable Data Infrastructure for Science</h1>
     <p class="lead">Upload, publish, share your scientific data and collaborate with others!</p>
