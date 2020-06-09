@@ -45,7 +45,7 @@ ENV PYTHONPATH ${APP}
 # Finally, we run uWSGI with the ini file we created earlier
 CMD ./wait-for-db.sh && \
     bash -c "python manage.py collectstatic --ignore *.scss --no-input" && \
-    bash -c "python manage.py compilescss" && \
+    bash -c "python manage.py compilescss --use-processor-root" && \
     bash -c "python manage.py compress" && \
     bash -c "python manage.py migrate" && \
     uwsgi --ini app.ini
