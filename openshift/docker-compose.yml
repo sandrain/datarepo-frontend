@@ -31,8 +31,7 @@ services:
     links:
       - mariadb:mariadb
     volumes:
-      - "../sdifrontend:/app/sdifrontend"
-      - "../static:/app/static"
+      - staticvolume:/app/static
   sdinginx:
     container_name: sdinginx
     build: 
@@ -45,6 +44,7 @@ services:
     links:
       - sdifrontend:sdifrontend
     volumes:
-      - "../static:/usr/share/nginx/html/static"
+      - staticvolume:/usr/share/nginx/html/static
 volumes:
   mysqlvolume:
+  staticvolume:
