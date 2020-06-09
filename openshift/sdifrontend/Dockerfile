@@ -33,7 +33,7 @@ COPY ./manage.py .
 
 # Copy APP
 # This should be the last step, Docker will use the caching and speed up the builds
-COPY ./sdifrontend .
+COPY ./sdifrontend ${APP}
 RUN chown -R uwsgi:uwsgi ${APP}
 
 # set the user
