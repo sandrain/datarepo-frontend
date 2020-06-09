@@ -123,7 +123,7 @@ LOGGING = {
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-if  'SDI_DATABASE_USER' in os.environ:
+if 'SDI_DATABASE_USER' in os.environ:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
@@ -152,13 +152,20 @@ AUTHENTICATION_BACKENDS = [
 # python_social
 # https://python-social-auth.readthedocs.io/en/latest/
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
-
-# deployment
-SOCIAL_AUTH_GLOBUS_KEY = '02e6545e-bf68-4a7f-93e2-b4f39bfd7b35'
-SOCIAL_AUTH_GLOBUS_SECRET = '/CtafrN//yrZyTwXQnhw+L7T+MKSY3KxfKRGFPAoBvM='
 SOCIAL_AUTH_GLOBUS_AUTH_EXTRA_ARGUMENTS = {
     'access_type': 'offline',
 }
+
+# deployment
+if 'SOCIAL_AUTH_GLOBUS_KEY' in os.environ:
+    SOCIAL_AUTH_GLOBUS_KEY = os.environ['SOCIAL_AUTH_GLOBUS_KEY']
+else:
+    SOCIAL_AUTH_GLOBUS_KEY = '02e6545e-bf68-4a7f-93e2-b4f39bfd7b35'
+
+if 'SOCIAL_AUTH_GLOBUS_SECRET' in os.environment:
+    SOCIAL_AUTH_GLOBUS_SECRET = os.environ['SOCIAL_AUTH_GLOBUS_SECRET']
+else:
+    SOCIAL_AUTH_GLOBUS_SECRET = '/CtafrN//yrZyTwXQnhw+L7T+MKSY3KxfKRGFPAoBvM='
 
 
 # Password validation

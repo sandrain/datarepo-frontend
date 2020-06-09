@@ -23,6 +23,8 @@ services:
       SDI_DATABASE_NAME: sdidb
       SDI_DATABASE_HOST: mariadb
       SDI_DATABASE_PORT: 3306
+      SOCIAL_AUTH_GLOBUS_KEY: db786b4f-5a50-47f5-bd13-9ea7f7d0599a
+      SOCIAL_AUTH_GLOBUS_SECRET: tjxCHVIBGYNFnTFnAdMaOW5VfgZCw7PsHOyvjnzftQc=
     depends_on:
       - mariadb
     ports:
@@ -47,3 +49,4 @@ services:
 volumes:
   mysqlvolume:
   staticvolume:
+
