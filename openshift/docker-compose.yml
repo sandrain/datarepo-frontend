@@ -12,7 +12,6 @@ services:
       - "3306:3306"
     volumes:
       - mysqlvolume:/var/lib/mysql
-      #- "./dbschema:/docker-entrypoint-initdb.d"
   sdifrontend:
     container_name: sdifrontend
     build:

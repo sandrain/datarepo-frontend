@@ -75,10 +75,14 @@ def generate_sys_dataset(count):
         structure = json.dumps({'data': files})
         size = sum(f['size'] for f in files)
 
+        d_type = randint(1, 8)
+        category = randint(1, 51)
+
         print("insert into sys_dataset "
-              "(uuid,owner,size,properties,structure,created) "
-              "values ('{:s}',{:d},{:d},'{:s}','{:s}','{:s}');"
-              .format(uuid_str, owner, size, properties, structure, created))
+              "(uuid,owner_id,size,properties,structure,created,category,type) "
+              "values ('{:s}',{:d},{:d},'{:s}','{:s}','{:s}',{:d},{:d});"
+              .format(uuid_str, owner, size, properties, structure,
+                      created, category, d_type))
 
         for f in files:
             print("insert into sys_file (dataset_id, name, size) "
