@@ -14,6 +14,7 @@ RUN mkdir $APP
 # copy everything
 COPY . $APP
 COPY openshift/sdifrontend/app.ini $APP
+COPY openshift/sdifrontend/requirements.txt $APP
 
 RUN mkdir -p $APP/static
 
@@ -23,7 +24,7 @@ WORKDIR $APP
 EXPOSE 5000
 
 # Install Python dependencies
-RUN pip install --no-cache -r requirements-deployment.txt
+RUN pip install --no-cache -r requirements.txt
 
 COPY openshift/scripts/connect.py .
 COPY openshift/scripts/wait-for-db.sh .
