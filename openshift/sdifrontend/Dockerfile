@@ -41,6 +41,7 @@ USER uwsgi:uwsgi
 
 # Make sure we use the production environment
 ENV DJANGO_SETTINGS_MODULE sdifrontend.settings.production
+ENV PYTHONPATH ${APP}
 # Finally, we run uWSGI with the ini file we created earlier
 CMD ./wait-for-db.sh && \
     bash -c "python manage.py collectstatic --ignore *.scss --no-input" && \
