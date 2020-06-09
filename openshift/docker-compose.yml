@@ -1,17 +1,16 @@
 version: "3.4"
 services:
-  mariadb:
-    container_name: mariadb
-    image: mariadb:10.2
+  sdidb:
+    container_name: sdidb
+    image: postgres:12
     environment:
-      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
-      MYSQL_DATABASE: sdidb
-      MYSQL_USER: sdidbp
-      MYSQL_PASSWORD: sdisdi
+      POSTGRES_USER: sdidbp
+      POSTGRES_PASSWORD: sdisdi
+      POSTGRES_DB: sdidb
     ports:
-      - "3306:3306"
+      - "5432:5432"
     volumes:
-      - mysqlvolume:/var/lib/mysql
+      - postgresvolume:/var/lib/postgresql/data
   sdifrontend:
     container_name: sdifrontend
     build:
@@ -21,16 +20,16 @@ services:
       SDI_DATABASE_USER: sdidbp
       SDI_DATABASE_PASSWORD: sdisdi
       SDI_DATABASE_NAME: sdidb
-      SDI_DATABASE_HOST: mariadb
-      SDI_DATABASE_PORT: 3306
+      SDI_DATABASE_HOST: sdidb
+      SDI_DATABASE_PORT: 5432 
       SOCIAL_AUTH_GLOBUS_KEY: db786b4f-5a50-47f5-bd13-9ea7f7d0599a
       SOCIAL_AUTH_GLOBUS_SECRET: tjxCHVIBGYNFnTFnAdMaOW5VfgZCw7PsHOyvjnzftQc=
     depends_on:
-      - mariadb
+      - sdidb
     ports:
       - "5000:5000"
     links:
-      - mariadb:mariadb
+      - sdidb:sdidb
     volumes:
       - staticvolume:/app/static
   sdinginx:
@@ -47,6 +46,6 @@ services:
     volumes:
       - staticvolume:/usr/share/nginx/html/static
 volumes:
-  mysqlvolume:
+  postgresvolume:
   staticvolume:
 

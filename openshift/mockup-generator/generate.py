@@ -12,6 +12,13 @@ from random import randint
 user_count = 10
 dataset_count = 100
 
+def addslashes(s):
+    l = ["\\", '"', "'", "\0", ]
+    for i in l:
+        if i in s:
+            s = s.replace(i, '')
+    return s
+
 # essential fields:
 # - username, email
 def generate_sys_user(count):
@@ -24,10 +31,10 @@ def generate_sys_user(count):
         username = p['username']
         email = p['mail']
         displayname = p['name']
-        bio = "{:s} working for {:s}".format(p['job'], p['company'])
+        bio = addslashes("{:s} working for {:s}".format(p['job'], p['company']))
 
         print("insert into sys_user (username,email,displayname,bio) "
-              "values ('{:s}','{:s}','{:s}',\"{:s}\");"
+              "values ('{:s}','{:s}','{:s}','{:s}');"
               .format(username, email, displayname, bio))
 
 #

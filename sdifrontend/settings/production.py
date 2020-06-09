@@ -126,7 +126,7 @@ LOGGING = {
 if 'SDI_DATABASE_USER' in os.environ:
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.mysql',
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'USER': os.environ['SDI_DATABASE_USER'],
             'PASSWORD': os.environ['SDI_DATABASE_PASSWORD'],
             'NAME': os.environ['SDI_DATABASE_NAME'],

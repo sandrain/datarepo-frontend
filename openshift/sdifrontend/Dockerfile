@@ -27,8 +27,7 @@ RUN pip install --no-cache -r requirements.txt
 RUN mkdir -p $APP/static
 
 # copy scripts
-COPY openshift/scripts/connect.py .
-COPY openshift/scripts/wait-for-db.sh .
+COPY openshift/scripts/wait-for-it.sh .
 COPY ./manage.py .
 
 # Copy APP
@@ -43,7 +42,7 @@ USER uwsgi:uwsgi
 ENV DJANGO_SETTINGS_MODULE sdifrontend.settings.production
 ENV PYTHONPATH ${APP}
 # Finally, we run uWSGI with the ini file we created earlier
-CMD ./wait-for-db.sh && \
+CMD ./wait-for-it.sh sdidb:5432 && \
     bash -c "python manage.py collectstatic --no-input" && \
     bash -c "python manage.py compress" && \
     bash -c "python manage.py migrate" && \
