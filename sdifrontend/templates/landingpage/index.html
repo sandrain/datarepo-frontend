@@ -28,7 +28,6 @@
 {% endblock %}
 
 {% block content %}
-
 {% get_tag_cloud_keywords as cloud_keywords %}
 
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
@@ -101,8 +100,7 @@
 
 
     <script>
-
-        var paragraph = "ORNL boasts state-of-the-art capabilities across a wide range of scientific and engineering disciplines, including materials science and engineering, computer and computational science, neutron scattering, neutron science and technology, biological and environmental research, nuclear physics and engineering, nuclear energy technologies, fusion science and technology, and energy efficiency and renewable energy (building technologies, advanced manufacturing, transportation technologies";
+        var paragraph = "{{cloud_keywords}}";
         var layout = d3.layout.cloud()
             .size([800, 600])
             .words(paragraph.replace(/[!\.,:;\?]/g, '')
