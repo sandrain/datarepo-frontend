@@ -1,8 +1,8 @@
 version: "3.4"
 services:
-  sdidb:
-    container_name: sdidb
-    image: postgres:12
+  postgresql:
+    container_name: postgresql 
+    image: postgres:latest
     environment:
       POSTGRES_USER: sdidbp
       POSTGRES_PASSWORD: sdisdi
@@ -20,16 +20,16 @@ services:
       SDI_DATABASE_USER: sdidbp
       SDI_DATABASE_PASSWORD: sdisdi
       SDI_DATABASE_NAME: sdidb
-      SDI_DATABASE_HOST: sdidb
+      SDI_DATABASE_HOST: postgresql 
       SDI_DATABASE_PORT: 5432 
       SOCIAL_AUTH_GLOBUS_KEY: db786b4f-5a50-47f5-bd13-9ea7f7d0599a
       SOCIAL_AUTH_GLOBUS_SECRET: tjxCHVIBGYNFnTFnAdMaOW5VfgZCw7PsHOyvjnzftQc=
     depends_on:
-      - sdidb
+      - postgresql 
     ports:
       - "5000:5000"
     links:
-      - sdidb:sdidb
+      - postgresql:postgresql
     volumes:
       - staticvolume:/app/static
   sdinginx:

@@ -42,7 +42,7 @@ USER uwsgi:uwsgi
 ENV DJANGO_SETTINGS_MODULE sdifrontend.settings.production
 ENV PYTHONPATH ${APP}
 # Finally, we run uWSGI with the ini file we created earlier
-CMD ./wait-for-it.sh sdidb:5432 && \
+CMD ./wait-for-it.sh postgresql:5432 && \
     bash -c "python manage.py collectstatic --no-input" && \
     bash -c "python manage.py compress" && \
     bash -c "python manage.py migrate" && \
