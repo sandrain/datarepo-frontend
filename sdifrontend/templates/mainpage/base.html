@@ -1,6 +1,5 @@
 {% load static %}
 {% load compress %}
-{% load sass_tags %}
 {% load fontawesome_5 %}
 
 <!doctype html>
@@ -12,7 +11,9 @@
     <link rel="shortcut icon" href="{% static 'favicon.ico' type='image/x-icon' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link type="text/css" rel="stylesheet" media="screen" href="{% sass_src 'css/index.scss' %}">
+    {% compress css %}
+    <link type="text/x-scss" rel="stylesheet" media="screen" href="{% static 'css/index.scss' %}">
+    {% endcompress %}
     {% fontawesome_5_static %}
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -210,7 +210,6 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'compressor.finders.CompressorFinder',
-    'sass_processor.finders.CssFinder'
 ]
 
 #STATICFILES_DIRS = [
@@ -220,6 +219,9 @@ STATICFILES_FINDERS = [
 INTERNAL_IPS = ['127.0.0.1']
 
 DISTILL_DIR = os.path.join(BASE_DIR, 'public')
+COMPRESS_PRECOMPILERS = (
+    ('text/x-scss', 'django_libsass.SassCompiler'),
+)
 
 
 # fontawesome
