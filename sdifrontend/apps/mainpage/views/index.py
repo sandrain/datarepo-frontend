@@ -2,7 +2,10 @@ from django.views import generic
 from django.shortcuts import render
 import random, json, uuid
 
-from sdifrontend.apps.mainpage.models import SysDataset, SysUser
+from sdifrontend.apps.mainpage.models import SysDataset, SysUser, SearchIndex
+from django.contrib.postgres.search import SearchQuery
+from django.db.models import Q
+
 from .dataset import DatasetForm
 
 from .utils import unpack_dataset_json
@@ -55,7 +58,8 @@ class IndexView(generic.ListView):
 
                 ## 
 
-                qs = SysDataset.objects.select_related().order_by('-created')[:10]
+                qs = SysDataset.objects.filter(searchindex__attribute='keywords',searchindex__value=search).order_by('-created')
+                print('result set size: {}'.format(len(qs)))
                 ## get the correct dataset with the given keywords
 
                 ##
