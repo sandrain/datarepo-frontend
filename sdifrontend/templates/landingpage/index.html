@@ -133,7 +133,7 @@
                 })
                 .text(function (d) { return d.text; })
                 .text(function (d) { return d.text; }).on("click", function (d) {
-                    alert('Initiating search with keyword = ' + d.text);
+                    window.location.replace("/search/?search="+d.text);
                 });
         }
 
