@@ -21,7 +21,7 @@ def full_scan_create_index():
             else:
                 vals = props[key]
                 
-            if key == "keywords":
+            if key == "keywords" or key == "title" or key == "subtitle":
                 terms = vals.lower().split(" ")
 
                 for term in terms:

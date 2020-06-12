@@ -58,7 +58,7 @@ class IndexView(generic.ListView):
 
                 ## 
 
-                qs = SysDataset.objects.filter(searchindex__attribute='keywords',searchindex__value=search).order_by('-created')
+                qs = SysDataset.objects.filter(searchindex__value=search).order_by('-created')
                 print('result set size: {}'.format(len(qs)))
                 ## get the correct dataset with the given keywords
 
