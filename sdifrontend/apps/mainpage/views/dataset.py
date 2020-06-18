@@ -155,12 +155,20 @@ class DatasetCreate(CreateView):
         subtitle = form.cleaned_data['subtitle']
         description = form.cleaned_data['description']
         keywords = form.cleaned_data['keywords']
+                
         dataset_type = form.cleaned_data['type']
         subjects = form.cleaned_data['subject']
 
         # TODO: make this a little more elegant
+
         _keywords = []
-        _keywords.append(keywords)
+
+        keywords_cleaned=[]
+        for keyword in keywords.split(","):
+            if keyword.strip()!='':
+                keywords_cleaned.append(keyword.strip()) # deal with many commas and empty keywords
+        keywords_cleaned = list(set(keywords_cleaned)) # remove duplicates
+        _keywords.append(", ".join(keywords_cleaned))
 
         # currently we are generating fake fields other than the title
         properties = generate_fake_dataset_properties(
@@ -185,9 +193,9 @@ class DatasetCreate(CreateView):
                               category=subjects,
                               type=dataset_type)
 
-
         # TODO: Handle all the data in a transaction
         data_set.save()
+        data_set.create_index() # create index
 
         # populate dataset files
         for _f in files:

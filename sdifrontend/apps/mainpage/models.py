@@ -6,10 +6,9 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from __future__ import unicode_literals
-
+import json
 from django.db import models
 from django.urls import reverse
-
 
 class DoiAuthor(models.Model):
     id = models.BigAutoField(primary_key=True)
@@ -65,7 +64,82 @@ class DoiRecord(models.Model):
         db_table = 'doi_record'
 
 
+class SidebarMenu:
+    def __init__(self):
+        self.nav_elements = [
+            {
+                'name': "Data Subject",
+                'items': [
+                    {'name': "Coal, Lignite, and Peat"},
+                    {'name': "Petroleum"},
+                    {'name': "Natural Gas"},
+                    {'name': "Oil Shales And Tar Sands"},
+                    {'name': "Isotope And Radiation Sources"},
+                    {'name': "Hydrogen"},
+                    {'name': "Biomass Fuels"},
+                    {'name': "Synthetic Fuels"},
+                    {'name': "Nuclear Fuel Cycle And Fuel Materials"},
+                    {'name': "Management Of Radioactive And Non-Radioactive Wastes From Nuclear Facilities"},
+                    {'name': "Hydro Energy"},
+                    {'name': "Solar Energy"},
+                    {'name': "Geothermal Energy"},
+                    {'name': "Tidal And Wave Power"},
+                    {'name': "Wind Energy"},
+                    {'name': "Fossil-Fueled Power Plants"},
+                    {'name': "Specific Nuclear Reactors And Associated Plants"},
+                    {'name': "General Studies Of Nuclear Reactors"},
+                    {'name': "Power Transmission And Distribution"},
+                    {'name': "Energy Storage"},
+                    {'name': "Energy Planning, Policy, And Economy"},
+                    {'name': "Direct Energy Conversion"},
+                    {'name': "Energy Conservation, Consumption, And Utilization"},
+                    {'name': "Advanced Propulsion Systems"},
+                    {'name': "Materials Science"},
+                    {'name': "Inorganic, Organic, Physical, And Analytical Chemistry"},
+                    {'name': "Radiation Chemistry, Radiochemistry, And Nuclear Chemistry"},
+                    {'name': "Engineering"},
+                    {'name': "Particle Accelerators"},
+                    {'name': "Military Technology, Weaponry, And National Defense"},
+                    {'name': "Instrumentation Related To Nuclear Science And Technology"},
+                    {'name': "Other Instrumentation"},
+                    {'name': "Environmental Sciences"},
+                    {'name': "Geosciences"},
+                    {'name': "Basic Biological Sciences"},
+                    {'name': "Applied Life Sciences"},
+                    {'name': "Radiation Protection And Dosimetry"},
+                    {'name': "Radiology And Nuclear Medicine"},
+                    {'name': "Radiation, Thermal, And Other Environ. Pollutant Effects On Living Orgs. And Biol. Mat."},
+                    {'name': "Plasma Physics And Fusion Technology"},
+                    {'name': "Classical And Quantum Mechanics, General Physics"},
+                    {'name': "Physics Of Elementary Particles And Fields"},
+                    {'name': "Nuclear Physics And Radiation Physics"},
+                    {'name': "Atomic And Molecular Physics"},
+                    {'name': "Condensed Matter Physics, Superconductivity And Superfluidity"},
+                    {'name': "Nanoscience And Nanotechnology"},
+                    {'name': "Astronomy And Astrophysics"},
+                    {'name': "Knowledge Management And Preservation"},
+                    {'name': "Mathematics And Computing"},
+                    {'name': "Nuclear Disarmament, Safeguards, And Physical Protection"},
+                    {'name': "General And Miscellaneous"}
+                ]
+            }, {
+                'name': "Data Type",
+                'items': [
+                    {'name': "Animations/Simulations"},
+                    {'name': "Genome/Genetic Data"},
+                    {'name': "Interactive Data Map"},
+                    {'name': "Numeric Data"},
+                    {'name': "Still Images/Photos"},
+                    {'name': "Figures/Plots"},
+                    {'name': "Specialized Mix"},
+                    {'name': "Multimedia"},
+                    {'name': "General (Other)"}
+                ]
+            }
+        ]
+
 class SysDataset(models.Model):
+
     id = models.BigAutoField(primary_key=True)
     uuid = models.CharField(unique=True, max_length=36)
     owner = models.ForeignKey('SysUser', on_delete=models.SET_NULL, blank=True, null=True)
@@ -86,6 +160,48 @@ class SysDataset(models.Model):
     def get_absolute_url(self):
         return reverse('mainpage:dataset-detail', kwargs={'pk': self.pk})
 
+    def create_index(self):
+        props = json.loads(self.properties)
+        for key in props.keys():
+        
+            if key=="keywords":
+                vals = ""
+                for item in props[key]:
+                    vals+=item+" "
+            else:
+                vals = props[key]
+                
+            if key == "keywords" or key == "title" or key == "subtitle":
+                terms = vals.lower().split(" ")
+                for term in terms:
+                    si = SearchIndex(attribute = key, value = ''.join(e for e in term if e.isalnum()), dataset = self)
+                    si.save()
+        
+        sb = SidebarMenu()
+        
+        # indexing subject
+        category_id_to_name = (sb.nav_elements[0]['items'][int(self.category)]['name']) #subject
+        terms = category_id_to_name.lower().split(" ")
+        for term in terms:
+            si = SearchIndex(attribute = 'subject', value = ''.join(e for e in term if e.isalnum()), dataset = self)
+            si.save()
+                
+        # indexing type
+        type_id_to_name = (sb.nav_elements[0]['items'][int(self.category)]['name']) #subject
+        terms = type_id_to_name.lower().split(" ")
+        for term in terms:
+            si = SearchIndex(attribute = 'type', value = ''.join(e for e in term if e.isalnum()), dataset = self)
+            si.save()
+
+        print(category_id_to_name, type_id_to_name)
+    
+        ci = SubjectIndex(dataset = self, category_id = int(self.category))
+        ci.save()
+
+    def remove_index(self):
+        SearchIndex.objects.filter(dataset = self).delete()
+        SubjectIndex.objects.filter(dataset = self).delete()
+
 
 class SysFile(models.Model):
     id = models.BigAutoField(primary_key=True)
@@ -96,6 +212,15 @@ class SysFile(models.Model):
     class Meta:
         #managed = False
         db_table = 'sys_file'
+
+class SubjectIndex(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    dataset = models.ForeignKey(SysDataset, on_delete=models.CASCADE)
+    category_id = models.IntegerField()
+
+    class Meta:
+        #managed = False
+        db_table = 'subject_index'
 
 class SearchIndex(models.Model):
     id = models.BigAutoField(primary_key=True)
