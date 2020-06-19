@@ -149,8 +149,3 @@ cython_debug/
 /public
 docker-test/mysql.vol
 
-# django migration files
-/sdifrontend/apps/mainpage/migrations/*
-/sdifrontend/apps/news/migrations/*
-/sdifrontend/apps/landingpage/migrations/*
-
