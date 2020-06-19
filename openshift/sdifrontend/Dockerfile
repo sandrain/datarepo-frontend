@@ -37,8 +37,8 @@ RUN chown -R uwsgi:uwsgi ${APP}
 
 # FIXME: openshift ignores the USER directive above
 RUN chmod 777 sdifrontend/apps/mainpage/migrations
-RUN chmod 777 sdifrontend/apps/mainpage/landingpage
-RUN chmod 777 sdifrontend/apps/mainpage/news
+RUN chmod 777 sdifrontend/apps/landingpage/migrations
+RUN chmod 777 sdifrontend/apps/news/migrations
 
 # set the user: the openshift will NOT respect this USER directive
 USER uwsgi:uwsgi
