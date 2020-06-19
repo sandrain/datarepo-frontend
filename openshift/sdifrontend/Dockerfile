@@ -34,7 +34,7 @@ COPY ./manage.py .
 # This should be the last step, Docker will use the caching and speed up the builds
 COPY . ${APP}
 RUN chown -R uwsgi:uwsgi ${APP}
-RUN chmod 707 sdifrontend/apps/mainpage/migrations
+RUN chmod 777 sdifrontend/apps/mainpage/migrations
 
 # set the user: the openshift will NOT respect this USER directive
 USER uwsgi:uwsgi
