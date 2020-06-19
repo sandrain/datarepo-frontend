@@ -45,5 +45,6 @@ ENV PYTHONPATH ${APP}
 CMD ./wait-for-it.sh postgresql:5432 && \
     bash -c "python manage.py collectstatic --no-input" && \
     bash -c "python manage.py compress" && \
+    bash -c "python manage.py makemigrations" && \
     bash -c "python manage.py migrate" && \
     uwsgi --ini app.ini
