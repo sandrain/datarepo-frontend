@@ -35,8 +35,10 @@ COPY ./manage.py .
 COPY . ${APP}
 RUN chown -R uwsgi:uwsgi ${APP}
 
-# openshift ignores the USER directive above
+# FIXME: openshift ignores the USER directive above
 RUN chmod 777 sdifrontend/apps/mainpage/migrations
+RUN chmod 777 sdifrontend/apps/mainpage/landingpage
+RUN chmod 777 sdifrontend/apps/mainpage/news
 
 # set the user: the openshift will NOT respect this USER directive
 USER uwsgi:uwsgi
