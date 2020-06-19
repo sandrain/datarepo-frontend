@@ -53,12 +53,17 @@ class IndexView(generic.ListView):
                 ## to test 
                 ## http://localhost:8000/?search=oxidation%20data
                 ## above url represents 'querying with keywords: oxidation data'
+                keywords=search.split()
                 
-                print("Received search keywords:", search)
+                print("Received {} search keywords: {}".format(len(keywords), keywords))
 
                 ## 
 
-                qs = SysDataset.objects.filter(searchindex__value=search).order_by('-created')
+                qs = SysDataset.objects
+                for key_id in range(0,len(keywords)):
+                    print('chaning search keywords: {}'.format(keywords[key_id]))
+                    qs = qs.filter(searchindex__value=keywords[key_id])
+                qs=qs.order_by('-created')
                 print('result set size: {}'.format(len(qs)))
                 ## get the correct dataset with the given keywords
 
