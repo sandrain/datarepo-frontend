@@ -33,7 +33,6 @@ COPY ./manage.py .
 # Copy APP
 # This should be the last step, Docker will use the caching and speed up the builds
 COPY . ${APP}
-RUN python manage.py makemigrations
 RUN chown -R uwsgi:uwsgi ${APP}
 
 # set the user
@@ -46,5 +45,6 @@ ENV PYTHONPATH ${APP}
 CMD ./wait-for-it.sh postgresql:5432 && \
     bash -c "python manage.py collectstatic --no-input" && \
     bash -c "python manage.py compress" && \
+    bash -c "python manage.py makemigrations" && \
     bash -c "python manage.py migrate" && \
     uwsgi --ini app.ini
