@@ -83,18 +83,25 @@ class DataSetsTypeView(ListView):
     context_object_name = "datasets"
     category = None
 
-    def get_queryset(self):
-        self.category = self.kwargs['category']
-        return SysDataset.objects.filter(category=self.category)
+    form = None
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+        context = super(DataSetsTypeView, self).get_context_data(**kwargs)
+        if not self.form:
+            self.form = DatasetForm
+        context.update({
+            'form': self.form
+        })
 
         # Might want to do this differently
         for data_set in context['object_list']:
             data_set = unpack_dataset_json(data_set)
 
         return context
+
+    def get_queryset(self):
+        self.category = self.kwargs['category']
+        return SysDataset.objects.filter(category=self.category)
 
 
 class DatasetView(DetailView):
