@@ -46,6 +46,17 @@ class IndexView(generic.ListView):
         except:
             search = None
 
+        try:
+            page = self.request.GET.get('page', None)
+            print("page is:", page)
+        except:
+            page = 1
+
+        try:
+            page = int(page)
+        except:
+            page = 1
+        
         if search is not None:
                 
                 print("--- implement your search logic here --")
@@ -71,10 +82,9 @@ class IndexView(generic.ListView):
         else:
             
             if datatype is None:
-                qs = SysDataset.objects.select_related().order_by('-created')[:10]
-            
+                qs = SysDataset.objects.select_related().order_by('-created')[10*(page-1):10*page]
             else:
-                qs = SysDataset.objects.filter(id=int(datatype)).order_by('-created')[:10]
+                qs = SysDataset.objects.filter(id=int(datatype)).order_by('-created')[10*(page-1):10*page]
         
         for obj in qs:
             try:
