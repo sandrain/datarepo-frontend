@@ -74,6 +74,7 @@ class IndexView(generic.ListView):
                 for key_id in range(0,len(keywords)):
                     print('chaning search keywords: {}'.format(keywords[key_id]))
                     qs = qs.filter(searchindex__value=keywords[key_id])
+                
                 qs=qs.order_by('-created')
                 print('result set size: {}'.format(len(qs)))
                 ## get the correct dataset with the given keywords
@@ -85,7 +86,7 @@ class IndexView(generic.ListView):
                 qs = SysDataset.objects.select_related().order_by('-created')[10*(page-1):10*page]
             else:
                 qs = SysDataset.objects.filter(id=int(datatype)).order_by('-created')[10*(page-1):10*page]
-        
+            
         for obj in qs:
             try:
                 o = unpack_dataset_json(obj)

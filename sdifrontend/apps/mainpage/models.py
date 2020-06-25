@@ -192,8 +192,6 @@ class SysDataset(models.Model):
         for term in terms:
             si = SearchIndex(attribute = 'type', value = ''.join(e for e in term if e.isalnum()), dataset = self)
             si.save()
-
-        print(category_id_to_name, type_id_to_name)
     
         ci = SubjectIndex(dataset = self, category_id = int(self.category))
         ci.save()
