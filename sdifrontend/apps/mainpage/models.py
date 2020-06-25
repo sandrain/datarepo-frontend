@@ -9,6 +9,7 @@ from __future__ import unicode_literals
 import json
 from django.db import models
 from django.urls import reverse
+from django.contrib.postgres.fields import JSONField
 
 class DoiAuthor(models.Model):
     id = models.BigAutoField(primary_key=True)
@@ -150,7 +151,7 @@ class SysDataset(models.Model):
     icon = models.CharField(max_length=256, blank=True, null=True)
     category = models.IntegerField(default=0)
     type = models.IntegerField(default=0)
-    properties = models.TextField(blank=True, null=True)
+    properties = JSONField(blank=True, null=True)
     structure = models.TextField(blank=True, null=True)
     created = models.DateTimeField(null=False, auto_now=True)
     updated = models.DateTimeField(blank=True, null=True, auto_now=True)
@@ -163,7 +164,8 @@ class SysDataset(models.Model):
         return reverse('mainpage:dataset-detail', kwargs={'pk': self.pk})
 
     def create_index(self):
-        props = json.loads(self.properties)
+        #props = json.loads(self.properties)
+        props = self.properties
         for key in props.keys():
         
             if key=="keywords":
