@@ -119,8 +119,6 @@ class DatasetView(DetailView):
         except:
             obj = tmp
 
-        print("obj: {}".format(obj))
-
         return obj
 
 

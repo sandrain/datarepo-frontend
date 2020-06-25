@@ -2,7 +2,7 @@ from django.views import generic
 from django.shortcuts import render
 import random, json, uuid
 
-from sdifrontend.apps.mainpage.models import SysDataset, SysUser, SearchIndex
+from sdifrontend.apps.mainpage.models import SysDataset, SysUser, SearchIndex, SidebarMenu
 from django.contrib.postgres.search import SearchQuery
 from django.db.models import Q
 
@@ -82,6 +82,8 @@ class IndexView(generic.ListView):
             except:
                 o = obj
             obj = o
+
+            
         
         return qs
 

@@ -1,7 +1,7 @@
 import json, uuid
 from faker import Faker
 from random import randint
-
+from sdifrontend.apps.mainpage.models import SysDataset, SysUser, SearchIndex, SidebarMenu
 
 def clean_recieved_val(val):
     if val.strip() == '':
@@ -24,12 +24,19 @@ def make_keywords_list(keywords):
         return keywords
 
 def unpack_dataset_json(dataset):
+    
     dataset.id = dataset.id
     dataset.attributes = json.loads(dataset.properties)
     dataset.sizemb = int(dataset.size / (2**20))
     dataset.filecount = len((json.loads(dataset.structure))['data'])
     dataset.keywords = ', '.join(dataset.attributes['keywords'])
     dataset.icon = 'icons/{:d}.png'.format(dataset.id % 496 + 4)
+    
+    sb = SidebarMenu()        
+    dataset.category_name = (sb.nav_elements[0]['items'][int(dataset.category)]['name']) #subject
+    dataset.type_name = (sb.nav_elements[1]['items'][int(dataset.type)]['name']) #subject
+
+
     return dataset
 
 # generating fake datasets

@@ -29,9 +29,9 @@ def get_sidebar_items(context, **kwargs):
         except:
             sb.nav_elements[1]['items'][i]['count'] = 0
 
-    sb.nav_elements[0]['items'] = sorted(sb.nav_elements[0]['items'], key=lambda k: k['count'], reverse=True) 
-    sb.nav_elements[1]['items'] = sorted(sb.nav_elements[0]['items'], key=lambda k: k['count'], reverse=True) 
-
+    for i in range(0,len(sb.nav_elements)):
+        sb.nav_elements[i]['items'] = sorted(sb.nav_elements[0]['items'], key=lambda k: k['count'], reverse=True) 
+        sb.nav_elements[i]['id'] = i
     return sb.nav_elements
 
 @register.simple_tag(takes_context=True)
