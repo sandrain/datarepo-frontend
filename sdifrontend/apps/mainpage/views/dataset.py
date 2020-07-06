@@ -82,6 +82,7 @@ class DataSetsTypeView(ListView):
     template_name = 'mainpage/index.html'
     context_object_name = "datasets"
     category = None
+    type = None
 
     form = None
 
@@ -100,7 +101,21 @@ class DataSetsTypeView(ListView):
         return context
 
     def get_queryset(self):
-        self.category = self.kwargs['category']
+        try: 
+            self.category = self.kwargs['category']
+        except:
+            self.category = None
+        
+        try: 
+            self.type = self.kwargs['type']
+        except:
+            self.type = None
+    
+        if self.category is not None:
+            return SysDataset.objects.filter(category=self.category)
+        elif self.type is not None:
+            return SysDataset.objects.filter(type=self.type)
+
         return SysDataset.objects.filter(category=self.category)
 
 

@@ -10,10 +10,13 @@ register = template.Library()
 
 def get_sidebar_items(context, **kwargs):
     sb = SidebarMenu()
+    
     count_data_by_subject = list(SubjectIndex.objects.values('category_id').order_by('category_id').annotate(count=Count('category_id')))
     count_data_by_type = list(SysDataset.objects.values('type').order_by('type').annotate(count=Count('type')))
+    
     for item in count_data_by_subject:
         sb.nav_elements[0]['items'][item['category_id']]['count'] = item['count']
+    
     for item in count_data_by_type:
         sb.nav_elements[1]['items'][item['type']]['count'] = item['count']
         
@@ -22,16 +25,23 @@ def get_sidebar_items(context, **kwargs):
             sb.nav_elements[0]['items'][i]['count']
         except:
             sb.nav_elements[0]['items'][i]['count'] = 0
+        
+        sb.nav_elements[0]['items'][i]['section'] = "category"
+        sb.nav_elements[0]['items'][i]['id'] = i
+            
 
     for i in range(0,len(sb.nav_elements[1]['items'])):
         try:
             sb.nav_elements[1]['items'][i]['count']
         except:
             sb.nav_elements[1]['items'][i]['count'] = 0
+        
+        sb.nav_elements[1]['items'][i]['section'] = "type"
+        sb.nav_elements[1]['items'][i]['id'] = i
 
     for i in range(0,len(sb.nav_elements)):
-        sb.nav_elements[i]['items'] = sorted(sb.nav_elements[0]['items'], key=lambda k: k['count'], reverse=True) 
-        sb.nav_elements[i]['id'] = i
+        sb.nav_elements[i]['items'] = sorted(sb.nav_elements[i]['items'], key=lambda k: k['count'], reverse=True) 
+            
     return sb.nav_elements
 
 @register.simple_tag(takes_context=True)

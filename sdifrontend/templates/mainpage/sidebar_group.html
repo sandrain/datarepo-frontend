@@ -4,7 +4,7 @@
   </h6>
   <div id="sidebar-group-items-{{group.id}}">
     {% for item in group.items|slice:":10" %}
-    {% include "mainpage/sidebar_item.html" with item=item category=forloop.counter0 %}
+    {% include "mainpage/sidebar_item.html" with item=item %}
     {% endfor %}
     <li class="nav-item">
       <span class="nav-link">
