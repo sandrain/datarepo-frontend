@@ -101,6 +101,19 @@ class DataSetsTypeView(ListView):
         return context
 
     def get_queryset(self):
+
+        try:
+            search = self.request.GET.get('search', None)
+            print("search is:", search)
+        except:
+            search = None
+
+        try:
+            page = self.request.GET.get('page', None)
+            print("page is:", page)
+        except:
+            page = 1
+
         try: 
             self.category = self.kwargs['category']
         except:

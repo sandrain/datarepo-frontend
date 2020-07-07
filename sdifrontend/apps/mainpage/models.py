@@ -69,6 +69,7 @@ class SidebarMenu:
         self.nav_elements = [
             {
                 'name': "Data Subject",
+                'id':'category',
                 'items': [
                     {'name': "Coal, Lignite, and Peat"},
                     {'name': "Petroleum"},
@@ -124,6 +125,7 @@ class SidebarMenu:
                 ]
             }, {
                 'name': "Data Type",
+                'id':'type',
                 'items': [
                     {'name': "Animations/Simulations"},
                     {'name': "Genome/Genetic Data"},
