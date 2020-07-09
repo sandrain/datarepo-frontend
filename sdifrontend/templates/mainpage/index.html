@@ -5,6 +5,38 @@
 {% block script %}
 <script>
 
+function search_within(keyword) {
+        var curr_page = 1;
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        if (urlParams.has('page')) {
+            curr_page = parseInt(urlParams.get('page'));
+        }
+        else curr_page = 1;
+
+        var url_to_add = '';
+        
+        if (urlParams.has('search')) {
+            search = urlParams.get('search');
+            keyword =search+"+"+keyword;
+        }
+
+        url_to_add = url_to_add + "&search=" + keyword;
+
+        if (urlParams.has('type')) {
+            type = urlParams.get('type');
+            url_to_add = url_to_add + "&type=" + type;
+        }
+        if (urlParams.has('category')) {
+            category = urlParams.get('category');
+            url_to_add = url_to_add + "&category=" + category;
+        }
+
+        url = ".?page=1" + url_to_add;
+        window.location.replace(url);
+    };
+
+
     $(document).ready(function () {
 
         $("#create-button").click(function (event) {
@@ -29,7 +61,21 @@
             }
         });
 
+        $("#search-within").keypress(function (event) {
+            if (event.keyCode === 13) {
+                keyword = $("#search-within").val();
+                search_within(keyword);
+            }
+        });
+
+        $("#search-within-btn").click(function (event) {
+            keyword = $("#search-within").val();
+            search_within(keyword);
+        });
+
     });
+
+    
 
 </script>
 {% endblock %}
@@ -59,6 +105,7 @@
                 <div class="justify-content-between flex-wrap flex-md-nowrap align-items-left pb-3">
                     Find and use datasets for scientific discovery. <a href="#">Learn more</a>
                 </div>
+
             </div>
             {% if user and not user.is_anonymous %}
             <div class="col-md-2 mt-3">
@@ -72,13 +119,25 @@
 
         <div class="row mb-2">
             <div class="col-md-10">
-                <ul class="flex-container">
-                    {% if datasets %}
-                    {% for dataset in datasets %}
-                    {% include "mainpage/dataset/ds_item.html" with dataset=dataset %}
-                    {% endfor %}
-                    {% endif %}
-                </ul>
+                <div class="container p-4 position-static rounded">
+                    <div class="input-group">
+                        <input type="text" name="search" id="search-within" class="form-control" placeholder="Search within the result">
+                        <span class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button"
+                                id="search-within-btn">Search </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-2">
+            <div class="col-md-10">
+                {% if datasets %}
+                {% for dataset in datasets %}
+                {% include "mainpage/dataset/ds_item.html" with dataset=dataset %}
+                {% endfor %}
+                {% endif %}
             </div>
 
         </div>
@@ -118,9 +177,9 @@
     }
 
     if (curr_page > 1) {
-        $('#page-list').append('<li class="page-item"><a class="page-link" href=".?page=' + (curr_page - 1) + url_to_add+'">Previous</a></li>');
+        $('#page-list').append('<li class="page-item"><a class="page-link" href=".?page=' + (curr_page - 1) + url_to_add + '">Previous</a></li>');
     }
-    $('#page-list').append('<li class="page-item"><a class="page-link" href=".?page=' + (curr_page + 1) + url_to_add+'">Next</a></li>');
+    $('#page-list').append('<li class="page-item"><a class="page-link" href=".?page=' + (curr_page + 1) + url_to_add + '">Next</a></li>');
 
 </script>
 
