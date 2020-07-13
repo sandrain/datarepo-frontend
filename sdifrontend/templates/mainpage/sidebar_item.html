@@ -1,7 +1,7 @@
 <li class="nav-item">
     {% if item.count %}
-    <span class="nav-link"><i class="fas fa-file-alt"></i><a href="{% url 'mainpage:dataset-category' category %}">{{ item.name }} ({{ item.count }})</a></span>
+    <span class="nav-link"><i class="fas fa-file-alt"></i><a href="/search/?{{item.section}}={{item.id}}">{{ item.name }} ({{ item.count }})</a></span>
     {% else %}
-    <span class="nav-link"><i class="fas fa-file-alt"></i><a href="{% url 'mainpage:dataset-category' category %}">{{ item.name }} (0)</a></span>
+    <span class="nav-link"><i class="fas fa-file-alt"></i><a href="/search/?{{item.section}}={{item.id}}">{{ item.name }} (0)</a></span>
     {% endif %}
 </li>

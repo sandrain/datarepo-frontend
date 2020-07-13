@@ -69,6 +69,7 @@ class SidebarMenu:
         self.nav_elements = [
             {
                 'name': "Data Subject",
+                'id':'category',
                 'items': [
                     {'name': "Coal, Lignite, and Peat"},
                     {'name': "Petroleum"},
@@ -124,6 +125,7 @@ class SidebarMenu:
                 ]
             }, {
                 'name': "Data Type",
+                'id':'type',
                 'items': [
                     {'name': "Animations/Simulations"},
                     {'name': "Genome/Genetic Data"},
@@ -192,8 +194,6 @@ class SysDataset(models.Model):
         for term in terms:
             si = SearchIndex(attribute = 'type', value = ''.join(e for e in term if e.isalnum()), dataset = self)
             si.save()
-
-        print(category_id_to_name, type_id_to_name)
     
         ci = SubjectIndex(dataset = self, category_id = int(self.category))
         ci.save()

@@ -2,7 +2,7 @@ from django.views import generic
 from django.shortcuts import render
 import random, json, uuid
 
-from sdifrontend.apps.mainpage.models import SysDataset, SysUser, SearchIndex
+from sdifrontend.apps.mainpage.models import SysDataset, SysUser, SearchIndex, SidebarMenu
 from django.contrib.postgres.search import SearchQuery
 from django.db.models import Q
 
@@ -37,14 +37,36 @@ class IndexView(generic.ListView):
 
         print(self.request)
 
-        datatype = self.request.GET.get('datatype', None)
-        print("Received data parameter:", datatype)
-
         try:
             search = self.request.GET.get('search', None)
             print("search is:", search)
         except:
             search = None
+
+        try:
+            category = self.request.GET.get('category', None)
+            print("category is:", category)
+        except:
+            category = None
+
+        try:
+            type = self.request.GET.get('type', None)
+            print("type is:", type)
+        except:
+            type = None
+
+        try:
+            page = self.request.GET.get('page', None)
+            print("page is:", page)
+        except:
+            page = 1
+
+        try:
+            page = int(page)
+        except:
+            page = 1
+        
+        print("############# search = ", search, "page =", page)
 
         if search is not None:
                 
@@ -53,6 +75,7 @@ class IndexView(generic.ListView):
                 ## to test 
                 ## http://localhost:8000/?search=oxidation%20data
                 ## above url represents 'querying with keywords: oxidation data'
+                
                 keywords=search.split()
                 
                 print("Received {} search keywords: {}".format(len(keywords), keywords))
@@ -63,25 +86,32 @@ class IndexView(generic.ListView):
                 for key_id in range(0,len(keywords)):
                     print('chaning search keywords: {}'.format(keywords[key_id]))
                     qs = qs.filter(searchindex__value=keywords[key_id])
+                
                 qs=qs.order_by('-created')
                 print('result set size: {}'.format(len(qs)))
                 ## get the correct dataset with the given keywords
 
                 ##
-        else:
-            
-            if datatype is None:
-                qs = SysDataset.objects.select_related().order_by('-created')[:10]
-            
-            else:
-                qs = SysDataset.objects.filter(id=int(datatype)).order_by('-created')[:10]
+
+        else: ## search is None  
+            qs = SysDataset.objects.order_by('-created')
         
+        if category is not None:
+            qs = qs.filter(category=int(category))
+        
+        if type is not None:
+            qs = qs.filter(type=int(type))
+            
+        qs = qs[10*(page-1):10*page]
+
         for obj in qs:
             try:
                 o = unpack_dataset_json(obj)
             except:
                 o = obj
             obj = o
+
+            
         
         return qs
 

@@ -23,7 +23,11 @@
                     {{ dataset.sizemb }} MB <i data-feather="file"></i>
                     {{ dataset.filecount}} Files
                     (JSON, CSV, Other)</div>
-                <div class="mb-3 text-muted"><i data-feather="tag"></i> {{ dataset.keywords }}
+                <div class="mb-1 text-muted"><i data-feather="tag"></i> {{ dataset.keywords }}
+                </div>
+                <div class="mb-1 text-muted"> {{ dataset.category_name }}
+                </div>
+                <div class="mb-3 text-muted"> {{ dataset.type_name }}
                 </div>
 
                 <a href="/dataset/{{ dataset.id }}"><button type="button"

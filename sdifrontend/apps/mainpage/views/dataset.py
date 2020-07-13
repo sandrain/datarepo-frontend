@@ -82,6 +82,7 @@ class DataSetsTypeView(ListView):
     template_name = 'mainpage/index.html'
     context_object_name = "datasets"
     category = None
+    type = None
 
     form = None
 
@@ -100,7 +101,34 @@ class DataSetsTypeView(ListView):
         return context
 
     def get_queryset(self):
-        self.category = self.kwargs['category']
+
+        try:
+            search = self.request.GET.get('search', None)
+            print("search is:", search)
+        except:
+            search = None
+
+        try:
+            page = self.request.GET.get('page', None)
+            print("page is:", page)
+        except:
+            page = 1
+
+        try: 
+            self.category = self.kwargs['category']
+        except:
+            self.category = None
+        
+        try: 
+            self.type = self.kwargs['type']
+        except:
+            self.type = None
+    
+        if self.category is not None:
+            return SysDataset.objects.filter(category=self.category)
+        elif self.type is not None:
+            return SysDataset.objects.filter(type=self.type)
+
         return SysDataset.objects.filter(category=self.category)
 
 
@@ -118,8 +146,6 @@ class DatasetView(DetailView):
             obj = unpack_dataset_json(tmp)
         except:
             obj = tmp
-
-        print("obj: {}".format(obj))
 
         return obj
 
