@@ -85,7 +85,7 @@ class IndexView(generic.ListView):
                 qs = SysDataset.objects
                 for key_id in range(0,len(keywords)):
                     print('chaning search keywords: {}'.format(keywords[key_id]))
-                    qs = qs.filter(searchindex__value=keywords[key_id])
+                    qs = qs.filter(searchindex__value=keywords[key_id]).distinct()
                 
                 qs=qs.order_by('-created')
                 print('result set size: {}'.format(len(qs)))
@@ -97,10 +97,10 @@ class IndexView(generic.ListView):
             qs = SysDataset.objects.order_by('-created')
         
         if category is not None:
-            qs = qs.filter(category=int(category))
+            qs = qs.filter(category=int(category)).distinct()
         
         if type is not None:
-            qs = qs.filter(type=int(type))
+            qs = qs.filter(type=int(type)).distinct()
             
         qs = qs[10*(page-1):10*page]
 
@@ -112,6 +112,5 @@ class IndexView(generic.ListView):
             obj = o
 
             
-        
         return qs
 
