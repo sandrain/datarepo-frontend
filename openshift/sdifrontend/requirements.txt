@@ -10,3 +10,4 @@ python-jose
 psycopg2
 faker
 uWSGI
+py2neo
