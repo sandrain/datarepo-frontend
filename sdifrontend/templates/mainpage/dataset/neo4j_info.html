@@ -1,0 +1,103 @@
+<div class="card mb-3">
+    <div class="card-header">
+        <b>Network Exploration</b>
+    </div>
+    <div class="card-body">
+        <div class="panel-body" style="min-height: 350px; max-height: 350px;">
+            <div class="row h-100">
+                <div class="col-md-12">
+                    <div id="dataset-graph"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    function show_init_graph() {
+        var sim_datasets = '{{sim_datasets}}';
+        sim_datasets = JSON.parse(sim_datasets.replace(/&quot;/g, '"'))
+        nodes.add([
+            {
+                id: '{{object.id}}',
+                label: '{{object.attributes.title}}',
+                color: 'yellow'
+            }]);
+
+        for (i = 0; i < sim_datasets.length; i++) {
+            title = sim_datasets[i].title;
+            id = sim_datasets[i].id;
+            nodes.add([
+                {
+                    id: id,
+                    label: title
+                }]);
+            edges.add([
+                {
+                    from: '{{object.id}}',
+                    to: id
+                }]);
+
+        }
+    };
+
+    function expand_graph(clicked_node, data) {
+        for (i = 0; i < data['result'].length; i++) {
+
+            id = data['result'][i].id;
+            title = data['result'][i].title;
+            nodes.add([
+                {
+                    id: id,
+                    label: title,
+                    color: '#C2FABC'
+                }]);
+            edges.add([
+                {
+                    from: clicked_node,
+                    to: id
+                }]);
+        }
+    };
+
+
+
+    // create an array with nodes
+    var nodes = new vis.DataSet([]);
+
+    // create an array with edges
+    var edges = new vis.DataSet([]);
+
+    // create a network
+    var container = document.getElementById('dataset-graph');
+    var data = {
+        nodes: nodes,
+        edges: edges
+    };
+    var options = { height: '350px', width: '100%' };
+    var network = new vis.Network(container, data, options);
+    var tmp;
+    network.on("doubleClick", function (properties) {
+        clicked_node = properties.nodes[0];
+
+        $.ajax({
+            url: '/ajax/get_similar_datasets',
+            data: {
+                'dataset': clicked_node
+            },
+            dataType: 'json',
+            success: function (data) {
+                expand_graph(clicked_node, data);
+            }
+        });
+
+    });
+
+</script>
+
+<script>
+
+    show_init_graph();
+
+</script>

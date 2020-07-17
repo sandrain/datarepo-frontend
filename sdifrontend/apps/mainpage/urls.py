@@ -12,4 +12,5 @@ urlpatterns = [
     path('dataset/category/<int:category>/', views.DataSetsTypeView.as_view(), name="dataset-category"),
     path('dataset/type/<int:type>/', views.DataSetsTypeView.as_view(), name="dataset-type"),
     path('basic_upload/', views.BasicUploadView.as_view(), name='basic_upload'),
+    path('ajax/get_similar_datasets/', views.get_similar_datasets, name='get_similar_datasets'),
 ]

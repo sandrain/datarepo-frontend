@@ -22,9 +22,13 @@ from .. import sidebar
 from .utils import (unpack_dataset_json, clean_recieved_val,
                     clean_keywords, uuid, json, make_keywords_list)
 
+from py2neo import Database
+from py2neo import Graph
+
 # we only need thos for testing
 from .utils import generate_fake_dataset_properties, generate_fake_dataset_files
 
+# Neo4j graph init
 
 class BasicUploadView(View):
     def post(self, request):
@@ -133,11 +137,38 @@ class DataSetsTypeView(ListView):
 
 
 class DatasetView(DetailView):
+    
+    # neo4j graph initialize
+    graph = Graph(host="neo4j", auth=('neo4j','1234'))
+    
     """
         List Details of a Dataset
     """
     template_name = 'mainpage/dataset/detail.html'
     queryset = SysDataset.objects.all()
+
+    def get_similar_datasets(self, dataset_id):
+
+        query = '''MATCH (n:Dataset)-[:hasKeyword]->(k)<-[:hasKeyword]-(m:Dataset) 
+        where n.id='{0}' and n<>m
+        RETURN m.id as id, m.title as title, count(*) as cnt order by cnt desc limit 10 
+        '''
+        query = query.format(dataset_id)
+        data = self.graph.run(query).data()
+        return data
+
+    def get_context_data(self, **kwargs):
+        
+        context = super(DatasetView, self).get_context_data(**kwargs)
+        dataset_id = str(context['sysdataset'].id)
+        sim_datasets = self.get_similar_datasets(dataset_id)
+
+        context.update({
+            'neo4j': 'neo4j_'+str(context['sysdataset'].id),
+            'sim_datasets': json.dumps(sim_datasets)
+        })
+
+        return context
 
     def get_object(self, queryset=None):
         _id = self.kwargs.get(self.pk_url_kwarg)
