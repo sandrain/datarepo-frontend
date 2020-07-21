@@ -1,0 +1,22 @@
+{% extends "mainpage/base.html" %}
+{% load static %}
+{% load compress %}
+{% load fontawesome_5 %}
+
+
+{% block header %}
+<header class="sticky-top">
+    {% include "mainpage/menu_bar.html" %}
+</header>
+{% endblock %}
+
+{% block content %}
+<div class="row ml-0 mr-0">
+    <nav class="sidebar">
+        {% include "mainpage/sidebar.html" %}
+    </nav>
+
+    <main role="main" class="main"> <!--col-md-9 ml-sm-auto col-lg-10 px-4"-->
+    </main>
+</div>
+{% endblock %}

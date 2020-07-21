@@ -97,7 +97,7 @@ class IndexView(generic.ListView):
             qs = SysDataset.objects.order_by('-created')
         
         if category is not None:
-            qs = qs.filter(category=int(category))
+            qs = qs.filter(categories=int(category))
         
         if type is not None:
             qs = qs.filter(type=int(type))

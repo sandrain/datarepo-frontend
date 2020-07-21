@@ -1,66 +1,70 @@
+# -*- coding: utf-8 -*-
+
 from django import template
 from django.db.models import Count
 from sdifrontend.apps.mainpage.models import SubjectIndex
-from sdifrontend.apps.mainpage.models import SysDataset
-from sdifrontend.apps.mainpage.models import SidebarMenu
+from sdifrontend.apps.mainpage.models import SysDataset, Category
 
 register = template.Library()
 
 @register.simple_tag(takes_context=True)
 
 def get_sidebar_items(context, **kwargs):
-    sb = SidebarMenu()
+    # get the categories
+    nav_elements = [{
+                'name': "Data Subject",
+                'id':'category',
+                'items': []
+            },{
+                'name': "Data Type",
+                'id':'type',
+                'items': [
+                    {'name': "Animations/Simulations"},
+                    {'name': "Genome/Genetic Data"},
+                    {'name': "Interactive Data Map"},
+                    {'name': "Numeric Data"},
+                    {'name': "Still Images/Photos"},
+                    {'name': "Figures/Plots"},
+                    {'name': "Specialized Mix"},
+                    {'name': "Multimedia"},
+                    {'name': "General (Other)"}
+                ]
+            }]
     
-    count_data_by_subject = list(SubjectIndex.objects.values('category_id').order_by('category_id').annotate(count=Count('category_id')))
-    count_data_by_type = list(SysDataset.objects.values('type').order_by('type').annotate(count=Count('type')))
+    for category in Category.objects.all().annotate(count=Count('sysdataset')).order_by('-count'):
+        nav_elements[0]['items'].append({'id': category.id, 'name': category.name, 'count': category.count, 'section': "category"})
     
-    for item in count_data_by_subject:
-        sb.nav_elements[0]['items'][item['category_id']]['count'] = item['count']
+    count_data_by_type = list(SysDataset.objects.values('type').annotate(count=Count('type')).order_by('type'))
     
     for item in count_data_by_type:
-        sb.nav_elements[1]['items'][item['type']]['count'] = item['count']
-        
-    for i in range(0,len(sb.nav_elements[0]['items'])):
-        try:
-            sb.nav_elements[0]['items'][i]['count']
-        except:
-            sb.nav_elements[0]['items'][i]['count'] = 0
-        
-        sb.nav_elements[0]['items'][i]['section'] = "category"
-        sb.nav_elements[0]['items'][i]['id'] = i
-            
+        nav_elements[1]['items'][item['type']]['count'] = item['count']
 
-    for i in range(0,len(sb.nav_elements[1]['items'])):
+    for i in range(0,len(nav_elements[1]['items'])):
         try:
-            sb.nav_elements[1]['items'][i]['count']
+            nav_elements[1]['items'][i]['count']
         except:
-            sb.nav_elements[1]['items'][i]['count'] = 0
+            nav_elements[1]['items'][i]['count'] = 0
         
-        sb.nav_elements[1]['items'][i]['section'] = "type"
-        sb.nav_elements[1]['items'][i]['id'] = i
+        nav_elements[1]['items'][i]['section'] = "type"
+        nav_elements[1]['items'][i]['id'] = i
 
-    for i in range(0,len(sb.nav_elements)):
-        sb.nav_elements[i]['items'] = sorted(sb.nav_elements[i]['items'], key=lambda k: k['count'], reverse=True) 
-            
-    return sb.nav_elements
+    return nav_elements
 
 @register.simple_tag(takes_context=True)
 def get_ds_types(context, **kwargs):
-    sb = SidebarMenu()
-    items = sb.nav_elements[1]['items']
     options = []
-    for item in items:
-        o = ('0', item['name'])
+    for category in Category.objects.all():
+        o = (category.id, category.name)
         options.append(o)
     return options
 
 @register.simple_tag(takes_context=True)
 def get_ds_subjects(context, **kwargs):
-    sb = SidebarMenu()
-    items = sb.nav_elements[0]['items']
-
     options = []
-    for item in items:
-        o = ("{}".format(items.index(item)), item['name'])
+    for category in Category.objects.all():
+        o = ("{}".format(category.id), category.name)
         options.append(o)
     return options
+
+def get_ds_subjects_list(context, **kwargs):
+    return {}

@@ -3,7 +3,7 @@
 <li class="row mb-2 ml-0 mr-0">
     <div class="container p-4 position-static border rounded">
         <strong class="d-inline-block mb-2 text-primary fas fa-database">Dataset</strong>
-        <h3 class="mb-3">{{ dataset.attributes.title }}</h3>
+        <h3 class="mb-3">{{ dataset.properties.title }}</h3>
 
         <div class="row">
             <div class="col-md-2 align-items-center">
@@ -12,20 +12,20 @@
                 {% endif %}
             </div>
             <div class="col-md-10">
-                <div class="mb-1">{{ dataset.attributes.subtitle }}
+                <div class="mb-1">{{ dataset.properties.subtitle }}
                 </div>
                 <div class="mb-1 text-muted"><i data-feather="user"></i>
                     <a href="/user/{{ dataset.owner.username }}">
                     {{ dataset.owner.displayname }}</a> <i data-feather="link"></i>
-                    {{ dataset.attributes.url }} </div>
+                    {{ dataset.properties.url }} </div>
                 <div class="mb-1 text-muted"><i data-feather="calendar"></i> created:
                     {{ dataset.created }} <i data-feather="database"></i>
                     {{ dataset.sizemb }} MB <i data-feather="file"></i>
                     {{ dataset.filecount}} Files
                     (JSON, CSV, Other)</div>
-                <div class="mb-1 text-muted"><i data-feather="tag"></i> {{ dataset.keywords }}
+                <div class="mb-1 text-muted"><i data-feather="tag"></i>{% for k in dataset.properties.keywords %} {% if forloop.last %}{{k}}{% else %}{{ k }}, {% endif %}{%endfor %}
                 </div>
-                <div class="mb-1 text-muted"> {{ dataset.category_name }}
+                <div class="mb-1 text-muted"> {% for category in dataset.categories.all %}{{ category.name }}{% endfor %}
                 </div>
                 <div class="mb-3 text-muted"> {{ dataset.type_name }}
                 </div>

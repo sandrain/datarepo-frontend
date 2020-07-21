@@ -20,7 +20,7 @@ import sdifrontend.apps.mainpage.views as mp
 
 urlpatterns = [
     path('', include('sdifrontend.apps.landingpage.url')),
-    path('', include('sdifrontend.apps.news.urls')),
+    path('', include('sdifrontend.apps.news.urls', namespace='news')),
     path('', include('sdifrontend.apps.mainpage.urls', namespace='mainpage')),
     path('', include('django.contrib.auth.urls')),
     path('', include('social_django.urls', namespace='social')),

@@ -1,8 +1,6 @@
-{% extends "mainpage/base.html" %}
-{% block content %}
+{% extends "mainpage/index.html" %}
 {% load static %}
-
-
+{% block main %}
 <script>
 
     $(document).ready(function () {
@@ -29,19 +27,9 @@
 
 </script>
 
-<header>
-    {% include "mainpage/menu_bar.html" %}
-</header>
-
 <!-- h1>{{ object.id }}</h1-->
 
-<div class="row m-0">
-    <nav class="sidebar">
-        {% include "mainpage/sidebar.html" %}
-    </nav>
-
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-
     <!-- data set header -->
     <div class="row">
         <div class="col-md-10">
@@ -50,7 +38,7 @@
             <div class="card mb-3">
                 <div class="card-body">
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
-                        <h1 class="h2">{{ object.attributes.title }}</h1><br>
+                        <h1 class="h2">{{ object.properties.title }}</h1><br>
                     </div>
                     <div class="row">
 
@@ -58,11 +46,11 @@
 
 
                             <div class="justify-content-between flex-wrap flex-md-nowrap align-items-left pb-3">
-                                {{ object.attributes.subtitle }}
+                                {{ object.properties.subtitle }}
                             </div>
                             <div class="mb-1 text-muted"><i data-feather="user"></i>
-                                {{ object.attributes.institution }} <i data-feather="link"></i>
-                                {{ object.attributes.url }} </div>
+                                {{ object.properties.institution }} <i data-feather="link"></i>
+                                {{ object.properties.url }} </div>
                             <div class="mb-1 text-muted"><i data-feather="calendar"></i> created at {{ object.created }}
                                 <i data-feather="database"></i> {{ object.sizemb }} MB <i data-feather="file"></i>
                                 {{ object.filecount }} Files
@@ -81,6 +69,7 @@
                             <button type="button" class="btn btn-primary btn-sm"><i data-feather="download"></i>
                                 Download</button>
                         </div>
+                        {% if user and not user.is_anonymous %}
                         <div>
                             <a href="/dataset/{{ object.id }}/update"><button type="button"
                                     class="btn btn-primary  btn-sm"><i data-feather="edit-2"></i> Update</button></a>
@@ -88,6 +77,7 @@
                                 data-target="#dataset-delete" class="btn btn-primary  btn-sm"><i
                                     data-feather="trash"></i> Delete</button>
                         </div>
+                        {% endif %}
                     </div>
 
                 </div>
@@ -97,7 +87,7 @@
                 <div class="card-header">
                     <b>Description</b>
                 </div>
-                <div class="card-body">{{ object.attributes.description }}</div>
+                <div class="card-body">{{ object.properties.description }}</div>
 
             </div>
 
@@ -123,7 +113,7 @@
                             <tr>
                                 <td><i data-feather="users"></i> <strong>Originating Research Organizations:</strong>
                                 </td>
-                                <td>{{ object.attributes.institution }}</td>
+                                <td>{{ object.properties.institution }}</td>
                             </tr>
                             <tr>
                                 <td><i data-feather="mail"></i> <strong>Contact Email:</strong></td>
@@ -135,11 +125,11 @@
                             </tr-->
                             <tr>
                                 <td><i data-feather="link"></i> <strong>Site URL:</strong></td>
-                                <td>{{ object.attributes.url }}</td>
+                                <td>{{ object.properties.url }}</td>
                             </tr>
                             <tr>
                                 <td><i data-feather="link"></i> <strong>Subject:</strong></td>
-                                <td>{{ object.category_name }} </td>
+                                <td>{% for c in object.categories.all %}{% if forloop.last %}{{ c.name }}{% else %}{{c.name}}, {% endif %}{% endfor %}</td>
                             </tr>
                             <tr>
                                 <td><i data-feather="link"></i> <strong>Type:</strong></td>
@@ -214,8 +204,8 @@
                     <div class="card  mb-2">
                         <div class="card-body">
                             This action cannot be <b>undone</b>. This will permanently delete the
-                            <b>'{{object.attributes.title}}'</b> dataset.<br> Please type
-                            <b>'{{object.attributes.title}}'</b> to confirm.
+                            <b>'{{object.properties.title}}'</b> dataset.<br> Please type
+                            <b>'{{object.properties.title}}'</b> to confirm.
                         </div>
                     </div>
 
@@ -232,5 +222,5 @@
             </form>
         </div>
     </div>
-</div>
+
 {% endblock %}

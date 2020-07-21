@@ -1,0 +1,17 @@
+{% extends "mainpage/index.html" %}
+{% load static %}
+{% load compress %}
+
+    {% block main %}
+        <div class="row mb-2">
+            <ul class="flex-container">
+                {% if datasets %}
+                {% for dataset in datasets %}
+                <!-- {{dataset}}-->
+                <li class="nav-item"><a href="{% url 'mainpage:dataset-category' forloop.counter0 %}">{{ dataset.name }}</a></li>
+                {% endfor %}
+                {% endif %}
+            </ul>
+            <!-- side bar (right) -->
+        </div>
+    {% endblock %}

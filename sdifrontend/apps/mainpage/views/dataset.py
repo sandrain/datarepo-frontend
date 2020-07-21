@@ -14,9 +14,9 @@ from django.core import validators
 
 from django import forms
 from django.views.generic import View, DetailView, ListView, FormView
-from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView, ModelFormMixin
 
-from sdifrontend.apps.mainpage.models import SysDataset, SysUser, SysFile
+from sdifrontend.apps.mainpage.models import SysDataset, SysUser, SysFile, Category
 from .. import sidebar
 
 from .utils import (unpack_dataset_json, clean_recieved_val,
@@ -52,7 +52,11 @@ class DatasetForm(forms.ModelForm):
     """
     class Meta:
         model = SysDataset
-        fields = []
+        fields = ['categories', 'properties']
+
+    class MyModelMultipleChoiceField(forms.ModelMultipleChoiceField):
+        def label_from_instance(self, obj):
+            return obj.name
 
     is_multipart = True
 
@@ -66,13 +70,12 @@ class DatasetForm(forms.ModelForm):
         attrs={'class': 'form-control form-control-sm mb-1', 'placeholder': "Enter keywords separated by commas (e.g., 'climate, simulation, forecasting' )"}))
     type = forms.ChoiceField(choices=sidebar.get_ds_types(
         None), widget=forms.Select(attrs={'class': 'form-control'}))
-    #subject = forms.MultipleChoiceField(choices=sidebar.get_ds_subjects(
-    #    None), widget=forms.SelectMultiple(attrs={'class': 'form-control'}))
-    subject = forms.ChoiceField(choices=sidebar.get_ds_subjects(
-        None), widget=forms.Select(attrs={'class': 'form-control'}))
+    categories = MyModelMultipleChoiceField(queryset=Category.objects.all(), widget=forms.SelectMultiple(attrs={'class': 'form-control'}))
+    #categories = forms.MultipleChoiceField(choices=Category.objects.all(), widget=forms.SelectMultiple(attrs={'class': 'form-control'}))
+    #subject = forms.ChoiceField(choices=sidebar.get_ds_subjects(
+    #    None), widget=forms.Select(attrs={'class': 'form-control'}))
 
-    files = forms.FileField(
-        widget=forms.ClearableFileInput(attrs={'multiple': True}))
+    files = forms.FileField(required=False, widget=forms.ClearableFileInput(attrs={'multiple': True, 'data-url': reverse_lazy('mainpage:upload')}))
 
 
 class DataSetsTypeView(ListView):
@@ -94,10 +97,6 @@ class DataSetsTypeView(ListView):
             'form': self.form
         })
 
-        # Might want to do this differently
-        for data_set in context['object_list']:
-            data_set = unpack_dataset_json(data_set)
-
         return context
 
     def get_queryset(self):
@@ -115,9 +114,9 @@ class DataSetsTypeView(ListView):
             page = 1
 
         try: 
-            self.category = self.kwargs['category']
+            self.categories = self.kwargs['category']
         except:
-            self.category = None
+            self.categories = None
         
         try: 
             self.type = self.kwargs['type']
@@ -125,11 +124,11 @@ class DataSetsTypeView(ListView):
             self.type = None
     
         if self.category is not None:
-            return SysDataset.objects.filter(category=self.category)
+            return SysDataset.objects.filter(categories=self.categories)
         elif self.type is not None:
             return SysDataset.objects.filter(type=self.type)
 
-        return SysDataset.objects.filter(category=self.category)
+        return SysDataset.objects.filter(categories=self.categories)
 
 
 class DatasetView(DetailView):
@@ -149,19 +148,6 @@ class DatasetCreate(CreateView):
     form_class = DatasetForm
     template_name = 'mainpage/dataset/edit.html'
     success_url = reverse_lazy('mainpage:dataset-detail')
-
-    # def post(self, request, *args, **kwargs):
-    #     form = DatasetForm(self.request.POST, self.request.FILES)
-
-    #     print("Post: {}".format(request.POST))
-
-    #     if form.is_valid():
-    #         # call model create dataset
-    #         print ("Form is Valid")
-    #     else:
-    #         print ("Form is invalid: {}".format(form.errors))
-
-    #     return render(request, self.template_name, {'form': form})
 
     def form_valid(self, form):
         # TODO: make this a class variable?
@@ -185,7 +171,7 @@ class DatasetCreate(CreateView):
         keywords = form.cleaned_data['keywords']
                 
         dataset_type = form.cleaned_data['type']
-        subjects = form.cleaned_data['subject']
+        categories = form.cleaned_data['categories']
 
         # TODO: make this a little more elegant
 
@@ -213,16 +199,20 @@ class DatasetCreate(CreateView):
         _uuid = str(uuid.uuid1())
         print("uuid: {}".format(_uuid))
 
-        data_set = SysDataset(properties=properties,
+        data_set = SysDataset.objects.create(properties=properties,
                               uuid=_uuid,
                               owner=owner,
                               size=size,
                               structure=structure,
-                              category=subjects,
                               type=dataset_type)
 
         # TODO: Handle all the data in a transaction
         data_set.save()
+
+        # Add categories
+        for category in categories.all():
+            data_set.categories.add(category)
+
         data_set.create_index() # create index
 
         # populate dataset files

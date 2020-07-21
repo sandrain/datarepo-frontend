@@ -88,13 +88,14 @@ function search_within(keyword) {
 
 {% block content %}
 <div class="row ml-0 mr-0">
+    {% block sidebar %}
     <nav class="sidebar">
         {% include "mainpage/sidebar.html" %}
     </nav>
+    {% endblock %}
 
-    <main role="main" class="main">
-        <!--col-md-9 ml-sm-auto col-lg-10 px-4"-->
-
+    {% block main %}
+    <main role="main" class="main"> <!--col-md-9 ml-sm-auto col-lg-10 px-4"-->
         <!-- data set header -->
         <div class="row">
             <div class="col-md-10">
@@ -133,11 +134,11 @@ function search_within(keyword) {
 
         <div class="row mb-2">
             <div class="col-md-10">
-                {% if datasets %}
-                {% for dataset in datasets %}
+                {% for dataset in object_list %}
                 {% include "mainpage/dataset/ds_item.html" with dataset=dataset %}
+                {% empty %}
+                    No Datasets yet!
                 {% endfor %}
-                {% endif %}
             </div>
 
         </div>
@@ -151,7 +152,7 @@ function search_within(keyword) {
             </div>
         </div>
     </main>
-</div>
+
 
 <script>
     var curr_page = 1;
@@ -184,7 +185,6 @@ function search_within(keyword) {
 </script>
 
 <!-- Button trigger modal -->
-
 <!-- Modal -->
 {% for dataset in datasets %}
 
@@ -253,11 +253,13 @@ function search_within(keyword) {
             </div>
         </div>
     </div>
-</div>
 
-{% endfor %}
+    {% endfor %}
 
 <!-- Modal -->
-{% include "mainpage/index_modal.html" %}
+    {% include "mainpage/index_modal.html" %}
+
+    {% endblock %}
+</div>
 
 {% endblock %}

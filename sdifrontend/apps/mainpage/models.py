@@ -165,44 +165,29 @@ class SysDataset(models.Model):
     description = None
     keywords = None
     subject = 0
-    attributes = None
 
     class Meta:
         #managed = False
         db_table = 'sys_dataset'
 
-    @classmethod
-    def from_db(cls, db, field_names, values):
-        instance = super().from_db(db, field_names, values)
+    # @classmethod
+    # def from_db(cls, db, field_names, values):
+    #     instance = super().from_db(db, field_names, values)
 
-        instance.title = instance.properties['title']
-        instance.subtitle = instance.properties['subtitle']
-        instance.description = instance.properties['description']
-        instance.keywords = instance.properties['keywords']
-        instance.attributes = instance.properties
+    #     instance.title = instance.properties['title']
+    #     instance.subtitle = instance.properties['subtitle']
+    #     instance.description = instance.properties['description']
+    #     instance.keywords = instance.properties['keywords']
+    #     instance.attributes = instance.properties
 
-        return instance
-
-    def get(self, arg):
-        ret = None
-
-        if arg in self.__dict__.keys():
-            ret = self.__dict__[arg]
-        elif arg in ['title', 'subtitle', 'description', 'keywords']:
-            obj = self.properties
-            ret = obj[arg]
-        elif arg == 'subject':
-            return 0
-        else:
-            ret = None
-
-        return ret
+    #     return instance
 
     def get_absolute_url(self):
         return reverse('mainpage:dataset-detail', kwargs={'pk': self.pk})
 
     def create_index(self):
         props = self.properties
+
         for key in props.keys():
         
             if key=="keywords":
@@ -217,25 +202,24 @@ class SysDataset(models.Model):
                 for term in terms:
                     si = SearchIndex(attribute = key, value = ''.join(e for e in term if e.isalnum()), dataset = self)
                     si.save()
-        
-        sb = SidebarMenu()
-        
+
         # indexing subject
-        category_id_to_name = (sb.nav_elements[0]['items'][int(self.category)]['name']) #subject
-        terms = category_id_to_name.lower().split(" ")
-        for term in terms:
-            si = SearchIndex(attribute = 'subject', value = ''.join(e for e in term if e.isalnum()), dataset = self)
-            si.save()
+        for item in self.categories.all():
+            print(item.name)
+            terms = item.name.lower().split(" ")
+            for term in terms:
+                si = SearchIndex(attribute = 'subject', value = ''.join(e for e in term if e.isalnum()), dataset = self)
+                si.save()
                 
         # indexing type
-        type_id_to_name = (sb.nav_elements[0]['items'][int(self.category)]['name']) #subject
-        terms = type_id_to_name.lower().split(" ")
-        for term in terms:
-            si = SearchIndex(attribute = 'type', value = ''.join(e for e in term if e.isalnum()), dataset = self)
-            si.save()
+        for item in self.categories.all():
+            terms = item.name.lower().split(" ")
+            for term in terms:
+                si = SearchIndex(attribute = 'type', value = ''.join(e for e in term if e.isalnum()), dataset = self)
+                si.save()
     
-        ci = SubjectIndex(dataset = self, category_id = int(self.category))
-        ci.save()
+            ci = SubjectIndex(dataset = self, category_id = item.id )
+            ci.save()
 
     def remove_index(self):
         SearchIndex.objects.filter(dataset = self).delete()

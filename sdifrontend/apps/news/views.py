@@ -6,4 +6,4 @@ from django.views.generic import TemplateView
 from django.shortcuts import render
 
 class NewsView(TemplateView):
-   template_name = 'news.html'
+   template_name = 'news/news.html'
