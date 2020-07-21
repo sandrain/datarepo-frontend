@@ -175,11 +175,11 @@ class SysDataset(models.Model):
     def from_db(cls, db, field_names, values):
         instance = super().from_db(db, field_names, values)
 
-        instance.title = json.loads(instance.properties)['title']
-        instance.subtitle = json.loads(instance.properties)['subtitle']
-        instance.description = json.loads(instance.properties)['description']
-        instance.keywords = json.loads(instance.properties)['keywords']
-        instance.attributes = json.loads(instance.properties)
+        instance.title = instance.properties['title']
+        instance.subtitle = instance.properties['subtitle']
+        instance.description = instance.properties['description']
+        instance.keywords = instance.properties['keywords']
+        instance.attributes = instance.properties
 
         return instance
 
@@ -189,7 +189,7 @@ class SysDataset(models.Model):
         if arg in self.__dict__.keys():
             ret = self.__dict__[arg]
         elif arg in ['title', 'subtitle', 'description', 'keywords']:
-            obj = json.loads(self.properties)
+            obj = self.properties
             ret = obj[arg]
         elif arg == 'subject':
             return 0
@@ -202,7 +202,6 @@ class SysDataset(models.Model):
         return reverse('mainpage:dataset-detail', kwargs={'pk': self.pk})
 
     def create_index(self):
-        #props = json.loads(self.properties)
         props = self.properties
         for key in props.keys():
         
