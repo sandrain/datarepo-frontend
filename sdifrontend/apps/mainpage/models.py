@@ -141,6 +141,10 @@ class SidebarMenu:
             }
         ]
 
+class Category(models.Model):
+    id = models.IntegerField(primary_key=True)
+    name = models.TextField(blank=True, null=True)
+
 class SysDataset(models.Model):
 
     id = models.BigAutoField(primary_key=True)
@@ -149,16 +153,50 @@ class SysDataset(models.Model):
     public = models.IntegerField(blank=True, null=True)
     size = models.BigIntegerField(blank=True, null=True)
     icon = models.CharField(max_length=256, blank=True, null=True)
-    category = models.IntegerField(default=0)
+    categories = models.ManyToManyField(Category)
     type = models.IntegerField(default=0)
     properties = JSONField(blank=True, null=True)
     structure = models.TextField(blank=True, null=True)
     created = models.DateTimeField(null=False, auto_now=True)
     updated = models.DateTimeField(blank=True, null=True, auto_now=True)
 
+    title = None
+    subtitle = None
+    description = None
+    keywords = None
+    subject = 0
+    attributes = None
+
     class Meta:
         #managed = False
         db_table = 'sys_dataset'
+
+    @classmethod
+    def from_db(cls, db, field_names, values):
+        instance = super().from_db(db, field_names, values)
+
+        instance.title = json.loads(instance.properties)['title']
+        instance.subtitle = json.loads(instance.properties)['subtitle']
+        instance.description = json.loads(instance.properties)['description']
+        instance.keywords = json.loads(instance.properties)['keywords']
+        instance.attributes = json.loads(instance.properties)
+
+        return instance
+
+    def get(self, arg):
+        ret = None
+
+        if arg in self.__dict__.keys():
+            ret = self.__dict__[arg]
+        elif arg in ['title', 'subtitle', 'description', 'keywords']:
+            obj = json.loads(self.properties)
+            ret = obj[arg]
+        elif arg == 'subject':
+            return 0
+        else:
+            ret = None
+
+        return ret
 
     def get_absolute_url(self):
         return reverse('mainpage:dataset-detail', kwargs={'pk': self.pk})

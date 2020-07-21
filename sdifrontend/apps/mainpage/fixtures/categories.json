@@ -1,0 +1,359 @@
+[
+    {
+        "model": "mainpage.Category",
+        "pk": 1,
+        "fields": {
+            "name": "Coal, Lignite, and Peat"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 2,
+        "fields": {
+            "name": "Petroleum"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 3,
+        "fields": {
+            "name": "Natural Gas"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 4,
+        "fields": {
+            "name": "Oil Shales And Tar Sands"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 7,
+        "fields": {
+            "name": "Isotope And Radiation Sources"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 8,
+        "fields": {
+            "name": "Hydrogen"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 9,
+        "fields": {
+            "name": "Biomass Fuels"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 10,
+        "fields": {
+            "name": "Synthetic Fuels"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 11,
+        "fields": {
+            "name": "Nuclear Fuel Cycle And Fuel Materials"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 12,
+        "fields": {
+            "name": "Management Of Radioactive And Non-Radioactive Wastes From Nuclear Facilities"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 13,
+        "fields": {
+            "name": "Hydro Energy"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 14,
+        "fields": {
+            "name": "Solar Energy"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 15,
+        "fields": {
+            "name": "Geothermal Energy"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 16,
+        "fields": {
+            "name": "Tidal And Wave Power"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 17,
+        "fields": {
+            "name": "Wind Energy"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 20,
+        "fields": {
+            "name": "Fossil-Fueled Power Plants"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 21,
+        "fields": {
+            "name": "Specific Nuclear Reactors And Associated Plants"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 22,
+        "fields": {
+            "name": "General Studies Of Nuclear Reactors"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 24,
+        "fields": {
+            "name": "Power Transmission And Distribution"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 25,
+        "fields": {
+            "name": "Energy Storage"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 29,
+        "fields": {
+            "name": "Energy Planning, Policy, And Economy"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 30,
+        "fields": {
+            "name": "Direct Energy Conversion"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 32,
+        "fields": {
+            "name": "Energy Conservation, Consumption, And Utilization"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 33,
+        "fields": {
+            "name": "Advanced Propulsion Systems"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 36,
+        "fields": {
+            "name": "Materials Science"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 37,
+        "fields": {
+            "name": "Inorganic, Organic, Physical, And Analytical Chemistry"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 38,
+        "fields": {
+            "name": "Radiation Chemistry, Radiochemistry, And Nuclear Chemistry"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 42,
+        "fields": {
+            "name": "Engineering"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 43,
+        "fields": {
+            "name": "Particle Accelerators"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 45,
+        "fields": {
+            "name": "Military Technology, Weaponry, And National Defense"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 46,
+        "fields": {
+            "name": "Instrumentation Related To Nuclear Science And Technology"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 47,
+        "fields": {
+            "name": "Other Instrumentation"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 54,
+        "fields": {
+            "name": "Environmental Sciences"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 58,
+        "fields": {
+            "name": "Geosciences"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 59,
+        "fields": {
+            "name": "Basic Biological Sciences"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 60,
+        "fields": {
+            "name": "Applied Life Sciences"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 61,
+        "fields": {
+            "name": "Radiation Protection And Dosimetry"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 62,
+        "fields": {
+            "name": "Radiology And Nuclear Medicine"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 63,
+        "fields": {
+            "name": "Radiation, Thermal, And Other Environ. Pollutant Effects On Living Orgs. And Biol. Mat."
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 70,
+        "fields": {
+            "name": "Plasma Physics And Fusion Technology"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 71,
+        "fields": {
+            "name": "Classical And Quantum Mechanics, General Physics"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 72,
+        "fields": {
+            "name": "Physics Of Elementary Particles And Fields"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 73,
+        "fields": {
+            "name": "Nuclear Physics And Radiation Physics"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 74,
+        "fields": {
+            "name": "Atomic And Molecular Physics"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 75,
+        "fields": {
+            "name": "Condensed Matter Physics, Superconductivity And Superfluidity"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 77,
+        "fields": {
+            "name": "Nanoscience And Nanotechnology"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 79,
+        "fields": {
+            "name": "Astronomy And Astrophysics"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 96,
+        "fields": {
+            "name": "Knowledge Management And Preservation"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 97,
+        "fields": {
+            "name": "Mathematics And Computing"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 98,
+        "fields": {
+            "name": "Nuclear Disarmament, Safeguards, And Physical Protection"
+        }
+    },
+    {
+        "model": "mainpage.Category",
+        "pk": 99,
+        "fields": {
+            "name": "General And Miscellaneous"
+        }
+    }
+]

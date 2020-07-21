@@ -27,6 +27,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'io4o1_(a2m_9%oe8hzmo_$y(h#+*^@j1x+lplp@zq20u75@=n_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
 COMPRESS_ENABLED = True
 COMPRESS_OFFLINE = True
 
@@ -157,6 +158,10 @@ SOCIAL_AUTH_URL_NAMESPACE = 'social'
 SOCIAL_AUTH_GLOBUS_AUTH_EXTRA_ARGUMENTS = {
     'access_type': 'offline',
 }
+
+SOCIAL_AUTH_GLOBUS_SCOPE = [
+    'urn:globus:auth:scope:transfer.api.globus.org:all'
+]
 
 # deployment
 if 'SOCIAL_AUTH_GLOBUS_KEY' in os.environ:

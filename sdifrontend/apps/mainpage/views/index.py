@@ -104,12 +104,12 @@ class IndexView(generic.ListView):
             
         qs = qs[10*(page-1):10*page]
 
-        for obj in qs:
-            try:
-                o = unpack_dataset_json(obj)
-            except:
-                o = obj
-            obj = o
+        # for obj in qs:
+        #     try:
+        #         o = unpack_dataset_json(obj)
+        #     except:
+        #         o = obj
+        #     obj = o
 
             
         

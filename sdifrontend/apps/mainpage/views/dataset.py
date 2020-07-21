@@ -139,15 +139,10 @@ class DatasetView(DetailView):
     template_name = 'mainpage/dataset/detail.html'
     queryset = SysDataset.objects.all()
 
-    def get_object(self, queryset=None):
-        _id = self.kwargs.get(self.pk_url_kwarg)
-        tmp = get_object_or_404(SysDataset.objects.select_related(), id=_id)
-        try:
-            obj = unpack_dataset_json(tmp)
-        except:
-            obj = tmp
-
-        return obj
+    # def get_object(self, queryset=None):
+    #     _id = self.kwargs.get(self.pk_url_kwarg)
+    #     obj = get_object_or_404(SysDataset.objects.select_related(), id=_id)
+    #     return obj
 
 
 class DatasetCreate(CreateView):
