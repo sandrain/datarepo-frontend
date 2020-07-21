@@ -3,7 +3,7 @@ from django.shortcuts import render
 import random, json, uuid
 
 from sdifrontend.apps.mainpage.models import SysDataset, SysUser, SearchIndex, SidebarMenu
-from django.contrib.postgres.search import SearchQuery
+from django.contrib.postgres.search import SearchQuery, SearchVector, SearchRank
 from django.db.models import Q
 
 from .dataset import DatasetForm
@@ -84,10 +84,10 @@ class IndexView(generic.ListView):
 
                 qs = SysDataset.objects
                 for key_id in range(0,len(keywords)):
-                    print('chaning search keywords: {}'.format(keywords[key_id]))
+                    print('chaining search keywords: {}'.format(keywords[key_id]))
                     qs = qs.filter(searchindex__value=keywords[key_id])
                 
-                qs=qs.order_by('-created')
+                qs=qs.annotate(rank=SearchRank(SearchVector('properties'),SearchQuery(' '.join(keywords)))).order_by('-rank','-created')
                 print('result set size: {}'.format(len(qs)))
                 ## get the correct dataset with the given keywords
 

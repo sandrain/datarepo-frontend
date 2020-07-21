@@ -26,7 +26,8 @@ def make_keywords_list(keywords):
 def unpack_dataset_json(dataset):
     
     dataset.id = dataset.id
-    dataset.attributes = json.loads(dataset.properties)
+#    dataset.attributes = json.loads(dataset.properties)
+    dataset.attributes = dataset.properties
     dataset.sizemb = int(dataset.size / (2**20))
     dataset.filecount = len((json.loads(dataset.structure))['data'])
     dataset.keywords = ', '.join(dataset.attributes['keywords'])
