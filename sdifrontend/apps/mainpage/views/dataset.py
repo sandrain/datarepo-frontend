@@ -63,29 +63,30 @@ class DatasetForm(forms.ModelForm):
     title = forms.CharField(widget=forms.TextInput(
         attrs={'class': 'form-control mb-1', 'placeholder': 'Enter Dataset Title'}))
     subtitle = forms.CharField(widget=forms.TextInput(
-        attrs={'class': 'form-control form-control-sm mb-1', 'placeholder': 'Enter Dataset Subtitle'}))
+        attrs={'class': 'form-control form-control-sm mb-1',
+               'placeholder': 'Enter Dataset Subtitle'}))
     description = forms.CharField(widget=forms.Textarea(
-        attrs={'class': 'form-control form-control-sm mb-1', 'placeholder': 'Please add your description for this dataset.', 'rows': '3'}))
+        attrs={'class': 'form-control form-control-sm mb-1',
+               'placeholder': 'Please add your description for this dataset.', 'rows': '3'}))
     keywords = forms.CharField(widget=forms.TextInput(
-        attrs={'class': 'form-control form-control-sm mb-1', 'placeholder': "Enter keywords separated by commas (e.g., 'climate, simulation, forecasting' )"}))
+        attrs={'class': 'form-control form-control-sm mb-1',
+               'placeholder': "Enter keywords separated by commas (e.g., 'climate, simulation, forecasting' )"}))
     type = forms.ChoiceField(choices=sidebar.get_ds_types(
         None), widget=forms.Select(attrs={'class': 'form-control'}))
-    categories = MyModelMultipleChoiceField(queryset=Category.objects.all(), widget=forms.SelectMultiple(attrs={'class': 'form-control'}))
-    #categories = forms.MultipleChoiceField(choices=Category.objects.all(), widget=forms.SelectMultiple(attrs={'class': 'form-control'}))
-    #subject = forms.ChoiceField(choices=sidebar.get_ds_subjects(
-    #    None), widget=forms.Select(attrs={'class': 'form-control'}))
+    categories = MyModelMultipleChoiceField(queryset=Category.objects.all(),
+                                            widget=forms.SelectMultiple(attrs={'class': 'form-control'}))
 
-    files = forms.FileField(required=False, widget=forms.ClearableFileInput(attrs={'multiple': True, 'data-url': reverse_lazy('mainpage:upload')}))
+    files = forms.FileField(required=False, widget=forms.ClearableFileInput(
+        attrs={'multiple': True, 'data-url': reverse_lazy('mainpage:upload')}))
 
-
-class DataSetsTypeView(ListView):
+class DataSetsCategoryView(ListView):
     """
         List Datasets by type
     """
     template_name = 'mainpage/index.html'
     context_object_name = "datasets"
-    category = None
     type = None
+    paginate_by = 10
 
     form = None
 
