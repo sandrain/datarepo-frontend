@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'social_django',
     'sdifrontend.apps.mainpage',
     'sdifrontend.apps.landingpage',
-    'sdifrontend.apps.news'
+    'sdifrontend.apps.news',
+    'mathfilters'
 ]
 
 MIDDLEWARE = [

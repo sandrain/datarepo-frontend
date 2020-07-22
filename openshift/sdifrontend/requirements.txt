@@ -5,6 +5,7 @@ django-libsass
 django-distill
 django-sass-processor
 django-fontawesome_5
+django-mathfilters
 social-auth-app-django
 python-jose
 psycopg2

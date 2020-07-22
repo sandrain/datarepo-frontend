@@ -1,5 +1,6 @@
 {% extends "mainpage/index.html" %}
 {% load static %}
+{% load mathfilters %}
 {% block main %}
 <script>
 
@@ -59,9 +60,11 @@
                                 {{ object.keywords }}</div>
 
                         </div>
+                        <!-- icon -->
                         {% if object.icon %}
-                        <div class="col-md-2 align-items-center"><img height="100" width="100"
-                                src="{% static object.icon %}"></div>
+                        <div class="col-md-2 align-items-center"><img height="100" width="100" src="{% static object.icon %}"></div>
+                        {% else %}
+                        <div class="col-md-2 align-items-center"><img height="100" width="100" src="{% get_static_prefix %}icons/{{object.id|mod:500}}.png"></div>
                         {% endif %}
                     </div>
                     <div class="row pl-3">
