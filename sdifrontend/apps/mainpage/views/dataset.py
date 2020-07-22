@@ -79,7 +79,7 @@ class DatasetForm(forms.ModelForm):
     files = forms.FileField(required=False, widget=forms.ClearableFileInput(
         attrs={'multiple': True, 'data-url': reverse_lazy('mainpage:upload')}))
 
-class DataSetsCategoryView(ListView):
+class DataSetsListView(ListView):
     """
         List Datasets by type
     """
@@ -91,7 +91,7 @@ class DataSetsCategoryView(ListView):
     form = None
 
     def get_context_data(self, **kwargs):
-        context = super(DataSetsTypeView, self).get_context_data(**kwargs)
+        context = super(DataSetsListView, self).get_context_data(**kwargs)
         if not self.form:
             self.form = DatasetForm
         context.update({
@@ -114,17 +114,17 @@ class DataSetsCategoryView(ListView):
         except:
             page = 1
 
-        try: 
+        try:
             self.categories = self.kwargs['category']
         except:
             self.categories = None
-        
-        try: 
+
+        try:
             self.type = self.kwargs['type']
         except:
             self.type = None
-    
-        if self.category is not None:
+
+        if self.categories is not None:
             return SysDataset.objects.filter(categories=self.categories)
         elif self.type is not None:
             return SysDataset.objects.filter(type=self.type)
@@ -170,7 +170,7 @@ class DatasetCreate(CreateView):
         subtitle = form.cleaned_data['subtitle']
         description = form.cleaned_data['description']
         keywords = form.cleaned_data['keywords']
-                
+
         dataset_type = form.cleaned_data['type']
         categories = form.cleaned_data['categories']
 

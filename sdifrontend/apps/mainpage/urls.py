@@ -10,9 +10,9 @@ urlpatterns = [
     path('dataset/<int:pk>/', views.DatasetView.as_view(), name="dataset-detail"),
     path('dataset/<int:pk>/update/', views.DatasetUpdate.as_view(), name="dataset-update"),
     path('dataset/<int:pk>/delete/', views.DatasetDelete.as_view(), name="dataset-delete"),
-    path('dataset/type/<int:type>/', views.DataSetsTypeView.as_view(), name="dataset-type"),
+    path('dataset/type/<int:type>/', views.DataSetsListView.as_view(), name="dataset-type"),
     path('basic_upload/', views.BasicUploadView.as_view(), name='basic_upload'),
     # Categorys
     path('dataset/category/', views.CategoryView.as_view(), name="category-index"),
-    path('dataset/category/<int:category>/', views.DataSetsTypeView.as_view(), name="dataset-category"),
+    path('dataset/category/<int:category>/', views.DataSetsListView.as_view(), name="dataset-category"),
 ]
