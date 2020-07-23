@@ -111,7 +111,7 @@
                             </tr>
                             <tr>
                                 <td><i data-feather="tag"></i> <strong>Keywords:</strong></td>
-                                <td>{{ object.keywords }}</td>
+                                <td>{% for k in object.properties.keywords %} {% if forloop.last %}{{k}}{% else %}{{ k }}, {% endif %}{%endfor %}</td>
                             </tr>
                             <tr>
                                 <td><i data-feather="users"></i> <strong>Originating Research Organizations:</strong>
