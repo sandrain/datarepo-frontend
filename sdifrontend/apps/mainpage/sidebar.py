@@ -3,7 +3,7 @@
 from django import template
 from django.db.models import Count
 from sdifrontend.apps.mainpage.models import SubjectIndex
-from sdifrontend.apps.mainpage.models import SysDataset, Category
+from sdifrontend.apps.mainpage.models import SysDataset, Category, SidebarMenu
 
 register = template.Library()
 
@@ -52,11 +52,15 @@ def get_sidebar_items(context, **kwargs):
 
 @register.simple_tag(takes_context=True)
 def get_ds_types(context, **kwargs):
+    sb = SidebarMenu()
+    items = sb.nav_elements[1]['items']
     options = []
-    for category in Category.objects.all():
-        o = (category.id, category.name)
+    for item in items:
+        o = ('0', item['name'])
         options.append(o)
     return options
+
+
 
 @register.simple_tag(takes_context=True)
 def get_ds_subjects(context, **kwargs):
