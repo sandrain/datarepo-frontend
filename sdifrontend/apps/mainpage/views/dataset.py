@@ -114,7 +114,7 @@ class DataSetsListView(ListView):
 
     def get_queryset(self):
         try:
-            search = self.kwargs['search']
+            search = self.request.GET.get('search', None)
             print("search is:", search)
         except KeyError:
             search = None
