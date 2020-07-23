@@ -17,6 +17,7 @@ from django.views.generic import View, DetailView, ListView, FormView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView, ModelFormMixin
 
 from sdifrontend.apps.mainpage.models import SysDataset, SysUser, SysFile, Category
+from django.contrib.postgres.search import SearchQuery, SearchVector, SearchRank
 from .. import sidebar
 
 from .utils import (unpack_dataset_json, clean_recieved_val,
@@ -101,48 +102,71 @@ class DataSetsListView(ListView):
         return context
 
     def get_queryset(self):
-
         try:
-            search = self.request.GET.get('search', None)
+            search = self.kwargs['search']
             print("search is:", search)
         except:
             search = None
 
         try:
-            page = self.request.GET.get('page', None)
-            print("page is:", page)
+            categories = self.kwargs['category']
         except:
-            page = 1
+            categories = None
 
         try:
-            self.categories = self.kwargs['category']
+            _type = self.kwargs['type']
         except:
-            self.categories = None
+            _type = None
 
-        try:
-            self.type = self.kwargs['type']
-        except:
-            self.type = None
+        if search is not None:
+                
+            print("--- implement your search logic here --")
+            
+            ## to test 
+            ## http://localhost:8000/?search=oxidation%20data
+            ## above url represents 'querying with keywords: oxidation data'
+            
+            keywords=search.split()
+            
+            print("Received {} search keywords: {}".format(len(keywords), keywords))
 
-        if self.categories is not None:
-            return SysDataset.objects.filter(categories=self.categories)
-        elif self.type is not None:
-            return SysDataset.objects.filter(type=self.type)
+            ## 
 
-        return SysDataset.objects.filter(categories=self.categories)
+            qs = SysDataset.objects
+            for key_id in range(0,len(keywords)):
+                print('chaining search keywords: {}'.format(keywords[key_id]))
+                qs = qs.filter(searchindex__value=keywords[key_id])
+            
+            qs=qs.annotate(rank=SearchRank(SearchVector('properties'),SearchQuery(' '.join(keywords)))).order_by('-rank','-created')
+            print('result set size: {}'.format(len(qs)))
+            ## get the correct dataset with the given keywords
 
+            ##
+
+        else: ## search is None  
+            if categories is not None:
+                return SysDataset.objects.filter(categories=categories)
+            elif _type is not None:
+                return SysDataset.objects.filter(type=_type)
+            else:
+                return SysDataset.objects.order_by('-created')
+        
+        return qs
 
 class DatasetView(DetailView):
     """
         List Details of a Dataset
     """
     template_name = 'mainpage/dataset/detail.html'
-    queryset = SysDataset.objects.all()
+    #queryset = SysDataset.objects.all()
+    model = SysDataset
 
-    # def get_object(self, queryset=None):
-    #     _id = self.kwargs.get(self.pk_url_kwarg)
-    #     obj = get_object_or_404(SysDataset.objects.select_related(), id=_id)
-    #     return obj
+    def get_object(self, queryset=None):
+        """ Hook to ensure object is owned by request.user. """
+        obj = super().get_object()
+        for c in obj.categories.all():
+            print(c.name)
+        return obj
 
 
 class DatasetCreate(CreateView):
