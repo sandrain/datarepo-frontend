@@ -5,7 +5,7 @@ app_name = 'mainpage'
 
 urlpatterns = [
     path('dataset/upload', views.BasicUploadView.as_view(), name="upload"),
-    path('data/', views.DataSetsListView.as_view(), name="dataset-index"),
+    path('dataset/', views.DataSetsListView.as_view(), name="dataset-index"),
     path('dataset/create/', views.DatasetCreate.as_view(), name='dataset-create'),
     path('dataset/<int:pk>/', views.DatasetView.as_view(), name="dataset-detail"),
     path('dataset/<int:pk>/update/', views.DatasetUpdate.as_view(), name="dataset-update"),
