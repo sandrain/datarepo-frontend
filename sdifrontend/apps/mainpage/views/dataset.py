@@ -4,45 +4,53 @@
 """
 
 import logging
+import os
 
-from django.shortcuts import get_object_or_404, render, redirect
-from django.template import loader
-from django.http import HttpResponse, JsonResponse
+from django.shortcuts import redirect
+from django.http import JsonResponse
 from django.urls import reverse_lazy
-from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
-from django.core import validators
+from django.core.exceptions import ObjectDoesNotExist
+from django.core.files.storage import FileSystemStorage
+from django.conf import settings
 
 from django import forms
-from django.views.generic import View, DetailView, ListView, FormView
-from django.views.generic.edit import CreateView, DeleteView, UpdateView, ModelFormMixin
+from django.views.generic import View, DetailView, ListView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
-from sdifrontend.apps.mainpage.models import SysDataset, SysUser, SysFile, Category
 from django.contrib.postgres.search import SearchQuery, SearchVector, SearchRank
-from .. import sidebar
+from sdifrontend.apps.mainpage.models import SysDataset, SysUser, SysFile, Category
 
-from .utils import (unpack_dataset_json, clean_recieved_val,
-                    clean_keywords, uuid, json, make_keywords_list)
+from .. import sidebar
 
 # we only need thos for testing
 from .utils import generate_fake_dataset_properties, generate_fake_dataset_files
+
+
+class FileForm(forms.Form):
+    files = forms.FileField()
 
 
 class BasicUploadView(View):
     def post(self, request):
 
         print("Post: {}".format(self.request.POST))
-        print("Files: {}".format(self.request.FILES['file']))
+        print("Files: {}".format(self.request.FILES['files']))
+        print("session key: {}".format(self.request.session.session_key))
 
         form = FileForm(self.request.POST, self.request.FILES)
 
-        print(form)
+        fs = FileSystemStorage(os.path.join(
+            settings.MEDIA_ROOT, self.request.session.session_key))
+        filename = fs.save(
+            request.FILES['files'].name, request.FILES['files'].file)
+        uploaded_file_url = fs.url(filename)
 
-        if form.is_valid():
-            data = {'is_valid': True, 'file': "{}".format(
-                self.request.FILES['file'])}
+        # if form.is_valid():
+        data = {'is_valid': True, 'name': "{}".format(
+                self.request.FILES['files']), 'url': uploaded_file_url}
 
-        else:
-            data = {'is_valid': False}
+        # else:
+        #    data = {'is_valid': False}
 
         return JsonResponse(data)
 
@@ -56,6 +64,9 @@ class DatasetForm(forms.ModelForm):
         fields = ['categories', 'properties']
 
     class MyModelMultipleChoiceField(forms.ModelMultipleChoiceField):
+        """
+        Helper class to display the name of the categories
+        """
         def label_from_instance(self, obj):
             return obj.name
 
@@ -82,7 +93,7 @@ class DatasetForm(forms.ModelForm):
 
 class DataSetsListView(ListView):
     """
-        List Datasets by type
+        Listview for Datasets
     """
     template_name = 'mainpage/index.html'
     context_object_name = "datasets"
@@ -105,45 +116,48 @@ class DataSetsListView(ListView):
         try:
             search = self.kwargs['search']
             print("search is:", search)
-        except:
+        except KeyError:
             search = None
 
         try:
             categories = self.kwargs['category']
-        except:
+        except KeyError:
             categories = None
 
         try:
             _type = self.kwargs['type']
-        except:
+        except KeyError:
             _type = None
 
         if search is not None:
-                
+
             print("--- implement your search logic here --")
-            
-            ## to test 
+
+            ## to test
             ## http://localhost:8000/?search=oxidation%20data
             ## above url represents 'querying with keywords: oxidation data'
-            
-            keywords=search.split()
-            
+
+            keywords = search.split()
+
             print("Received {} search keywords: {}".format(len(keywords), keywords))
 
-            ## 
+            ##
 
             qs = SysDataset.objects
-            for key_id in range(0,len(keywords)):
+            for key_id in range(0, len(keywords)):
                 print('chaining search keywords: {}'.format(keywords[key_id]))
                 qs = qs.filter(searchindex__value=keywords[key_id])
-            
-            qs=qs.annotate(rank=SearchRank(SearchVector('properties'),SearchQuery(' '.join(keywords)))).order_by('-rank','-created')
+
+            qs = qs.annotate(rank=SearchRank(SearchVector('properties'),
+                                             SearchQuery(' '.join(keywords)))
+                            ).order_by('-rank', '-created')
+
             print('result set size: {}'.format(len(qs)))
             ## get the correct dataset with the given keywords
 
             ##
 
-        else: ## search is None  
+        else: ## search is None
             if categories is not None:
                 return SysDataset.objects.filter(categories=categories)
             elif _type is not None:
@@ -158,15 +172,7 @@ class DatasetView(DetailView):
         List Details of a Dataset
     """
     template_name = 'mainpage/dataset/detail.html'
-    #queryset = SysDataset.objects.all()
     model = SysDataset
-
-    def get_object(self, queryset=None):
-        """ Hook to ensure object is owned by request.user. """
-        obj = super().get_object()
-        for c in obj.categories.all():
-            print(c.name)
-        return obj
 
 
 class DatasetCreate(CreateView):
@@ -180,14 +186,13 @@ class DatasetCreate(CreateView):
 
         # make sure the owner is in the db
         try:
-            owner = SysUser.objects.get(
-                                  username=self.request.user.username)
+            owner = SysUser.objects.get(username=self.request.user.username)
         except ObjectDoesNotExist:
             # We have no dataset for this user yet
             # login trough globus
-            logger.info("Creating new user: {}".format(self.request.user.username))
+            logger.info('Creating new user: %s', self.request.user.username)
             owner = SysUser.objects.create(username=self.request.user.username,
-                                          email = self.request.user.email)
+                                           email=self.request.user.email)
 
         # getting the cleaned data
         title = form.cleaned_data['title']
@@ -202,11 +207,12 @@ class DatasetCreate(CreateView):
 
         _keywords = []
 
-        keywords_cleaned=[]
+        keywords_cleaned = []
         for keyword in keywords.split(","):
-            if keyword.strip()!='':
-                keywords_cleaned.append(keyword.strip()) # deal with many commas and empty keywords
-        keywords_cleaned = list(set(keywords_cleaned)) # remove duplicates
+            if keyword.strip() != '':
+                # deal with many commas and empty keywords
+                keywords_cleaned.append(keyword.strip())
+        keywords_cleaned = list(set(keywords_cleaned))  # remove duplicates
         _keywords.append(", ".join(keywords_cleaned))
 
         # currently we are generating fake fields other than the title
@@ -225,11 +231,11 @@ class DatasetCreate(CreateView):
         print("uuid: {}".format(_uuid))
 
         data_set = SysDataset.objects.create(properties=properties,
-                              uuid=_uuid,
-                              owner=owner,
-                              size=size,
-                              structure=structure,
-                              type=dataset_type)
+                                             uuid=_uuid,
+                                             owner=owner,
+                                             size=size,
+                                             structure=structure,
+                                             type=dataset_type)
 
         # TODO: Handle all the data in a transaction
         data_set.save()
@@ -238,77 +244,46 @@ class DatasetCreate(CreateView):
         for category in categories.all():
             data_set.categories.add(category)
 
-        data_set.create_index() # create index
+        data_set.create_index()  # create index
 
         # populate dataset files
         for _f in files:
             _r = SysFile(dataset=data_set,
-                        name=_f['name'],
-                        size=_f['size'])
+                         name=_f['name'],
+                         size=_f['size'])
             _r.save()
 
-        ###
-        # try:
-        #     dataset_type = post_data['sysdataset-type']
-        # except:
-        #     dataset_type = 0
-
-        # try:
-        #     subjects = post_data['sysdataset-subjects']  # list
-        # except:
-        #     subjects = None
-
-        # title = post_data['sysdataset-title']
-        # subtitle = clean_recieved_val(post_data['sysdataset-subtitle'])
-        # description = clean_recieved_val(post_data['sysdataset-description'])
-
-        # try:
-        #     keywords = post_data['sysdataset-keywords'].split(",")
-        #     keywords = clean_keywords(keywords)
-        # except:
-        #     keywords = None
-
-        # # currently we are generating fake fields other than the title
-        # properties = generate_fake_dataset_properties(
-        #     title,
-        #     subtitle=subtitle,
-        #     description=description,
-        #     keywords=keywords)
-        # files = generate_fake_dataset_files()
-        # structure = json.dumps({'data': files})
-        # size = sum(f['size'] for f in files)
-
-        # data_set = SysDataset(properties=properties,
-        #                     uuid=str(uuid.uuid4()),
-        #                     owner=SysUser.objects.get(
-        #                         username=request.user.username),
-        #                     size=size,
-        #                     structure=structure,
-        #                     category=subjects,
-        #                     type=dataset_type)
-
-        # data_set.save()
-
-        # # populate dataset files
-        # for _f in files:
-        #     _r = SysFile(dataset=data_set,
-        #                 name=_f['name'],
-        #                 size=_f['size'])
-        #     _r.save()
-
-        # dataset = unpack_dataset_json(
-        #     get_object_or_404(SysDataset.objects.select_related(), id=data_set.id))
-
-        #return super().form_valid(form)
         return redirect('mainpage:dataset-detail', data_set.id)
 
 
 class DatasetUpdate(UpdateView):
-    model = SysDataset
     form_class = DatasetForm
-    template_name = 'mainpage/dataset/edit.html'
+    template_name = 'mainpage/dataset/update.html'
     success_url = reverse_lazy('mainpage:dataset-detail')
+    model = SysDataset
+    queryset = SysDataset.objects.all()
 
+    form = None
+
+    def get_context_data(self, **kwargs):
+        print("get_context_data")
+        context = super(DatasetUpdate, self).get_context_data(**kwargs)
+
+        print(context)
+
+        obj = context['object']
+        print(obj.title)
+
+        if not self.form:
+            print("create form")
+            # fill the form with the data
+            self.form = DatasetForm(obj)
+
+        context.update({
+            'form': self.form
+        })
+
+        return context
 
 class DatasetDelete(DeleteView):
     """
@@ -325,7 +300,7 @@ class DatasetDelete(DeleteView):
         print("obj: {}".format(obj.owner))
         print("user: {}".format(user))
 
-        #if not obj.owner == user:
+        # if not obj.owner == user:
         #    raise PermissionDenied
         return obj
 
