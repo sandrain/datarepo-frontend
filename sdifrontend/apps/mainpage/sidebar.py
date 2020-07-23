@@ -2,7 +2,6 @@
 
 from django import template
 from django.db.models import Count
-from sdifrontend.apps.mainpage.models import SubjectIndex
 from sdifrontend.apps.mainpage.models import SysDataset, Category, SidebarMenu
 
 register = template.Library()
@@ -11,31 +10,33 @@ register = template.Library()
 
 def get_sidebar_items(context, **kwargs):
     # get the categories
-    nav_elements = [{
-                'name': "Data Subject",
-                'id':'category',
-                'items': []
-            },{
-                'name': "Data Type",
-                'id':'type',
-                'items': [
-                    {'name': "Animations/Simulations"},
-                    {'name': "Genome/Genetic Data"},
-                    {'name': "Interactive Data Map"},
-                    {'name': "Numeric Data"},
-                    {'name': "Still Images/Photos"},
-                    {'name': "Figures/Plots"},
-                    {'name': "Specialized Mix"},
-                    {'name': "Multimedia"},
-                    {'name': "General (Other)"}
-                ]
-            }]
-    
+    nav_elements = [
+        {
+            'name': "Data Subject",
+            'id':'category',
+            'items': []
+        }, {
+            'name': "Data Type",
+            'id':'type',
+            'items': [
+                {'name': "Animations/Simulations"},
+                {'name': "Genome/Genetic Data"},
+                {'name': "Interactive Data Map"},
+                {'name': "Numeric Data"},
+                {'name': "Still Images/Photos"},
+                {'name': "Figures/Plots"},
+                {'name': "Specialized Mix"},
+                {'name': "Multimedia"},
+                {'name': "General (Other)"}
+            ]
+        }
+    ]
+
     for category in Category.objects.all().annotate(count=Count('sysdataset')).order_by('-count'):
         nav_elements[0]['items'].append({'id': category.id, 'name': category.name, 'count': category.count, 'section': "category"})
-    
+
     count_data_by_type = list(SysDataset.objects.values('type').annotate(count=Count('type')).order_by('type'))
-    
+
     for item in count_data_by_type:
         nav_elements[1]['items'][item['type']]['count'] = item['count']
 
@@ -44,7 +45,7 @@ def get_sidebar_items(context, **kwargs):
             nav_elements[1]['items'][i]['count']
         except:
             nav_elements[1]['items'][i]['count'] = 0
-        
+
         nav_elements[1]['items'][i]['section'] = "type"
         nav_elements[1]['items'][i]['id'] = i
 
@@ -56,7 +57,7 @@ def get_ds_types(context, **kwargs):
     items = sb.nav_elements[1]['items']
     options = []
     for item in items:
-        o = ('0', item['name'])
+        o = ("{}".format(items.index(item)), item['name'])
         options.append(o)
     return options
 

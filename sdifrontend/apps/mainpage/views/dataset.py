@@ -120,9 +120,9 @@ class DataSetsListView(ListView):
             search = None
 
         try:
-            categories = self.kwargs['category']
+            category = self.kwargs['category']
         except KeyError:
-            categories = None
+            category = None
 
         try:
             _type = self.kwargs['type']
@@ -130,18 +130,12 @@ class DataSetsListView(ListView):
             _type = None
 
         if search is not None:
-
-            print("--- implement your search logic here --")
-
             ## to test
             ## http://localhost:8000/?search=oxidation%20data
             ## above url represents 'querying with keywords: oxidation data'
 
             keywords = search.split()
-
             print("Received {} search keywords: {}".format(len(keywords), keywords))
-
-            ##
 
             qs = SysDataset.objects
             for key_id in range(0, len(keywords)):
@@ -155,16 +149,15 @@ class DataSetsListView(ListView):
             print('result set size: {}'.format(len(qs)))
             ## get the correct dataset with the given keywords
 
-            ##
-
         else: ## search is None
-            if categories is not None:
-                return SysDataset.objects.filter(categories=categories)
-            elif _type is not None:
-                return SysDataset.objects.filter(type=_type)
-            else:
-                return SysDataset.objects.order_by('-created')
-        
+            qs = SysDataset.objects.order_by('-created')
+
+        if category is not None:
+            qs = qs.filter(categories=int(category))
+
+        if _type is not None:
+            qs = qs.filter(type=int(_type))
+
         return qs
 
 class DatasetView(DetailView):

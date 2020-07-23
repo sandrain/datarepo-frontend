@@ -189,14 +189,14 @@ class SysDataset(models.Model):
         props = self.properties
 
         for key in props.keys():
-        
-            if key=="keywords":
+
+            if key == "keywords":
                 vals = ""
                 for item in props[key]:
-                    vals+=item+" "
+                    vals += item + " "
             else:
                 vals = props[key]
-                
+
             if key == "keywords" or key == "title" or key == "subtitle":
                 terms = vals.lower().split(" ")
                 for term in terms:
@@ -210,20 +210,17 @@ class SysDataset(models.Model):
             for term in terms:
                 si = SearchIndex(attribute = 'subject', value = ''.join(e for e in term if e.isalnum()), dataset = self)
                 si.save()
-                
+
         # indexing type
-        for item in self.categories.all():
-            terms = item.name.lower().split(" ")
-            for term in terms:
-                si = SearchIndex(attribute = 'type', value = ''.join(e for e in term if e.isalnum()), dataset = self)
-                si.save()
-    
-            ci = SubjectIndex(dataset = self, category_id = item.id )
-            ci.save()
+        sb = SidebarMenu()
+        type_name = (sb.nav_elements[1]['items'][int(self.type)]['name'])
+        terms = type_name.lower().split(" ")
+        for term in terms:
+            si = SearchIndex(attribute = 'type', value = ''.join(e for e in term if e.isalnum()), dataset = self)
+            si.save()
 
     def remove_index(self):
         SearchIndex.objects.filter(dataset = self).delete()
-        SubjectIndex.objects.filter(dataset = self).delete()
 
 
 class SysFile(models.Model):
@@ -236,21 +233,12 @@ class SysFile(models.Model):
         #managed = False
         db_table = 'sys_file'
 
-class SubjectIndex(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    dataset = models.ForeignKey(SysDataset, on_delete=models.CASCADE)
-    category_id = models.IntegerField()
-
-    class Meta:
-        #managed = False
-        db_table = 'subject_index'
-
 class SearchIndex(models.Model):
     id = models.BigAutoField(primary_key=True)
     attribute = models.CharField(max_length=512)
     value = models.CharField(max_length=512)
     dataset = models.ForeignKey(SysDataset, on_delete=models.CASCADE)
-    
+
     class Meta:
         #managed = False
         db_table = 'search_index'
