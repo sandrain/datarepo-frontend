@@ -1,6 +1,6 @@
-{% extends "mainpage/base.html" %}
-{% block content %}
+{% extends "mainpage/index.html" %}
 {% load static %}
+{% block main %}
 
 
 <script>
@@ -24,7 +24,7 @@
 
 </script>
 
-<h1>{{ dataset.id }}</h1>
+<!-- h1>{{ object.id }}</h1 -->
 
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 
@@ -36,7 +36,7 @@
             <div class="card mb-3">
                 <div class="card-body">
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
-                        <h1 class="h2">{{ dataset.attributes.title }}</h1><br>
+                        <h1 class="h2">{{ object.properties.title }}</h1><br>
                     </div>
                     <div class="row">
 
@@ -44,27 +44,27 @@
 
 
                             <div class="justify-content-between flex-wrap flex-md-nowrap align-items-left pb-3">
-                                {{ dataset.attributes.subtitle }}
+                                {{ object.properties.subtitle }}
                             </div>
                             <div class="mb-1 text-muted"><i data-feather="user"></i>
-                                {{ dataset.attributes.institution }} <i data-feather="link"></i>
-                                {{ dataset.attributes.url }} </div>
+                                {{ object.properties.institution }} <i data-feather="link"></i>
+                                {{ object.properties.url }} </div>
                             <div class="mb-1 text-muted"><i data-feather="calendar"></i> created at
-                                {{ dataset.created }} <i data-feather="database"></i> {{ dataset.sizemb }} MB <i
+                                {{ object.created }} <i data-feather="database"></i> {{ object.sizemb }} MB <i
                                     data-feather="file"></i>
-                                {{ dataset.filecount }} Files
+                                {{ object.filecount }} Files
                                 (JSON, CSV, Other)</div>
                             <div class="mb-3 text-muted"><i data-feather="tag"></i>
-                                {{ dataset.keywords }}</div>
+                                {{ object.properties.keywords }}</div>
 
                         </div>
                         <div class="col-md-2 align-items-center"><img height="100" width="100"
-                                src="{% static dataset.icon %}"></div>
+                                src=""></div>
                     </div>
                     <div class="row pl-3">
                         <div>
 
-                            <form action="/dataset/{{dataset.id}}/" method="post">
+                            <form action="/dataset/{{object.id}}/update/" method="post">
                                 {% csrf_token %}
                                 <input type="hidden" id="request-type" name="request-type"
                                     value="update">
@@ -92,7 +92,7 @@
                     <b>Description</b>
                 </div>
                 <div class="card-body">
-                    <div id="description">{{ dataset.attributes.description }}</div> <button type="button"
+                    <div id="description">{{ object.properties.description }}</div> <button type="button"
                         class="btn btn-link btn-sm" data-toggle="modal" data-target="#edit-desc"><i
                             data-feather="edit-2"></i> Edit</button>
                 </div>
@@ -108,17 +108,17 @@
                         <tbody>
                             <tr>
                                 <td class="align-middle"><i data-feather="calendar"></i> <strong>Created:</strong></td>
-                                <td class="align-middle">{{ dataset.created }} </td>
+                                <td class="align-middle">{{ object.created }} </td>
                             </tr>
                             <tr>
                                 <td class="align-middle"><i data-feather="calendar"></i> <strong>Last updated:</strong>
                                 </td>
-                                <td class="align-middle">{{ dataset.updated }} </td>
+                                <td class="align-middle">{{ object.updated }} </td>
                             </tr>
                             <tr>
                                 <td class="align-middle"><i data-feather="tag"></i> <strong>Keywords:</strong></td>
                                 <td class="align-middle">
-                                    <div id="keywords">{{ dataset.keywords }}</div><button type="button"
+                                    <div id="keywords">{{ object.properties.keywords }}</div><button type="button"
                                         class="btn btn-link btn-sm" data-toggle="modal" data-target="#edit-keywords"><i
                                             data-feather="edit-2"></i> Edit</button>
                                 </td>
@@ -128,7 +128,7 @@
                                         Organizations:</strong>
                                 </td>
                                 <td class="align-middle">
-                                    <div id="institution">{{ dataset.attributes.institution }}</div><button
+                                    <div id="institution">{{ object.properties.institution }}</div><button
                                         type="button" class="btn btn-link btn-sm" data-toggle="modal"
                                         data-target="#edit-institution"><i data-feather="edit-2"></i> Edit</button>
                                 </td>
@@ -137,7 +137,7 @@
                                 <td class="align-middle"><i data-feather="mail"></i> <strong>Contact Email:</strong>
                                 </td>
                                 <td class="align-middle">
-                                    <div id="email">{{ dataset.owner.email }}</div><button type="button"
+                                    <div id="email">{{ object.owner.email }}</div><button type="button"
                                         class="btn btn-link btn-sm" data-toggle="modal" data-target="#edit-email"><i
                                             data-feather="edit-2"></i> Edit</button>
                                 </td>
@@ -151,7 +151,7 @@
                             <tr>
                                 <td class="align-middle"><i data-feather="link"></i> <strong>Site URL:</strong></td>
                                 <td class="align-middle">
-                                    <div id="url">{{ dataset.attributes.url }}</div><button type="button"
+                                    <div id="url">{{ object.properties.url }}</div><button type="button"
                                         class="btn btn-link btn-sm" data-toggle="modal" data-target="#edit-url"><i
                                             data-feather="edit-2"></i> Edit</button>
                                 </td>
@@ -219,8 +219,8 @@
             </div>
             <div class="modal-body">
                 <textarea class="form-control" id="desc-text-area"
-                    placeholder="Please add your description for this dataset."
-                    rows="10"> {{ dataset.attributes.description }} </textarea>
+                    placeholder="Please add your description for this object."
+                    rows="10"> {{ object.attributes.description }} </textarea>
             </div>
             <div class="modal-footer">
                 <button id="desc-update-set" data-dismiss="modal" class="btn btn-primary">Set</button>
@@ -243,7 +243,7 @@
             </div>
             <div class="modal-body">
                 <textarea class="form-control" id="keywords-text-area"
-                    placeholder="Please enter keywords for this dataset." rows="10"> {{ dataset.keywords }} </textarea>
+                    placeholder="Please enter keywords for this object." rows="10"> {{ object.keywords }} </textarea>
             </div>
             <div class="modal-footer">
                 <button id="keywords-update-set" data-dismiss="modal" class="btn btn-primary">Set</button>
@@ -265,7 +265,7 @@
             </div>
             <div class="modal-body">
                 <input type="text" class="form-control form-control-sm mb-1" id="email-text-area"
-                    value="{{ dataset.owner.email }}"></input>
+                    value="{{ object.owner.email }}"></input>
             </div>
             <div class="modal-footer">
                 <button id="email-update-set" data-dismiss="modal" class="btn btn-primary">Set</button>
@@ -288,7 +288,7 @@
             </div>
             <div class="modal-body">
                 <input type="text" class="form-control form-control-sm mb-1" id="institution-text-area"
-                    value="{{ dataset.attributes.institution }}"></input>
+                    value="{{ object.attributes.institution }}"></input>
             </div>
             <div class="modal-footer">
                 <button id="institution-update-set" data-dismiss="modal" class="btn btn-primary">Set</button>
@@ -310,7 +310,7 @@
             </div>
             <div class="modal-body">
                 <input type="text" class="form-control form-control-sm mb-1" id="url-text-area"
-                    value="{{ dataset.attributes.url }}"></input>
+                    value="{{ object.attributes.url }}"></input>
             </div>
             <div class="modal-footer">
                 <button id="url-update-set" data-dismiss="modal" class="btn btn-primary">Set</button>
@@ -323,11 +323,11 @@
 <script>
     $(document).ready(function () {
 
-        $('#input-description-tosave').val('{{dataset.attributes.description}}');
-        $('#input-url-tosave').val('{{dataset.attributes.url}}');
-        $('#input-email-tosave').val('{{dataset.owner.email}}');
-        $('#input-institution-tosave').val('{{dataset.attributes.institution}}');
-        $('#input-keywords-tosave').val('{{dataset.keywords}}');
+        $('#input-description-tosave').val('{{object.attributes.description}}');
+        $('#input-url-tosave').val('{{object.attributes.url}}');
+        $('#input-email-tosave').val('{{object.owner.email}}');
+        $('#input-institution-tosave').val('{{object.attributes.institution}}');
+        $('#input-keywords-tosave').val('{{object.keywords}}');
 
 
         $("#desc-update-set").click(function () {

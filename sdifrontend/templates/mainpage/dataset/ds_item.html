@@ -3,8 +3,8 @@
 
 <li class="row mb-2 ml-0 mr-0">
     <div class="container p-4 position-static border rounded">
-        <strong class="d-inline-block mb-2 text-primary fas fa-database">Dataset</strong>
-        <h3 class="mb-3">{{ dataset.properties.title }}</h3>
+        <strong class="d-inline-block mb-2 text-primary"><i class="fas fa-database mr-1"></i>Dataset</strong>
+        <h3 class="mb-3"><a href="/dataset/{{ dataset.id }}">{{ dataset.properties.title }}</a></h3>
 
         <div class="row">
             <div class="col-md-2 align-items-center">
@@ -32,16 +32,6 @@
                 </div>
                 <div class="mb-3 text-muted"> {{ dataset.type_name }}
                 </div>
-
-                <a href="/dataset/{{ dataset.id }}"><button type="button"
-                        class="btn btn-primary btn-sm"><i data-feather="book-open"></i>
-                        Open</button></a>
-
-                <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
-                    data-target="#quicklook-{{ dataset.id }}"><i data-feather="eye"></i>
-                    Quick Look</button>
-
-
             </div>
         </div>
     </div>
