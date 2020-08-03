@@ -87,7 +87,7 @@ class IndexView(generic.ListView):
                     print('chaining search keywords: {}'.format(keywords[key_id]))
                     qs = qs.filter(searchindex__value=keywords[key_id])
                 
-                qs=qs.annotate(rank=SearchRank(SearchVector('properties'),SearchQuery(' '.join(keywords)))).order_by('-rank','-created')
+                qs=qs.annotate(rank=SearchRank(SearchVector('properties'),SearchQuery(' '.join(keywords)))).order_by('-rank','-created').distinct()
                 print('result set size: {}'.format(len(qs)))
                 ## get the correct dataset with the given keywords
 
