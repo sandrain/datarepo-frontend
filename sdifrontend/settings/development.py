@@ -20,12 +20,26 @@ DEBUG = TEMPLATE_DEBUG = True
 
 SECRET = '42'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(TMP_PATH, 'db.sqlite3'),
+# opt for the local postgresql if possible. otherwise, fall back to
+# sqlite3.
+if 'SDI_DATABASE_USER' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'USER': os.environ['SDI_DATABASE_USER'],
+            'PASSWORD': os.environ['SDI_DATABASE_PASSWORD'],
+            'NAME': os.environ['SDI_DATABASE_NAME'],
+            'HOST': os.environ['SDI_DATABASE_HOST'],
+            'PORT': os.environ['SDI_DATABASE_PORT'] ,
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'sdifrontend-devel.db'),
+        }
+    }
 
 INTERNAL_IPS = ('127.0.0.1',)
 
