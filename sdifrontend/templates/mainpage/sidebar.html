@@ -9,14 +9,16 @@
         <span class="nav-link"><i class="fas fa-home"></i><a href="/">Home<span class="sr-only">(current)</span></a></span>
     </li>
     <li class="nav-item">
-        <span class="nav-link"><i class="fas fa-file-alt"></i><a href="{% url 'mainpage:dataset-index' %}">Dataset</a></span>
+        <span class="nav-link"><i class="fas fa-database"></i><a href="{% url 'mainpage:dataset-index' %}">Dataset</a></span>
     </li>
+    <!--
     <li class="nav-item">
         <span class="nav-link"><i class="fas fa-newspaper"></i><a href="{% url 'news:index' %}">News</span></a></span>
     </li>
     <li class="nav-item">
         <span class="nav-link"><i class="fas fa-users"></i><a href="/">Discuss</a></span>
     </li>
+    -->
 
     {% get_sidebar_items as items %}
 
